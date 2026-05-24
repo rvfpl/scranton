@@ -44,8 +44,10 @@ Route::controller(PostJobController::class)->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('pa')->group(function () {
-    Route::view('/scrantonpa', 'pa.scrantonpa');
+Route::prefix('pa')->name('pa.')->group(function () {
+    Route::view('/scranton', 'pa.scranton')->name('scranton');
+    Route::view('/chi', 'pa.chi')->name('chi');
+    Route::view('/hockey', 'pa.hockey')->name('hockey');
 });
 
 Route::prefix('in')->group(function () {
