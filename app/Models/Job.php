@@ -127,21 +127,45 @@ class Job extends Model
      * The exact shape the Alpine.js frontend expects.
      * Keeps controller and view decoupled from raw DB columns.
      */
-    public function toApiArray(): array
-    {
-        return [
-            'id'          => $this->id,
-            'title'       => $this->title,
-            'company'     => $this->company,
-            'location'    => $this->location,
-            'salary'      => $this->salary_label,
-            'salary_min'  => $this->salary_min,
-            'salary_max'  => $this->salary_max,
-            'description' => $this->description,
-            'tags'        => $this->tags ?? [],
-            'is_featured' => $this->is_featured,
-            'posted'      => $this->posted_label,
-            'url'         => '/jobs/' . $this->slug, // add named route when ready
-        ];
-    }
+/**
+ * The unified shape for both Alpine.js and Schema.org ingestion.
+ */
+public function toApiArray(): array
+{
+    return [
+        'id'          => $this->id,
+        'title'       => $this->title,
+        'company'     => $this->company,
+        'location'    => $this->location,
+        'salary'      => $this->salary_label,
+        'salary_min'  => $this->salary_min,
+        'salary_max'  => $this->salary_max,
+        'description' => $this->description,
+        'tags'        => $this->tags ?? [],
+        'is_featured' => $this->is_featured,
+        'posted'      => $this->posted_label,
+        'url'         => '/jobs/' . $this->slug,
+        
+        // Add this specific block for the Schema.org bots
+        'schema_markup' => [
+            '@context'           => 'https://schema.org/',
+            '@type'              => 'JobPosting',
+            'title'              => $this->title,
+            'description'        => strip_tags($this->description), // Keep it clean for bots
+            'datePosted'         => $this->published_at?->toIso8601String() ?? $this->created_at->toIso8601String(),
+            'hiringOrganization' => [
+                '@type' => 'Organization',
+                'name'  => $this->company,
+            ],
+            'jobLocation' => [
+                '@type' => 'Place',
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'addressLocality' => $this->location,
+                    'addressCountry'  => 'PL',
+                ],
+            ],
+        ],
+    ];
+}
 }

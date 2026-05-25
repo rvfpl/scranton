@@ -105,3 +105,20 @@ public function detail(string $slug): \Illuminate\View\View
         ]);
     }
 }
+
+
+// Add this to your JobController
+public function feed(): JsonResponse
+{
+    // Use a simplified query for bots (no pagination, just all active jobs)
+    $jobs = Job::where('is_active', true)
+        ->latest()
+        ->get()
+        ->map(fn(Job $job) => $job->toApiArray());
+
+    return response()->json([
+        'company' => 'Poznań Tech Hub',
+        'last_updated' => now()->toIso8601String(),
+        'jobs' => $jobs
+    ]);
+}
