@@ -31,7 +31,6 @@ class JobController extends Controller
 
         $query = Job::query()->active();
 
-        // --- Full-text search across key columns ---
         if ($search = $request->string('search')->trim()->value()) {
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
@@ -40,7 +39,6 @@ class JobController extends Controller
             });
         }
 
-        // --- Tag filter (AND: job must have ALL requested tags) ---
         if ($request->filled('tags')) {
             $tags = collect(explode(',', $request->string('tags')))
                 ->map(fn($t) => trim($t))
@@ -48,17 +46,14 @@ class JobController extends Controller
                 ->values();
 
             foreach ($tags as $tag) {
-                // JSON column: works on MySQL 5.7+, PostgreSQL, SQLite 3.38+
                 $query->whereJsonContains('tags', $tag);
             }
         }
 
-        // --- Location keyword filter ---
         if ($location = $request->string('location')->trim()->value()) {
             $query->where('location', 'like', "%{$location}%");
         }
 
-        // --- Sorting ---
         match ($request->string('sort')->value()) {
             'salary' => $query->orderByDesc('salary_max')->orderByDesc('published_at'),
             default  => $query->orderByDesc('published_at'),
@@ -68,7 +63,8 @@ class JobController extends Controller
         $jobs    = $query->paginate($perPage);
 
         return response()->json([
-            'data' => $jobs->map(fn(Job $job) => $job->toApiArray()),
+            // ✅ Fix: getCollection()->map() returns a plain array, not a paginator object
+            'data' => $jobs->getCollection()->map(fn(Job $job) => $job->toApiArray())->values(),
             'meta' => [
                 'total'        => $jobs->total(),
                 'per_page'     => $jobs->perPage(),
@@ -79,19 +75,17 @@ class JobController extends Controller
         ]);
     }
 
-
-
     /**
- * GET /jobs/{slug}
- */
-public function detail(string $slug): \Illuminate\View\View
-{
-    $job = Job::where('slug', $slug)
-               ->where('is_active', true)
-               ->firstOrFail();
+     * GET /jobs/{slug}  — Blade view for Poznań and any server-rendered detail page
+     */
+    public function detail(string $slug): \Illuminate\View\View
+    {
+        $job = Job::where('slug', $slug)
+                   ->where('is_active', true)
+                   ->firstOrFail();
 
-    return view('jobs.detail', compact('job'));
-}
+        return view('jobs.detail', compact('job'));
+    }
 
     /**
      * GET /api/v1/jobs/{job}
@@ -104,21 +98,22 @@ public function detail(string $slug): \Illuminate\View\View
             'data' => $job->toApiArray(),
         ]);
     }
-}
 
+    /**
+     * GET /api/v1/feed  — unpaginated feed for bots/scrapers
+     * ✅ Fix: moved inside the class
+     */
+    public function feed(): JsonResponse
+    {
+        $jobs = Job::where('is_active', true)
+            ->latest()
+            ->get()
+            ->map(fn(Job $job) => $job->toApiArray());
 
-// Add this to your JobController
-public function feed(): JsonResponse
-{
-    // Use a simplified query for bots (no pagination, just all active jobs)
-    $jobs = Job::where('is_active', true)
-        ->latest()
-        ->get()
-        ->map(fn(Job $job) => $job->toApiArray());
-
-    return response()->json([
-        'company' => 'Poznań Tech Hub',
-        'last_updated' => now()->toIso8601String(),
-        'jobs' => $jobs
-    ]);
+        return response()->json([
+            'company'      => 'Poznań Tech Hub',
+            'last_updated' => now()->toIso8601String(),
+            'jobs'         => $jobs,
+        ]);
+    }
 }
