@@ -11,7 +11,7 @@ $page_data = [
         'image'       => '/img/sc6.jpg',
         'quote'       => "My code? 60% of the time it works Everytime!",
         'stack'       => 'I Love LAMP / XAMPP // PHP Tools // VB6 // Obj-C',
-        'locations'   => 'Toronto (3d/wk) // Niagara, NY // Tricity, PL // Mordor (Orky Waaaagh!)',
+        'locations'   => 'Toronto (3d/wk) // NiagaraFalls, NY // Tricity, PL // Mordor (Orky Waaaagh!)',
         'im_url'      => '/im/bobby',
         'github'      => 'https://github.com/rvfpl',
         'method'      => 'Old Code, Low Code, Break Shit, Eat Stuff, Refactor. Quabity Ashuance, Repeat. Always Repeat.',
@@ -170,7 +170,7 @@ $b = $page_data['banner'];
             overflow: hidden;
         }
         @@media (min-width: 768px) {
-            .spotlight-card { grid-template-columns: 2fr 3fr; }
+            .spotlight-card { grid-template-columns: 1fr 1fr; }
         }
         .spotlight-card__image-pane {
             position: relative;
@@ -202,7 +202,7 @@ $b = $page_data['banner'];
             gap: 0.4rem;
         }
         .img-badge:nth-child(2) { top: 1rem; }    /* Vetted_Dev */
-        .img-badge:nth-child(3) { top: 2.5rem; }  /* Potato_Cam */
+.img-badge:nth-child(3) { top: 2.5rem; }  /* Potato_Cam */
         .img-badge__dot {
             width: 0.4rem;
             height: 0.4rem;
@@ -361,7 +361,7 @@ $b = $page_data['banner'];
 
 <header class="site-nav" role="banner">
     <div class="site-nav__inner">
-        <a href="/" class="site-nav__logo">NewYork<span>.dev</span></a>
+        <a href="/" class="site-nav__logo">New<span>York.dev</span></a>
         <time class="site-nav__date text-white" datetime="{{ date('Y-m-d') }}">{{ $page_data['current_date'] }}</time>
         <nav class="nav-desktop" aria-label="Primary navigation">
             <ul class="nav-links" role="list">
@@ -381,30 +381,26 @@ $b = $page_data['banner'];
     </nav>
 </header>
 
-<main style="flex-grow:1; padding:  1rem; max-width: 64rem; margin: 0 auto; width: 100%;">
+<main style="flex-grow:1; padding: 3rem 1.5rem; max-width: 64rem; margin: 0 auto; width: 100%;">
 
 
-<section style="margin-bottom:2rem;">
-   
-            <h1 style="font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 800; margin: 1rem  0.1rem; line-height: 1.1; text-align: center;">
-    Discover New York's Best  Startups  and  Devs
-</h1>
- </section>
+<section style="margin-bottom: 3rem;">Get you ass(face) featured.
+</section>
 
     {{-- SPOTLIGHT TAB --}}
     <section id="tab-spotlight" class="tab-panel">
 
         <header class="reveal reveal--1 " style="margin-bottom: 2.5rem; ">
             <p class="label label--accent">Featured &#123;</p>
-            <h2 style="font-size: clamp(1.25rem, 3vw, 2rem); font-weight: 800; letter-spacing: -0.02em; margin: 0.4rem 0 0.25rem; line-height: 1.1;">
-                {{ $s['name'] }}
-            </h2>
+            <h1 style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; margin: 0.4rem 0 0.25rem; line-height: 1.1;">
+               YOUR NAME
+            </h1>
             {{-- {!! intentional: string contains pre-escaped HTML entity &lt;redacted&gt; --}}
             <p style="font-size: 0.75rem; color: var(--clr-muted); font-family: var(--font-ui); margin-top: 0.25rem;">
-                {!! $s['aliases'] !!}
+               Your dumba aliases
             </p>
             <p style="font-size: 0.8rem; color: var(--clr-muted); margin-top: 0.4rem;">
-                Creator of: <a href="{{ $s['created_url'] }}" style="color: var(--clr-accent); text-decoration: none; font-weight: 700;">{{ $s['created'] }} };</a>
+                Creator of: <a href="{{ $s['created_url'] }}" style="color: var(--clr-accent); text-decoration: none; font-weight: 700;"> yourstuff / yoursite / yourapp</a>
             </p>
         </header>
 
@@ -427,9 +423,9 @@ $b = $page_data['banner'];
                 <div class="info-row">
                     <p class="label" style="color:#555;">Socials</p>
                     <p class="info-row__value">
-                        <a href="{{ $s['im_url'] }}" target="_blank" rel="noopener">newyork.dev/im/bobby</a><br> 
-                        repo.or.cz/??? &mdash; Pepperidge Farms Remembers<br>
+                        <a href="{{ $s['im_url'] }}" target="_blank" rel="noopener">newyork.dev/im/you</a><br>
                         <a href="{{ $s['github'] }}" target="_blank" rel="noopener">{{ $s['github'] }}</a><br>
+                         
                     </p>
                 </div>
                 <div class="info-row">
