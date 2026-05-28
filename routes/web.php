@@ -81,7 +81,7 @@ Route::get('/im/{handle}', function ($handle) {
             'number'   => '001',
             'handle'  => 'bobby',
             'name'     => "Rob 'Bobby' Fantana",
-       'aliases'     => "Native, Fanta, Fantana, Robbo, ElBoberino, Bober, Gandalf the Wiseguy, &lt;redacted&gt;, Yo Bobbbbaaayy, MC BO!", 
+       'aliases'     => "Native, Fanta, Fantana, Robbo, ElBoberino,  Gandalf the Wiseguy, MC BO!", 
             
             'date'     => 'May 2026',
             'badge'    => 'Vetted',

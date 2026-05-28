@@ -52,8 +52,6 @@ echo date('F j, Y');
         </div>
     </nav>
  
-
-
  
         <div class="max-w-7xl mx-auto justify-between items-center"> 
 
@@ -67,31 +65,25 @@ echo date('F j, Y');
          
         </div>
         
-  
-    
-
-
-
+   
 
     <main class="flex-grow p-6 md:p-12 max-w-5xl mx-auto w-full"> 
 
         
         <section id="tab-spotlight" class="tab-content">
-            <div class="mb-10"> <h1>/rob (May 2026) #000</h1>
+            <div class="mb-10"> <h1>/bobby (May 2026) #001</h1>
                 <span class="text-[9px] font-bold text-indigo-600 tracking-[0.2em] uppercase"> Featured Builder { </span>
                     
-                <h2 class="text-3xl font-extrabold mt-2 tracking-tight">NOT Rob  </h2> 
-                aka: BOB, Bobby
-                <p class="text-gray-500 text-sm mt-1">Creator of: <a href="/" class="text-indigo-600 hover:text-indigo-800">SiliconValley.dev };</a></p> 
+                <h2 class="text-3xl font-extrabold mt-2 tracking-tight">Rob 'Bobby' Fantana</h2> 
+                aka: Native, Fanta, Fantana, Robbo, ElBoberino, Bober, Gandalf the Wiseguy, < redacted >, Yo Bobbbbaaayy, MC BO!
+                <p class="text-gray-500 text-sm mt-1">Creator of: <a href="/" class="text-indigo-600 hover:text-indigo-800">Scranton.dev };</a></p> 
             </div>
 
-
-
-
+ 
             <div class="bg-white border border-gray-200 shadow-sm overflow-hidden grid md:grid-cols-2 ">
                 <div class="relative group w-full h-64 md:h-full">
     
-    <img src="/img/sc5c.jpg" alt="Spotlight" class="w-full h-full object-cover border-4 border-indigo-400">
+    <img src="/img/sc6.jpg" alt="Spotlight" class="w-full h-full object-cover border-4 border-indigo-400">
     
     <div class="absolute top-4 left-4 bg-black/80 backdrop-blur-sm border border-indigo-500/50 px-3 py-1 flex items-center gap-2">
       
@@ -114,9 +106,9 @@ echo date('F j, Y');
                     </div>
                     <div class="mt-6">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-gray-200">Socials</span>
-                                           <p class="font-mono text-sm mt-1"> <a href="/im/rob" target="_blank" class="text-indigo-600 hover:text-indigo-500">SiliconValley.dev/im/rob</a></p>
+                        <p class="font-mono text-sm mt-1"> <a href="https://siliconvalley.dev/im/bobby" target="_blank" class="text-indigo-600 hover:text-indigo-500">SiliconValley.dev/im/bobby</a></p>
+                   <p class="font-mono text-sm mt-1"> <a href="/im/rob" target="_blank" class="text-indigo-600 hover:text-indigo-500">SiliconValley.dev/im/rob</a></p>
 
-                        <p class="font-mono text-sm mt-1"> <a href="/im/bobby" target="_blank" class="text-indigo-600 hover:text-indigo-500">SiliconValley.dev/im/bobby</a></p>
                         <p class="font-mono text-sm mt-1"> Github: https://github.com/rvfpl</p> 
                         <p class="font-mono text-sm mt-1"> repo.or.cz/ remember  this lil ditty? Pepperidge Farms Remembers</p> 
                     </div>
@@ -130,20 +122,16 @@ echo date('F j, Y');
                         <p class="font-mono text-sm mt-1"> RTD,KISS,Coffee, <i>TheOffice</i>Reruns</p>
                     </div>
 
- 
-                   
-                   
-
-
+  
                 </div>
             </div>
         </section>
 
- <a href="/silicon"> 
- <div class="relative w-full h-64 sm: h-80 bg-[url('/img/000b.jpg')] bg-cover bg-center mt-12 group cursor-pointer">
+ <a href="/"> 
+ <div class="relative w-full h-64 sm: h-80 bg-[url('/img/scindex.jpg')] bg-cover bg-center mt-12 group cursor-pointer">
   <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition duration-500"></div>
     <div class="relative z-10 flex items-center justify-center h-full">
-        <h2 class="text-3xl tracking-wide md:text-4xl trackin-widest font-black text-white  uppercase">siliconvalley.dev</h2>
+        <h2 class="text-4xl font-black text-white tracking-widest uppercase">scranton.dev</h2>
     <span class="text-lg font-black text-white tracking-widest uppercase z-10 flex items-center justify-center">   [click to visit me] </span>
      </a>  </div>
 </div>

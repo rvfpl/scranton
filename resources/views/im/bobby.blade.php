@@ -52,8 +52,6 @@ echo date('F j, Y');
         </div>
     </nav>
  
-
-
  
         <div class="max-w-7xl mx-auto justify-between items-center"> 
 
@@ -67,11 +65,7 @@ echo date('F j, Y');
          
         </div>
         
-  
-    
-
-
-
+   
 
     <main class="flex-grow p-6 md:p-12 max-w-5xl mx-auto w-full"> 
 
@@ -85,9 +79,7 @@ echo date('F j, Y');
                 <p class="text-gray-500 text-sm mt-1">Creator of: <a href="/" class="text-indigo-600 hover:text-indigo-800">Scranton.dev };</a></p> 
             </div>
 
-
-
-
+ 
             <div class="bg-white border border-gray-200 shadow-sm overflow-hidden grid md:grid-cols-2 ">
                 <div class="relative group w-full h-64 md:h-full">
     
@@ -130,11 +122,7 @@ echo date('F j, Y');
                         <p class="font-mono text-sm mt-1"> RTD,KISS,Coffee, <i>TheOffice</i>Reruns</p>
                     </div>
 
- 
-                   
-                   
-
-
+  
                 </div>
             </div>
         </section>

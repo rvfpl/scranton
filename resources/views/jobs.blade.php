@@ -96,7 +96,7 @@
             <div style="background:#1a2e1a;border:1px solid rgba(74,222,128,0.3);width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center">
                 <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:#4ade80">SV</span>
             </div>
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600">silicon<span style="color:var(--accent)">valley.dev</span></span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600">Silicon<span style="color:var(--accent)">Alley.dev</span></span>
         </a>
         <div class="relative flex-1 max-w-md">
             <input type="text" x-model="search" placeholder="Search jobs, companies, tech..." class="search-input w-full rounded-lg px-4 py-2 pl-9">

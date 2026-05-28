@@ -476,7 +476,7 @@
                 <div class="info-row">
                     <span class="info-label">Github</span>
                     <span class="info-value">
-                        <a href="{{ $member['github'] }}" target="_blank" rel="noopener">{{ $member['github'] }}</a>
+                        <a href="{{ $member['github'] }}" target="_blank" rel="noopener">{{ $member['github'] }}</a>   
                     </span>
                 </div>
                 <div class="info-row">
