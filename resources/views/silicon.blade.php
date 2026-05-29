@@ -706,7 +706,7 @@ $b = $page_data['banner'];
     {{-- ── EDITORIAL HEADER ── --}}
     <div class="editorial-header reveal reveal--1">
         <div class="editorial-header__eyebrow">
-            <span class="issue-badge">Issue // June 2026</span>
+            <span class="issue-badge">June 2026</span>
             <span class="issue-rule" aria-hidden="true"></span>
             <span class="label" style="color: var(--clr-muted); white-space: nowrap;">NEWYORK</span>
         </div>
@@ -716,8 +716,8 @@ $b = $page_data['banner'];
         <div class="editorial-header__meta">
             <span class="meta-chip">Discover  Verified Builders</span>
             
-        </div>
-    </div>
+        </div>  
+    </div> 
 
     {{-- ── SPOTLIGHT TAB ── --}}
     <section id="tab-spotlight" class="tab-panel spotlight-wrap bg-gray-50 p-4 rounded-lg">
@@ -796,10 +796,12 @@ $b = $page_data['banner'];
 
 
 {{-- col 3 --}}
-<div class="new px-2 py-4">
+<div class="new px-2 py-8">
      <div class=" mx-auto max-w-2xl text-center">
-          <h3 class="project-blurb__name font-bold"> Featured Project:
-                    <a href="{{ $b['url'] }}" class="project-blurb__link text-indigo-500">{{ $b['label'] }}</a>
+          <h3 class="project-blurb__name font-bold"> Featured Project: 
+          <br>   <a href="{{ $b['url'] }}" class="project-blurb__link text-indigo-500">{{ $b['label'] }}</a>  — The Scranton Branch  
+ 
+                   
                 </h3>
             </div>
    {{-- ── BANNER ── --}}
@@ -815,7 +817,7 @@ $b = $page_data['banner'];
         </a>
 
         {{-- ── PROJECT DESCRIPTION ── --}}
-        <div class="project-blurb reveal reveal--3 mt-8 mb-16 px-8 sm:px-12">
+        <div class="project-blurb reveal reveal--3 mt-8 mb-8 px-8 sm:px-12">
             <div class="project-blurb__left">
                 <p class="label" style="color: var(--clr-accent); margin:0 0 0.4rem;">About the Project</p>
                
@@ -861,9 +863,10 @@ $b = $page_data['banner'];
         {{-- ── EDITORIAL HEADER ── --}}
     <div class="editorial-header reveal reveal--1">
         <div class="editorial-header__eyebrow">
-            <span class="issue-badge">Issue // June 2026</span>
+            <span class="issue-badge">NEWYORK</span>
             <span class="issue-rule" aria-hidden="true"></span>
-            <span class="label" style="color: var(--clr-muted); white-space: nowrap;">NEWYORK</span>
+            <span class="label" style="color: var(--clr-muted); ">BAYAREA &bull;  ONTARIO &bull; CHICAGO &bull; COLORADO &bull; LOSANGELES &bull;
+                WASHINGTON<b>DC</b> &bull; PACIFIC<b>NW</b>   </span>
         </div>
         <h1 class="editorial-header__title">
            <em>Best  Devs</em><br>&amp; Startups
