@@ -865,7 +865,7 @@ $b = $page_data['banner'];
         <div class="editorial-header__eyebrow">
             <span class="issue-badge">NEWYORK</span>
             <span class="issue-rule" aria-hidden="true"></span>
-            <span class="label" style="color: var(--clr-muted); ">BAYAREA &bull;  ONTARIO &bull; CHICAGO &bull; COLORADO &bull; LOSANGELES &bull;
+            <span class="label" style="color: var(--clr-muted); ">thebay &bull; ONTARIO &bull; CHICAGO &bull; COLORADO &bull; LOSANGELES &bull;
                 WASHINGTON<b>DC</b> &bull; PACIFIC<b>NW</b>   </span>
         </div>
         <h1 class="editorial-header__title">

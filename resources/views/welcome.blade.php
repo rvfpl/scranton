@@ -171,13 +171,12 @@
     <span class="hidden md:inline">NE Pennsylvania</span>
 </div>
 
+ 
 
-        
-
-  <h1 class="text-4xl sm:text-5xl lg:text-5xl font-extrabold tracking-tight leading-tight text-gray-900">
-The Scranton Branch </h1> of
-<h2 class="text-3xl sm:text-4xl lg:text-6xl font-extrabold tracking-tight leading-tight text-gray-900"> Software Engineering </h2>
-                    
+  <h1 class="text-4xl sm:text-4xl lg:text-4xl font-extrabold tracking-tighter leading-tighter text-gray-900">
+The Scranton Branch  of   </h2>
+     <h2 class="text-3xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight leading-tight text-gray-900">
+Software Engineering</h2>                
 
                     <p class="mt-4 text-lg text-gray-700 leading-relaxed max-w-2xl">
                         Regional‑Manager‑Approved developer jobs. Corporate‑friendly. Developer‑tolerable. Powered by coffee, sticky notes, 
@@ -189,12 +188,12 @@ The Scranton Branch </h1> of
                          <div class="sticky-note px-4 py-2 rounded-md font-semibold rotate-[1deg]">  Remote, Hybrid, On‑site  </div>  
                     
          
-        <div class="sticky-note px-4 py-2 rounded-md font-semibold rotate-[-1deg]">  HR‑Friendly </div>
-       
+        <div class="sticky-note px-4 py-2 rounded-md font-semibold rotate-[-1deg]">  HR‑Friendly </div> 
 
                      </div>
                 </div>
-
+ 
+                
                 <div class="relative hidden lg:flex justify-center min-h-[300px]">
                     <div class="absolute top-10 left-20 sticky-note w-64 p-5 rounded-md rotate-[-6deg]">
                         <div class="text-xs uppercase font-bold text-gray-500 mb-2">Hiring</div>
@@ -394,11 +393,17 @@ The Scranton Branch </h1> of
                     <div>
                         <div class="font-bold text-gray-900 mb-3">Locations</div>
                         <div class="flex flex-col gap-2 text-gray-600">
-                            <a href="/dev-jobs/new-york" class="hover:text-black">New York</a>
-                            <a href="/dev-jobs/chicago" class="hover:text-black">Chicago</a>
-                            <a href="/dev-jobs/san-francisco" class="hover:text-black">Bay Area, CA</a>
-                            <a href="/dev-jobs/canada" class="hover:text-black">Ontario, CA</a>
+                            
+                             <a href="/dev-jobs/san-francisco" class="hover:text-black">Bay  Area</a>
+                                                         <a href="/dev-jobs/chicago" class="hover:text-black">Chicago</a> 
+                            <a href="/dev-jobs/san-francisco" class="hover:text-black">Colorado</a>
+                            <a href="/dev-jobs/chicago" class="hover:text-black">Los Angeles</a>
+                            <a href="/dev-jobs/new-york" class="hover:text-black">New York</a> 
+                            <a href="/dev-jobs/san-francisco" class="hover:text-black">Seattle</a>
+                            <a href="/dev-jobs/san-francisco" class="hover:text-black">Washington, DC</a>
+                            <span class="border-t"></span>
                             <a href="/dev-jobs/india" class="hover:text-black">Bengaluru, IN</a>
+                            <a href="/dev-jobs/canada" class="hover:text-black">Ontario, CA</a>
                         </div>
                     </div>
 

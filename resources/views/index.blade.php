@@ -426,7 +426,7 @@
                         <a href="/dev-jobs/new-york" class="hover:text-black">New York</a>
                         <a href="/dev-jobs/chicago" class="hover:text-black">Chicago</a>
                   
-                        <a href="/dev-jobs/san-francisco" class="hover:text-black">BayArea, CA</a>
+                        <a href="/dev-jobs/san-francisco" class="hover:text-black">BayArea</a>
                        <a href="/dev-jobs/canada" class="hover:text-black">Ontario, CAnada</a>
 
                         <a href="/dev-jobs/india" class="hover:text-black">Bengaluru, India</a>
