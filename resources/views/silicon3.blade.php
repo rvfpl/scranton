@@ -16,10 +16,10 @@
 <body class="bg-zinc-950 text-zinc-200">
 
     <!-- HEADER -->
-    <header class="sticky top-0 z-50 bg-zinc-900 border-b border-zinc-800">
+    <header class="sticky top-0 z-50 bg-black border-b border-zinc-800">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <span class="text-3xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent">TheBay.dev</span>
+                <span class="text-2xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent">TheBay.dev</span>
             </div>
 
             <!-- Desktop Nav -->
@@ -45,20 +45,20 @@
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-zinc-800">
-            <div class="px-6 py-6 flex flex-col gap-4 text-lg">
-                <a href="#" class="hover:text-white">Find Jobs</a>
-                <a href="#" class="hover:text-white">Featured Startups</a>
-                <a href="#" class="hover:text-white">Developer Spotlight</a>
-                <a href="#" class="hover:text-white">Post a Job</a>
+            <div class="px-6 py-6 flex flex-col gap-4 text-lg bg-black">
+                <a href="#" class="hover:text-white hover:bg-indigo-800 py-1 px-1">Find Jobs</a> 
+                <a href="#" class="hover:text-white hover:bg-indigo-800 py-1  px-1">Featured Startups</a>
+                <a href="#" class="hover:text-white hover:bg-indigo-800 py-1  px-1">Developer Spotlight</a>
+                <a href="#" class="hover:text-white hover:bg-indigo-800 py-1  px-1">Post a Job</a>
             </div>
         </div>
     </header>
 
     <!-- HERO -->
-    <section class="bg-gradient-to-br from-zinc-900 via-zinc-950 to-black py-20">
+    <section class="bg-gradient-to-br from-zinc-900 via-zinc-950 to-black py-16">
         <div class="max-w-7xl mx-auto px-2 text-center">
-            <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
-                Hire or Get Hired.  <span class="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">Fast.</span>
+            <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-4">
+                Get Hired in The Bay.  <span class="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">Fast.</span>
             </h1>
             <p class="text-xl text-zinc-400 max-w-3xl mx-auto mb-10">
                 The Bay Area's developer-first job board. No spam. Real opportunities.
@@ -67,7 +67,7 @@
             <div class="max-w-xl mx-auto">
                 <div class="relative">
                     <input type="text" id="search" 
-                           class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-8 py-6 text-lg focus:outline-none focus:border-violet-500 transition"
+                           class="w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-8 py-4 text-lg focus:outline-none focus:border-violet-500 transition"
                            placeholder="Search roles, skills, or companies...">
                     <button onclick="searchJobs()" 
                             class="absolute right-3 top-1/2 -translate-y-1/2 bg-violet-600 hover:bg-violet-700 px-10 py-4 rounded-3xl font-semibold">
@@ -79,7 +79,7 @@
     </section>
 
     <!-- FILTERS -->
-    <div class="max-w-7xl mx-auto px-6 py-8 border-b border-zinc-800">
+    <div class="max-w-7xl mx-auto px-6 py-5 border-b border-zinc-800">
         <div class="flex flex-wrap gap-3">
             <select id="role" class="bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-3 text-sm">
                 <option value="">All Roles</option>
