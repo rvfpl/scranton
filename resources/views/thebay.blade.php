@@ -19,7 +19,7 @@
         * { box-sizing: border-box; }
 
         body {
-            background-color: #020617;
+            background-color: #020617; #FF4F00;  #BA160C; 
             color: #e2e8f0;
             font-family: 'DM Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -149,7 +149,7 @@
             height: 2px;
             background: #e2e8f0;
             border-radius: 2px;
-            transition: transform 0.3s, opacity 0.7s, width 0.3s;
+            transition: transform 0.3s, opacity 0.3s, width 0.3s;
             transform-origin: center;
         }
         .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -207,10 +207,10 @@
         }
 
         /* Hero */
-        .hero { padding: 9rem 1.5rem 5rem; text-align: center; position: relative; z-index: 1; }
+        .hero { padding: 8rem 0.5rem 5rem; text-align: center; position: relative; z-index: 1;  margin: 0 auto; max-width: 80rem; }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-size: clamp(2.5rem, 8vw, 5.5rem); 
             font-weight: 800;
             letter-spacing: -0.04em;
             line-height: 1.0;
@@ -705,17 +705,22 @@
 
 {{-- ───────────────── HERO ───────────────── --}}
 <section class="hero">
-    <div class="hero-badge">Live · 247 open roles</div>
-    <h1>THE CENTER<br>OF <span class="accent">SCALE</span>.</h1>
+    
+    <h1>THE CENTER OF <span class="accent">SCALE</span>.</h1>
     <p class="hero-sub"> Connecting world-class talent to TheBay's most ambitious companies.</p>
 </section>
+
+
 
 {{-- ───────────────── MAIN GRID ───────────────── --}}
 <div class="main-grid">
 
-    {{-- Sidebar / Filters --}}
-    <aside class="sidebar glass">
+    {{-- Sidebar / Filters --}} 
+    <aside class="sidebar glass"> <div class="hero-badge">Live · Over 4 open roles</div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
+
+
+            
             <h3 style="margin:0;">Filter</h3>
             <button class="clear-btn" id="clear-filters">Clear all</button>
         </div>
@@ -943,7 +948,7 @@
             {{-- Content panel --}}
             <div class="spotlight-content">
                 <p class="spotlight-role">Engineering Leader · Distributed Systems</p>
-                <h3 class="spotlight-name">"The Bridge<br>Architect"</h3>
+                <h3 class="spotlight-name">"The Bridge Architect"</h3>
                 <p class="spotlight-handle">@sarahchen · thebay.dev/sarah-chen</p>
 
                 <blockquote class="spotlight-quote">
