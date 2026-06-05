@@ -129,6 +129,31 @@ Route::prefix('pl')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
+| EMEA Pages
+|--------------------------------------------------------------------------
+*/
+
+/*
+|--------------------------------------------------------------------------
+| EMEA Pages
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/emea/{page?}', function ($page = 'index') {
+    // 1. Build the view path (e.g., 'emea.index', 'emea.compliance')
+    $view = "emea.{$page}";
+
+    // 2. Check if the view actually exists to prevent 500 errors
+    if (!view()->exists($view)) {
+        abort(404);
+    }
+
+    return view($view);
+})->where('page', '.*'); // The '.*' allows for nested folders (e.g., /emea/reports/latency)
+
+
+/*
+|--------------------------------------------------------------------------
 | Static Pages Catch‑All
 |--------------------------------------------------------------------------
 */

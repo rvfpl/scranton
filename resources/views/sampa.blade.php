@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sampa .DEV | The Silicon Valley Engine</title>
+    <title>Sampa.DEV | The Silicon Valley Engine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -118,7 +118,7 @@
             right: 0;
             height: 8px;
         }
-        .dropdown-menu.open { display: block; }
+        .dropdown-menu.open { display: block; background-color: #0f2040; opacity: 0.95; }
 
         .dropdown-item {
             display: block;
@@ -210,7 +210,7 @@
         .hero { padding: 8rem 0.5rem 5rem; text-align: center; position: relative; z-index: 1;  margin: 0 auto; max-width: 80rem; }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5.5rem); 
+            font-size: clamp(2.5rem, 4vw, 4rem); 
             font-weight: 800;
             letter-spacing: -0.04em;
             line-height: 1.0;
@@ -220,7 +220,7 @@
 
         .hero-sub {
             color: #64748b;
-            max-width: 32rem;
+            max-width: 40rem;
             margin: 0 auto 0.75rem;
             font-size: 0.95rem;
             line-height: 1.6;
@@ -649,36 +649,41 @@
     </style>
 </head>
 <body>
-
 {{-- ───────────────── NAV ───────────────── --}}
 <nav>
     <div class="nav-inner glass" id="nav-inner">
-        <a href="/" class="brand">SAMPA<span>.DEV</span></a>
+        <a href="/" class="brand">Americas<span>.DEV</span></a>
 
         {{-- Desktop --}}
         <div class="nav-links">
-            <a href="#jobs" class="nav-link">Jobs</a>
-            <a href="#spotlight" class="nav-link">Spotlight</a>
+            <a href="#jobs" class="nav-link" data-en="Jobs" data-pt="Vagas">Jobs</a>
+            <a href="#spotlight" class="nav-link" data-en="Spotlight" data-pt="Destaque">Spotlight</a>
+            
             <div class="dropdown">
-                <button class="dropdown-trigger nav-link">Global Nodes ↓</button>
+                <button class="dropdown-trigger nav-link" data-en="Global ↓" data-pt="Global ↓">Global ↓</button>
                 <div class="dropdown-menu glass">
                     <a href="https://newyork.dev" class="dropdown-item">The Bay</a>
                     <a href="https://gdansk.dev" class="dropdown-item">The PNW</a>
                     <a href="https://newyork.dev" class="dropdown-item">New York</a>
                     <a href="https://austintx.dev" class="dropdown-item">Austin</a>
-                        <a href="https://gdansk.dev" class="dropdown-item">Washington DC</a>
-                        <a href="https://gdansk.dev" class="dropdown-item">Ontario</a>
+                    <a href="https://gdansk.dev" class="dropdown-item">Washington DC</a>
+                    <a href="https://gdansk.dev" class="dropdown-item">Ontario</a>
                     <a href="https://bengaluru.dev" class="dropdown-item">Bengaluru</a>
-                     <a href="https://bengaluru.dev" class="dropdown-item">New Delhi</a>
-                    <a href="https://gdansk.dev" class="dropdown-item">Gdansk</a>
-                     <a href="https://gdansk.dev" class="dropdown-item">Bucharest</a>
-                     <a href="https://gdansk.dev" class="dropdown-item">SAMPA</a>
-                     <a href="https://gdansk.dev" class="dropdown-item">Mexico City</a>
-                     <a href="https://gdansk.dev" class="dropdown-item">Buenos Aires</a>
-                  
-                       
-                        <a href="https://gdansk.dev" class="dropdown-item">HCMC</a>
+                    <a href="https://bengaluru.dev" class="dropdown-item">New Delhi</a>
+                    <a href="https://gdansk.dev" class="dropdown-item">Gdańsk</a>
+                    <a href="https://gdansk.dev" class="dropdown-item">Bucharest</a>
+                    <a href="https://gdansk.dev" class="dropdown-item">Sao Paulo</a>
+                    <a href="https://gdansk.dev" class="dropdown-item">Mexico City</a>
+                    <a href="https://gdansk.dev" class="dropdown-item">Buenos Aires</a>
+                    <a href="https://gdansk.dev" class="dropdown-item">HCMC</a>
                 </div>
+            </div>
+
+            {{-- Lang Switcher moved inside nav-links --}}
+            <div class="lang-switcher flex items-center gap-1 text-[10px] font-mono tracking-widest uppercase ml-4">
+                <a href="javascript:void(0)" id="lang-en" onclick="switchLang('en')" class="text-white font-bold">EN</a>
+                <span class="text-neutral-700">/</span>
+                <a href="javascript:void(0)" id="lang-pt" onclick="switchLang('pt')" class="text-neutral-500 hover:text-white">PT</a>
             </div>
         </div>
 
@@ -690,25 +695,35 @@
         </button>
     </div>
 
-    {{-- Mobile menu —— sibling of nav-inner so it drops below it --}}
+    {{-- Mobile menu --}}
     <div class="mobile-menu glass" id="mobile-menu" role="dialog" aria-label="Navigation">
-        <a href="#jobs"      class="mobile-link" data-close-menu>Jobs</a>
+        <a href="#jobs" class="mobile-link" data-close-menu>Jobs</a>
         <a href="#spotlight" class="mobile-link" data-close-menu>Spotlight</a>
         <hr class="mobile-divider">
-        <p class="mobile-section-label">Global Nodes</p>
-        <a href="https://newyork.dev"   class="mobile-link">New York</a>
-        <a href="https://austintx.dev"  class="mobile-link">Austin</a>
+        <p class="mobile-section-label">Global</p>
+        <a href="https://newyork.dev" class="mobile-link">New York</a>
+        <a href="https://austintx.dev" class="mobile-link">Austin</a>
         <a href="https://bengaluru.dev" class="mobile-link">Bengaluru</a>
-        <a href="https://gdansk.dev"    class="mobile-link">Gdańsk</a>
+        <a href="https://gdansk.dev" class="mobile-link">Gdańsk</a>
+
+
+        
     </div>
 </nav>
 
 {{-- ───────────────── HERO ───────────────── --}}
-<section class="hero">
-    
-    <h1>THE CENTER OF <span class="accent">SCALE</span>.</h1>
-    <p class="hero-sub"> Connecting world-class talent to sampa 's most ambitious companies.</p>
+<section class="hero" id="hero-en">
+    <h1> <span class="accent">São Paulo's</span>  Best Devs.</h1>
+    <p class="hero-sub">Connecting world-class talent to São Paulo's most ambitious companies.</p>
 </section>
+
+<section class="hero hidden" id="hero-pt">
+    <h1>O Melhor de <span class="accent">São Paulo</span>.</h1>
+    <p class="hero-sub">Conectando talentos de classe mundial às empresas mais ambiciosas de Sampa.</p>
+</section>
+
+ 
+{{-- ───────────────── HERO ───────────────── --}}
 
 
 
@@ -949,7 +964,7 @@
             <div class="spotlight-content">
                 <p class="spotlight-role">Engineering Leader · Distributed Systems</p>
                 <h3 class="spotlight-name">"The Bridge Architect"</h3>
-                <p class="spotlight-handle">@sarahchen · sampa .dev/sarah-chen</p>
+                <p class="spotlight-handle">@sarahchen · Sampa.dev/sarah-chen</p>
 
                 <blockquote class="spotlight-quote">
                     "The gap between Bay Area ambition and Bengaluru execution isn't a timezone problem — it's a trust infrastructure problem. We solved it."
@@ -990,7 +1005,7 @@
 
 {{-- ───────────────── FOOTER ───────────────── --}}
 <footer>
-    <span class="footer-copy">© 2026 sampa .DEV — The Silicon Valley Engine</span>
+    <span class="footer-copy">© 2026 Sampa.DEV — The Silicon Valley Engine</span>
     <div class="footer-nodes">
         <a href="https://newyork.dev"   class="footer-node">NewYork</a>
         <a href="https://austintx.dev"  class="footer-node">AustinTX</a>
@@ -1098,6 +1113,45 @@ clearBtn.addEventListener('click', () => {
     filterInputs.forEach(input => input.checked = false);
     applyFilters();
 });
+</script>
+
+
+ 
+  <script>
+// ─── Desktop Dropdown ───────────────────────────────────────────
+// [Keep your existing dropdown and hamburger code here...]
+
+// ─── Filter Logic ────────────────────────────────────────────────
+// [Keep your existing filter code here...]
+
+// ─── Language Switcher ───────────────────────────────────────────
+function switchLang(lang) {
+    // 1. Toggle Hero Sections
+    document.getElementById('hero-en').classList.toggle('hidden', lang === 'pt');
+    document.getElementById('hero-pt').classList.toggle('hidden', lang === 'en');
+
+    // 2. Translate ALL elements with data-en/pt attributes
+    // This now handles your nav links, buttons, and anything else you tag!
+    document.querySelectorAll('[data-en]').forEach(el => {
+        el.innerText = el.getAttribute(`data-${lang}`);
+    });
+
+    // 3. Update Switcher Button Styles
+    const enBtn = document.getElementById('lang-en');
+    const ptBtn = document.getElementById('lang-pt');
+    
+    if (lang === 'pt') {
+        ptBtn.classList.add('text-white', 'font-bold');
+        ptBtn.classList.remove('text-neutral-500');
+        enBtn.classList.add('text-neutral-500');
+        enBtn.classList.remove('text-white', 'font-bold');
+    } else {
+        enBtn.classList.add('text-white', 'font-bold');
+        enBtn.classList.remove('text-neutral-500');
+        ptBtn.classList.add('text-neutral-500');
+        ptBtn.classList.remove('text-white', 'font-bold');
+    }
+}
 </script>
 
 </body>
