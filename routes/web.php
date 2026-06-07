@@ -5,7 +5,8 @@ use App\Http\Controllers\PostJobController;
 use App\Http\Controllers\JobController;
  
 use Illuminate\Support\Facades\View;
-
+ 
+use App\Http\Controllers\DirectoryController; // <--- ADD THIS LINE
 /*
 |--------------------------------------------------------------------------
 | Homepage
@@ -129,9 +130,17 @@ Route::prefix('pl')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| EMEA Pages
+| Directory Pages - notnydir, etc.
 |--------------------------------------------------------------------------
 */
+
+Route::prefix('travel')->group(function () {
+
+    Route::view('/', 'travel.index');
+
+});
+
+Route::get('/notnydir', [DirectoryController::class, 'index'])->name('notnydir');
 
 /*
 |--------------------------------------------------------------------------

@@ -21,7 +21,6 @@
         [x-cloak]{display:none!important}
         ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg-base)}::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:2px}
 
-        /* NAV */
         .topnav{background:var(--bg-surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;height:56px}
         .search-input{background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-primary);font-family:'IBM Plex Sans',sans-serif;font-size:13px;transition:border-color .15s}
         .search-input:focus{outline:none;border-color:var(--accent)}
@@ -31,19 +30,16 @@
         .post-btn{padding:7px 14px;border-radius:6px;font-size:13px;font-weight:600;background:var(--accent);color:#041a1f;border:none;cursor:pointer;transition:opacity .12s;font-family:'IBM Plex Sans',sans-serif}
         .post-btn:hover{opacity:.88}
 
-        /* SIDEBAR */
         .sidebar{width:240px;flex-shrink:0;background:var(--bg-surface);border-right:1px solid var(--border);height:calc(100vh - 56px);position:sticky;top:56px;overflow-y:auto}
         .section-header{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;padding:16px 16px 8px}
         .filter-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:6px;border:1px solid var(--tag-border);background:var(--tag-bg);color:var(--text-secondary);font-size:12px;font-family:'IBM Plex Mono',monospace;cursor:pointer;transition:all .12s;white-space:nowrap}
         .filter-pill:hover{border-color:var(--border-light);color:var(--text-primary);background:var(--bg-hover)}
         .filter-pill.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
 
-        /* SORT TABS */
         .sort-tab{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid transparent;color:var(--text-secondary);transition:all .12s;background:none}
         .sort-tab:hover{color:var(--text-primary)}
         .sort-tab.active{border-color:var(--border-light);color:var(--text-primary);background:var(--bg-elevated)}
 
-        /* JOB CARDS */
         .job-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;cursor:pointer;transition:border-color .12s,background .12s;position:relative}
         .job-card:hover{border-color:var(--border-light);background:var(--bg-elevated)}
         .job-card.featured{border-color:rgba(103,232,249,0.25)}
@@ -60,21 +56,19 @@
         .save-btn:hover{border-color:var(--border-light);color:var(--text-primary)}
         .save-btn.saved{border-color:rgba(251,191,36,0.4);color:var(--accent-amber);background:rgba(251,191,36,0.08)}
         .meta-dot::before{content:'·';margin:0 6px;color:var(--text-muted)}
-
-        /* VIDEO */
         .video-wrapper{border-radius:8px;overflow:hidden;border:1px solid var(--border);background:#000;flex-shrink:0}
-
-        /* SKELETON */
-        .skeleton{background:linear-gradient(90deg,var(--bg-elevated) 25%,var(--bg-hover) 50%,var(--bg-elevated) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:4px}
-        @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
         .empty-state{text-align:center;padding:60px 20px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace}
 
-        @media(max-width:768px){.sidebar{display:none}.sidebar.mobile-open{display:block;position:fixed;top:56px;left:0;z-index:40;height:calc(100vh - 56px)}}
+        @media(max-width:768px){
+            .sidebar{display:none}
+            .sidebar.mobile-open{display:block;position:fixed;top:56px;left:0;z-index:40;height:calc(100vh - 56px)}
+        }
     </style>
 </head>
 <body>
 <div x-data="{
-    savedJobs: JSON.parse(localStorage.getItem('pnw_saved') || '[]'),
+    /* FIX 1: localStorage wrapped in try/catch — survives private browsing */
+    savedJobs: (() => { try { return JSON.parse(localStorage.getItem('nydev_saved') || '[]'); } catch { return []; } })(),
     activeFilters: [],
     activeSort: 'latest',
     search: '',
@@ -92,8 +86,10 @@
             posted: '2d ago',
             is_featured: true,
             video_url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            url: 'jobs/senior-php-laravel-engineer-dunder-mifflin-paper-co',
-            description: 'Building internal SaaS tooling for a logistics company with a small, pragmatic team.'
+            url: 'jobs/senior-php-laravel-engineer',
+            description: 'Building internal SaaS tooling for a logistics company with a small, pragmatic team.',
+            _videoActiveMobile: false,
+            _videoActiveDesktop: false
         },
         {
             id: 2,
@@ -106,8 +102,10 @@
             posted: '1d ago',
             is_featured: false,
             video_url: null,
-            url: '#',
-            description: 'Dashboards for real-time climate data visualisation. Greenfield React + Tailwind.'
+            url: 'jobs/frontend-developer-react',
+            description: 'Dashboards for real-time climate data visualisation. Greenfield React + Tailwind.',
+            _videoActiveMobile: false,
+            _videoActiveDesktop: false
         },
         {
             id: 3,
@@ -120,8 +118,10 @@
             posted: '4d ago',
             is_featured: false,
             video_url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            url: '#',
-            description: 'Scale our infra to millions of requests. Forge, Kubernetes, and lots of autonomy.'
+            url: 'jobs/devops-platform-engineer',
+            description: 'Scale our infra to millions of requests. Kubernetes and lots of autonomy.',
+            _videoActiveMobile: false,
+            _videoActiveDesktop: false
         },
         {
             id: 4,
@@ -134,8 +134,10 @@
             posted: '6h ago',
             is_featured: true,
             video_url: null,
-            url: '#',
-            description: 'Own the stack end-to-end. Laravel API + React frontend for a fintech startup.'
+            url: 'jobs/full-stack-engineer',
+            description: 'Own the stack end-to-end. Laravel API + React frontend for a fintech startup.',
+            _videoActiveMobile: false,
+            _videoActiveDesktop: false
         },
         {
             id: 5,
@@ -148,8 +150,10 @@
             posted: '3d ago',
             is_featured: false,
             video_url: null,
-            url: '#',
-            description: 'Great first role in a supportive team. Mentorship included, no enterprise fluff.'
+            url: 'jobs/junior-php-developer',
+            description: 'Great first role in a supportive team. Mentorship included, no enterprise fluff.',
+            _videoActiveMobile: false,
+            _videoActiveDesktop: false
         },
         {
             id: 6,
@@ -162,23 +166,25 @@
             posted: '5d ago',
             is_featured: false,
             video_url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            url: '#',
-            description: 'Real-time multiplayer features for an indie game platform. Node + WebSockets.'
+            url: 'jobs/nodejs-backend-engineer',
+            description: 'Real-time multiplayer features for an indie game platform. Node + WebSockets.',
+            _videoActiveMobile: false,
+            _videoActiveDesktop: false
         }
     ],
 
+    /* FIX 2: HasVideo gets a separate label so icon + label don't double-up */
     specializations: [
-    { key:'HasVideo',  icon:'▶' },
-        { key:'Backend',   icon:'⬡' },
-        { key:'Frontend',  icon:'◈' },
-        { key:'DevOps',    icon:'⟳' },
-        { key:'Senior',    icon:'★' },
-        { key:'React',     icon:'⚛' },
-        { key:'Laravel',   icon:'▲' },
-        { key:'PHP',       icon:'⬡' },
-        { key:'Remote',    icon:'⌂' },
-        { key:'Hybrid',    icon:'⇌' } 
-        
+        { key:'HasVideo', label:'Has Video', icon:'▶' },
+        { key:'Backend',  label:'Backend',   icon:'⬡' },
+        { key:'Frontend', label:'Frontend',  icon:'◈' },
+        { key:'DevOps',   label:'DevOps',    icon:'⟳' },
+        { key:'Senior',   label:'Senior',    icon:'★' },
+        { key:'React',    label:'React',     icon:'⚛' },
+        { key:'Laravel',  label:'Laravel',   icon:'▲' },
+        { key:'PHP',      label:'PHP',       icon:'⬡' },
+        { key:'Remote',   label:'Remote',    icon:'⌂' },
+        { key:'Hybrid',   label:'Hybrid',    icon:'⇌' }
     ],
 
     toggleFilter(k) {
@@ -186,11 +192,13 @@
             ? this.activeFilters = this.activeFilters.filter(f => f !== k)
             : this.activeFilters.push(k)
     },
+
+    /* FIX 3: localStorage setItem also wrapped in try/catch */
     toggleSave(id) {
         this.savedJobs.includes(id)
             ? this.savedJobs = this.savedJobs.filter(j => j !== id)
             : this.savedJobs.push(id);
-        localStorage.setItem('pnw_saved', JSON.stringify(this.savedJobs))
+        try { localStorage.setItem('nydev_saved', JSON.stringify(this.savedJobs)); } catch {}
     },
     isSaved(id) { return this.savedJobs.includes(id) },
 
@@ -211,6 +219,11 @@
         return list;
     },
 
+    /* FIX 4: card navigation only fires when url is a real path */
+    navigate(url) {
+        if (url && url !== '#') window.location.href = url;
+    },
+
     initials(c) { return c.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase() },
     logoColor(c) {
         const cols = ['#1e3a5f','#1a3a2a','#2a1a3a','#3a2a1a','#1a2a3a','#2a1a1a'];
@@ -224,19 +237,21 @@
     <div class="flex items-center justify-between h-full px-4 gap-3">
         <a href="/" class="flex items-center gap-2 flex-shrink-0">
             <div style="background:#0d2a2e;border:1px solid rgba(103,232,249,0.3);width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center">
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--accent)">sv</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--accent)">ny</span>
             </div>
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600"><span style="color:var(--accent)">.dev</span></span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600"><span style="color:var(--accent)">.dev</span> jobs</span>
         </a>
 
         <div class="relative flex-1 max-w-md">
             <input type="text" x-model="search" placeholder="Search jobs, companies, tech..." class="search-input w-full rounded-lg px-4 py-2 pl-9">
             <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style="color:var(--text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </div>
-   <div class="hidden md:flex items-center gap-1">
+
+        <div class="hidden md:flex items-center gap-1">
             <button class="nav-btn">For Candidates <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
             <button class="nav-btn">For Employers <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
         </div>
+
         <div class="flex items-center gap-2">
             <button class="post-btn hidden sm:block">+ Post Job</button>
             <button class="save-btn" style="width:auto;padding:6px 10px;gap:5px;display:flex;border-radius:6px">
@@ -258,9 +273,13 @@
         <div class="section-header">Specializations</div>
         <div class="px-3 pb-2 flex flex-col gap-1">
             <template x-for="spec in specializations" :key="spec.key">
-                <button @click="toggleFilter(spec.key)" :class="activeFilters.includes(spec.key) ? 'active' : ''" class="filter-pill justify-start w-full text-left" style="border-radius:6px">
+                <button @click="toggleFilter(spec.key)"
+                        :class="activeFilters.includes(spec.key) ? 'active' : ''"
+                        class="filter-pill justify-start w-full text-left"
+                        style="border-radius:6px">
+                    <!-- FIX 2: use spec.icon + spec.label — no more double ▶ -->
                     <span x-text="spec.icon" style="font-size:11px;width:16px;text-align:center"></span>
-                    <span x-text="spec.key === 'HasVideo' ? '▶ Has Video' : spec.key"></span>
+                    <span x-text="spec.label"></span>
                     <span x-show="activeFilters.includes(spec.key)" style="margin-left:auto;font-size:9px">✕</span>
                 </button>
             </template>
@@ -269,15 +288,31 @@
         <div style="height:1px;background:var(--border);margin:8px 0"></div>
 
         <div class="px-3 py-2">
-            <button x-show="activeFilters.length > 0" @click="activeFilters=[]" class="filter-pill w-full justify-center" style="border-radius:6px;color:#f87171;border-color:rgba(248,113,113,0.2)">Clear all filters</button>
+            <button x-show="activeFilters.length > 0" @click="activeFilters=[]"
+                    class="filter-pill w-full justify-center"
+                    style="border-radius:6px;color:#f87171;border-color:rgba(248,113,113,0.2)">
+                Clear all filters
+            </button>
         </div>
 
         <div class="section-header mt-2">Stats</div>
         <div class="px-4 pb-4 flex flex-col gap-2">
-            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">Total</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)" x-text="jobs.length"></span></div>
-            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">Matching</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-primary)" x-text="filteredJobs().length"></span></div>
-            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">With Video</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-purple)" x-text="jobs.filter(j=>j.video_url).length"></span></div>
-            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">Saved</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-amber)" x-text="savedJobs.length"></span></div>
+            <div class="flex justify-between">
+                <span style="font-size:12px;color:var(--text-secondary)">Total</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)" x-text="jobs.length"></span>
+            </div>
+            <div class="flex justify-between">
+                <span style="font-size:12px;color:var(--text-secondary)">Matching</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-primary)" x-text="filteredJobs().length"></span>
+            </div>
+            <div class="flex justify-between">
+                <span style="font-size:12px;color:var(--text-secondary)">With Video</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-purple)" x-text="jobs.filter(j=>j.video_url).length"></span>
+            </div>
+            <div class="flex justify-between">
+                <span style="font-size:12px;color:var(--text-secondary)">Saved</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-amber)" x-text="savedJobs.length"></span>
+            </div>
         </div>
     </aside>
 
@@ -298,27 +333,28 @@
         <div x-show="activeFilters.length > 0" class="flex flex-wrap gap-2 mb-4">
             <template x-for="f in activeFilters" :key="f">
                 <span class="filter-pill active" @click="toggleFilter(f)">
-                    <span x-text="f === 'HasVideo' ? '▶ Has Video' : f"></span>
+                    <span x-text="specializations.find(s=>s.key===f)?.label || f"></span>
                     <span style="font-size:9px;margin-left:2px">✕</span>
                 </span>
             </template>
         </div>
 
         <!-- JOB CARDS -->
-        <div class="flex flex-col gap-3">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-3">
             <template x-for="job in filteredJobs()" :key="job.id">
+                <!-- FIX 4: navigate() checks url is real before redirecting -->
                 <div class="job-card"
                      :class="[job.is_featured ? 'featured' : '', job.video_url ? 'has-video' : '']"
-                     @click="window.location.href = job.url">
+                     @click="navigate(job.url)">
 
                     <div class="flex gap-3 items-start">
                         <!-- LOGO -->
                         <div class="company-logo" :style="'background:'+logoColor(job.company)" x-text="initials(job.company)"></div>
 
-                        <!-- CENTRE: all text content -->
+                        <!-- CONTENT -->
                         <div class="flex-1 min-w-0">
 
-                            <!-- TITLE ROW: title+badges left, salary+save right (always) -->
+                            <!-- TITLE ROW -->
                             <div class="flex items-start justify-between gap-2 mb-1">
                                 <div class="flex-1 min-w-0">
                                     <div class="flex flex-wrap items-center gap-2">
@@ -331,7 +367,9 @@
                                 <div class="flex items-center gap-2 flex-shrink-0" @click.stop>
                                     <span class="salary-text" x-show="job.salary" x-text="job.salary"></span>
                                     <button class="save-btn" :class="isSaved(job.id) ? 'saved' : ''" @click.stop="toggleSave(job.id)">
-                                        <svg class="w-4 h-4" :fill="isSaved(job.id) ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                                        <svg class="w-4 h-4" :fill="isSaved(job.id) ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                        </svg>
                                     </button>
                                 </div>
                             </div>
@@ -347,17 +385,26 @@
                                 <span x-text="job.posted" style="color:var(--text-muted)"></span>
                             </div>
 
-                            <!-- VIDEO: mobile = full width; desktop = tucked right via the sibling col -->
+                            <!-- MOBILE VIDEO: lazy, blank until clicked -->
                             <div x-show="job.video_url" class="sm:hidden mb-3" @click.stop>
                                 <div class="video-wrapper" style="width:100%;aspect-ratio:16/9;position:relative">
-                                    <div x-show="!job._videoActiveMobile" @click.stop="job._videoActiveMobile = true"
-                                         style="position:absolute;inset:0;z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);border-radius:8px">
+                                    <div x-show="!job._videoActiveMobile"
+                                         @click.stop="job._videoActiveMobile = true"
+                                         style="position:absolute;inset:0;z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);border-radius:8px">
                                         <div style="width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center">
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
                                         </div>
                                     </div>
-                                    <iframe :src="job._videoActiveMobile ? job.video_url + '?autoplay=1' : job.video_url"
-                                            class="w-full h-full" frameborder="0" allow="autoplay; fullscreen" allowfullscreen @click.stop></iframe>
+                                    <!-- FIX: src='about:blank' until clicked — no YouTube request on load -->
+                                    <iframe
+                                        :src="job._videoActiveMobile ? job.video_url + '?autoplay=1' : 'about:blank'"
+                                        loading="lazy"
+                                        class="w-full h-full"
+                                        frameborder="0"
+                                        allow="autoplay; fullscreen"
+                                        allowfullscreen
+                                        @click.stop>
+                                    </iframe>
                                 </div>
                                 <p style="font-size:10px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-top:5px">▶ hiring manager intro</p>
                             </div>
@@ -374,17 +421,26 @@
                             </div>
                         </div>
 
-                        <!-- DESKTOP ONLY: right-column video -->
+                        <!-- DESKTOP VIDEO: lazy, blank until clicked -->
                         <div x-show="job.video_url" class="hidden sm:flex flex-col items-end gap-1 flex-shrink-0" @click.stop>
                             <div class="video-wrapper" style="width:180px;aspect-ratio:16/9;position:relative">
-                                <div x-show="!job._videoActiveDesktop" @click.stop="job._videoActiveDesktop = true"
-                                     style="position:absolute;inset:0;z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.15);border-radius:8px">
+                                <div x-show="!job._videoActiveDesktop"
+                                     @click.stop="job._videoActiveDesktop = true"
+                                     style="position:absolute;inset:0;z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);border-radius:8px">
                                     <div style="width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center">
                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
                                     </div>
                                 </div>
-                                <iframe :src="job._videoActiveDesktop ? job.video_url + '?autoplay=1' : job.video_url"
-                                        class="w-full h-full" frameborder="0" allow="autoplay; fullscreen" allowfullscreen @click.stop></iframe>
+                                <!-- FIX: src='about:blank' until clicked — no YouTube request on load -->
+                                <iframe
+                                    :src="job._videoActiveDesktop ? job.video_url + '?autoplay=1' : 'about:blank'"
+                                    loading="lazy"
+                                    class="w-full h-full"
+                                    frameborder="0"
+                                    allow="autoplay; fullscreen"
+                                    allowfullscreen
+                                    @click.stop>
+                                </iframe>
                             </div>
                             <p style="font-size:10px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace">▶ hiring manager intro</p>
                         </div>
@@ -406,7 +462,7 @@
 <!-- FOOTER -->
 <footer style="border-top:1px solid var(--border);background:var(--bg-surface);padding:16px 24px;margin-top:auto">
     <div style="font-size:12px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
-        <span>© 2026 .dev — developer  </span>
+        <span>© 2026 newyork.dev — developer jobs</span>
         <div style="display:flex;gap:16px">
             <a href="#" style="color:var(--text-muted);text-decoration:none;transition:color .12s" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">About</a>
             <a href="#" style="color:var(--text-muted);text-decoration:none;transition:color .12s" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">API</a>
