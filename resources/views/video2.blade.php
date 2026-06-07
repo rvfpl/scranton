@@ -270,11 +270,11 @@
 }" @keydown.escape.window="closeDetail()">
 
 <!-- ════════════════════════════════ NAV ════════════════════════════════ -->
-<nav class="topnav">
-    <div class="flex items-center justify-between h-full px-4 gap-3">
+<nav class="topnav"> 
+    <div class="flex items-center justify-between h-full px-4 gap-3" style="max-width: 1300px;">
         <a href="/" class="flex items-center gap-2 flex-shrink-0">
             <div style="background:#0d2a2e;border:1px solid rgba(103,232,249,0.3);width:80px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center">
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--accent)">newyork.dev</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--accent)">BETA</span>
             </div>
             <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600"><span style="color:var(--accent)">/</span> jobs</span>
         </a>
@@ -330,17 +330,34 @@
                     class="filter-pill w-full justify-center"
                     style="border-radius:6px;color:#f87171;border-color:rgba(248,113,113,0.2)">Clear filters</button>
         </div>
-        <div class="section-header mt-2">Stats</div>
+        <div class="section-header mt-2">Stats</div> 
+
         <div class="px-4 pb-4 flex flex-col gap-2">
             <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">Total</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)" x-text="jobs.length"></span></div>
             <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">Matching</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-primary)" x-text="filteredJobs().length"></span></div>
             <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">With Video</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-purple)" x-text="jobs.filter(j=>j.video_url).length"></span></div>
             <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">Saved</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-amber)" x-text="savedJobs.length"></span></div>
         </div>
+
+<div class="px-4 pb-4 flex flex-col gap-2">
+            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">For Candidates</span></div>
+            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">For Employers</span></div>
+        </div>
+
+<div class="px-4 pb-4 flex flex-col gap-2">
+    <a href="/post-job" class="filter-pill w-full flex items-center text-left text-neutral-400 hover:text-white transition-colors" style="border-radius:6px; font-size:11px; padding: 8px 12px;">
+        <span>+ Post Job</span>
+    </a>
+
+    <a href="/jobs" class="filter-pill w-full flex items-center text-left text-neutral-400 hover:text-white transition-colors" style="border-radius:6px; font-size:11px; padding: 8px 12px;">
+        <span>+ Jobs </span>
+    </a>
+</div>
+
     </aside>
 
     <!-- MAIN -->
-    <main class="flex-1 min-w-0 p-2 md:p-4">
+    <main class="flex-1 min-w-0 p-2 md:p-8">
 
         <!-- SORT TABS -->
         <div class="flex items-center justify-between mb-4 flex-wrap gap-1">
@@ -682,7 +699,7 @@
 <!-- FOOTER -->
 <footer style="border-top:1px solid var(--border);background:var(--bg-surface);padding:16px 24px;margin-top:auto">
     <div style="font-size:12px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
-        <span>© 2026 newyork.dev — developer jobs</span>
+        <span>© 2026 .dev — developer jobs</span>
         <div style="display:flex;gap:16px">
             <a href="#" style="color:var(--text-muted);text-decoration:none;transition:color .12s" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">About</a>
             <a href="#" style="color:var(--text-muted);text-decoration:none;transition:color .12s" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">API</a>
