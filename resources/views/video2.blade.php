@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,113 +8,513 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --bg-base:#0e0f11;--bg-surface:#161719;--bg-elevated:#1e2023;--bg-hover:#252729;
-            --border:#2a2c2f;--border-light:#333538;--text-primary:#f0f0f0;
-            --text-secondary:#8b8d93;--text-muted:#555860;
-            --accent:#67e8f9;--accent-dim:rgba(103,232,249,0.12);
-            --accent-green:#4ade80;--accent-amber:#fbbf24;--accent-purple:#a78bfa;
-            --tag-bg:#1e2023;--tag-border:#1c1f27;
-            --salary:#adad69;
+            --bg-base: #0e0f11;
+            --bg-surface: #161719;
+            --bg-elevated: #1e2023;
+            --bg-hover: #252729;
+            --border: #2a2c2f;
+            --border-light: #333538;
+            --text-primary: #f0f0f0;
+            --text-secondary: #8b8d93;
+            --text-muted: #555860;
+            --accent: #67e8f9;
+            --accent-dim: rgba(103, 232, 249, 0.12);
+            --accent-green: #4ade80;
+            --accent-amber: #fbbf24;
+            --accent-purple: #a78bfa;
+            --tag-bg: #1e2023;
+            --tag-border: #1c1f27;
+            --salary: #adad69;
         }
-        *{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg-base);color:var(--text-primary);min-height:100vh; }
-        [x-cloak]{display:none!important}
-        ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg-base)}::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:2px; }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        [x-cloak] {
+            display: none !important
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-light);
+            border-radius: 2px;
+        }
 
         /* ── NAV ── */
-        .topnav{background:var(--bg-surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;height:56px}
-        .search-input{background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-primary);font-family:'IBM Plex Sans',sans-serif;font-size:13px;transition:border-color .15s}
-        .search-input:focus{outline:none;border-color:var(--accent)}
-        .search-input::placeholder{color:var(--text-muted)}
-        .nav-btn{padding:6px 12px;border-radius:6px;font-size:13px;color:var(--text-secondary);cursor:pointer;transition:all .12s;display:flex;align-items:center;gap:5px;border:none;background:none}
-        .nav-btn:hover{color:var(--text-primary);background:var(--bg-elevated)}
-        .post-btn{padding:7px 14px;border-radius:6px;font-size:13px;font-weight:600;background:var(--accent);color:#041a1f;border:none;cursor:pointer;transition:opacity .12s;font-family:'IBM Plex Sans',sans-serif}
-        .post-btn:hover{opacity:.88}
+        .topnav {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            height: 56px
+        }
+
+        .search-input {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 13px;
+            transition: border-color .15s
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent)
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted)
+        }
+
+        .nav-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all .12s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: none;
+            background: none
+        }
+
+        .nav-btn:hover {
+            color: var(--text-primary);
+            background: var(--bg-elevated)
+        }
+
+        .post-btn {
+            padding: 7px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--accent);
+            color: #041a1f;
+            border: none;
+            cursor: pointer;
+            transition: opacity .12s;
+            font-family: 'IBM Plex Sans', sans-serif
+        }
+
+        .post-btn:hover {
+            opacity: .88
+        }
 
         /* ── SIDEBAR ── */
-        .sidebar{width:160px;flex-shrink:0;background:var(--bg-surface);border-right:1px solid var(--border);height:calc(100vh - 56px);position:sticky;top:56px;overflow-y:auto}
-        .section-header{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;padding:16px 16px 8px}
-        .filter-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:6px;border:1px solid var(--tag-border);background:var(--tag-bg);color:var(--text-secondary);font-size:12px;font-family:'IBM Plex Mono',monospace;cursor:pointer;transition:all .12s;white-space:nowrap}
-        .filter-pill:hover{border-color:var(--border-light);color:var(--text-primary);background:var(--bg-hover)}
-        .filter-pill.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
-        .sort-tab{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid transparent;color:var(--text-secondary);transition:all .12s;background:none}
-        .sort-tab:hover{color:var(--text-primary)}
-        .sort-tab.active{border-color:var(--border-light);color:var(--text-primary);background:var(--bg-elevated)}
+        .sidebar {
+            width: 160px;
+            flex-shrink: 0;
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border);
+            height: calc(100vh - 56px);
+            position: sticky;
+            top: 56px;
+            overflow-y: auto
+        }
+
+        .section-header {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-family: 'IBM Plex Mono', monospace;
+            padding: 16px 16px 8px
+        }
+
+        .filter-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--tag-border);
+            background: var(--tag-bg);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            cursor: pointer;
+            transition: all .12s;
+            white-space: nowrap
+        }
+
+        .filter-pill:hover {
+            border-color: var(--border-light);
+            color: var(--text-primary);
+            background: var(--bg-hover)
+        }
+
+        .filter-pill.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-dim)
+        }
+
+        .sort-tab {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+            transition: all .12s;
+            background: none
+        }
+
+        .sort-tab:hover {
+            color: var(--text-primary)
+        }
+
+        .sort-tab.active {
+            border-color: var(--border-light);
+            color: var(--text-primary);
+            background: var(--bg-elevated)
+        }
 
         /* ── JOB CARDS ── */
-        .job-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:border-color .15s,background .15s;position:relative}
-        .job-card:hover{border-color:var(--border-light);background:var(--bg-elevated)}
-        .job-card.featured{border-color:rgba(103,232,249,0.25)}
-        .job-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);border-radius:10px 10px 0 0}
-        .job-card.has-video{border-color:rgba(167,139,250,0.2)}
-        .job-card.selected{border-color:var(--accent) !important;background:var(--bg-elevated)}
+        .job-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            cursor: pointer;
+            transition: border-color .15s, background .15s;
+            position: relative
+        }
+
+        .job-card:hover {
+            border-color: var(--border-light);
+            background: var(--bg-elevated)
+        }
+
+        .job-card.featured {
+            border-color: rgba(103, 232, 249, 0.25)
+        }
+
+        .job-card.featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            border-radius: 10px 10px 0 0
+        }
+
+        .job-card.has-video {
+            border-color: rgba(167, 139, 250, 0.2)
+        }
+
+        .job-card.selected {
+            border-color: var(--accent) !important;
+            background: var(--bg-elevated)
+        }
+
         /* Right-edge accent arrow pointing to panel — desktop only */
-        @media(min-width:1280px){
-            .job-card.selected::after{content:'';position:absolute;top:50%;right:-1px;transform:translateY(-50%);width:3px;height:40px;background:var(--accent);border-radius:0 3px 3px 0}
+        @media(min-width:1280px) {
+            .job-card.selected::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: -1px;
+                transform: translateY(-50%);
+                width: 3px;
+                height: 40px;
+                background: var(--accent);
+                border-radius: 0 3px 3px 0
+            }
         }
 
         /* ── BADGES / TAGS ── */
-        .company-logo{width:44px;height:44px;border-radius:8px;background:var(--bg-elevated);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text-secondary);flex-shrink:0}
-        .tech-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;border:1px solid var(--tag-border);background:var(--tag-bg);color:var(--text-secondary);font-size:11px;font-family:'IBM Plex Mono',monospace;cursor:pointer;transition:all .12s}
-        .tech-tag:hover{border-color:var(--border-light);color:var(--text-primary)}
-        .badge-featured{padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600;font-family:'IBM Plex Mono',monospace;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(103,232,249,0.2)}
-        .badge-remote{padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600;font-family:'IBM Plex Mono',monospace;background:rgba(74,222,128,0.1);color:var(--accent-green);border:1px solid rgba(74,222,128,0.2)}
-        .badge-video{padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600;font-family:'IBM Plex Mono',monospace;background:rgba(167,139,250,0.1);color:var(--accent-purple);border:1px solid rgba(167,139,250,0.2)}
-        .salary-text{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--salary);font-weight:500}
-        .save-btn{width:32px;height:32px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .12s;flex-shrink:0}
-        .save-btn:hover{border-color:var(--border-light);color:var(--text-primary)}
-        .save-btn.saved{border-color:rgba(251,191,36,0.4);color:var(--accent-amber);background:rgba(251,191,36,0.08)}
-        .meta-dot::before{content:'·';margin:0 6px;color:var(--text-muted)}
-        .video-wrapper{border-radius:8px;overflow:hidden;border:1px solid var(--border);background:#000;flex-shrink:0}
-        .empty-state{text-align:center;padding:60px 20px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace}
+        .company-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            flex-shrink: 0
+        }
+
+        .tech-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--tag-border);
+            background: var(--tag-bg);
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-family: 'IBM Plex Mono', monospace;
+            cursor: pointer;
+            transition: all .12s
+        }
+
+        .tech-tag:hover {
+            border-color: var(--border-light);
+            color: var(--text-primary)
+        }
+
+        .badge-featured {
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border: 1px solid rgba(103, 232, 249, 0.2)
+        }
+
+        .badge-remote {
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'IBM Plex Mono', monospace;
+            background: rgba(74, 222, 128, 0.1);
+            color: var(--accent-green);
+            border: 1px solid rgba(74, 222, 128, 0.2)
+        }
+
+        .badge-video {
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'IBM Plex Mono', monospace;
+            background: rgba(167, 139, 150, 0.1);
+            color: var(--accent-purple);
+            border: 1px solid rgba(167, 139, 250, 0.2)
+        }
+
+        .salary-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            color: var(--salary);
+            font-weight: 500
+        }
+
+        .save-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .12s;
+            flex-shrink: 0
+        }
+
+        .save-btn:hover {
+            border-color: var(--border-light);
+            color: var(--text-primary)
+        }
+
+        .save-btn.saved {
+            border-color: rgba(251, 191, 36, 0.4);
+            color: var(--accent-amber);
+            background: rgba(251, 191, 36, 0.08)
+        }
+
+        .meta-dot::before {
+            content: '·';
+            margin: 0 6px;
+            color: var(--text-muted)
+        }
+
+        .video-wrapper {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #000;
+            flex-shrink: 0
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-family: 'IBM Plex Mono', monospace
+        }
 
         /* ── DESKTOP DETAIL PANEL ── */
-        .detail-panel{background:var(--bg-surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .15s;position:sticky;top:72px;max-height:calc(100vh - 88px);overflow-y:auto}
-        .detail-panel.has-content{border-color:rgba(103,232,249,0.2)}
-        .detail-panel-bar{height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-purple));opacity:0;transition:opacity .2s}
-        .detail-panel.has-content .detail-panel-bar{opacity:1}
-        .detail-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;min-height:260px}
-        .apply-btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;background:var(--accent);color:#041a1f;border:none;cursor:pointer;transition:opacity .15s;font-family:'IBM Plex Sans',sans-serif;display:inline-flex;align-items:center;gap:8px}
-        .apply-btn:hover{opacity:.88}
-        .detail-tag{display:inline-flex;align-items:center;padding:4px 10px;border-radius:4px;border:1px solid var(--tag-border);background:var(--tag-bg);color:var(--text-secondary);font-size:12px;font-family:'IBM Plex Mono',monospace}
+        .detail-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color .15s;
+            position: sticky;
+            top: 72px;
+            max-height: calc(100vh - 88px);
+            overflow-y: auto
+        }
+
+        .detail-panel.has-content {
+            border-color: rgba(103, 232, 249, 0.2)
+        }
+
+        .detail-panel-bar {
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-purple));
+            opacity: 0;
+            transition: opacity .2s
+        }
+
+        .detail-panel.has-content .detail-panel-bar {
+            opacity: 1
+        }
+
+        .detail-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+            text-align: center;
+            min-height: 260px
+        }
+
+        .apply-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            background: var(--accent);
+            color: #041a1f;
+            border: none;
+            cursor: pointer;
+            transition: opacity .15s;
+            font-family: 'IBM Plex Sans', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .apply-btn:hover {
+            opacity: .88
+        }
+
+        .detail-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--tag-border);
+            background: var(--tag-bg);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-family: 'IBM Plex Mono', monospace
+        }
 
         /* ── MOBILE OVERLAY (bottom sheet) ── */
         /* Backdrop */
-        .mobile-backdrop{
-            position:fixed;inset:0;z-index:200;
-            background:rgba(0,0,0,0.7);
-            backdrop-filter:blur(2px);
-            transition:opacity .25s ease;
+        .mobile-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(2px);
+            transition: opacity .25s ease;
         }
+
         /* Sheet itself — slides up from bottom */
-        .mobile-sheet{
-            position:fixed;left:0;right:0;bottom:0;z-index:201;
-            background:var(--bg-surface);
-            border-radius:16px 16px 0 0;
-            border-top:1px solid var(--border-light);
-            max-height:92dvh;
-            overflow-y:auto;
-            transform:translateY(0);
-            transition:transform .3s cubic-bezier(.32,0,.67,0);
+        .mobile-sheet {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 201;
+            background: var(--bg-surface);
+            border-radius: 16px 16px 0 0;
+            border-top: 1px solid var(--border-light);
+            max-height: 92dvh;
+            overflow-y: auto;
+            transform: translateY(0);
+            transition: transform .3s cubic-bezier(.32, 0, .67, 0);
         }
-        .mobile-sheet.entering{transform:translateY(100%)}
+
+        .mobile-sheet.entering {
+            transform: translateY(100%)
+        }
+
         /* Gradient top bar on sheet */
-        .sheet-bar{height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-purple));border-radius:16px 16px 0 0}
+        .sheet-bar {
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-purple));
+            border-radius: 16px 16px 0 0
+        }
+
         /* Drag handle */
-        .sheet-handle{width:40px;height:4px;border-radius:2px;background:var(--border-light);margin:12px auto 4px}
+        .sheet-handle {
+            width: 40px;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--border-light);
+            margin: 12px auto 4px
+        }
 
         /* ── SIDEBAR MOBILE ── */
-        @media(max-width:768px){
-            .sidebar{display:none}
-            .sidebar.mobile-open{display:block !important;position:fixed;top:56px;left:0;z-index:300;height:calc(100vh - 56px);box-shadow:10px 0 20px rgba(0,0,0,0.5)}
+        @media(max-width:768px) {
+            .sidebar {
+                display: none
+            }
+
+            .sidebar.mobile-open {
+                display: block !important;
+                position: fixed;
+                top: 56px;
+                left: 0;
+                z-index: 300;
+                height: calc(100vh - 56px);
+                box-shadow: 10px 0 20px rgba(0, 0, 0, 0.5)
+            }
         }
     </style>
 </head>
+
 <body>
-<div x-data="{
+    <div x-data="{
     savedJobs: (() => { try { return JSON.parse(localStorage.getItem('nydev_saved') || '[]'); } catch { return []; } })(),
     activeFilters: [],
     activeSort: 'featured',
@@ -206,6 +607,12 @@
     get isDesktop(){ return window.innerWidth>=1280 },
 
     selectJob(id){
+        // 1. Reset all jobs' video states to false
+        this.jobs.forEach(j => {
+        j._vidMobile = false;
+        j._vidDesktop = false;
+        j._vidSheet = false;
+        });
         /* Toggle off if same card clicked again */
         if(this.expandedJobId===id){ this.closeDetail(); return; }
         this.expandedJobId=id;
@@ -269,173 +676,209 @@
     }
 }" @keydown.escape.window="closeDetail()">
 
-<!-- ════════════════════════════════ NAV ════════════════════════════════ -->
-<nav class="topnav"> 
-    <div class="flex items-center justify-between h-full px-4 gap-3" style="max-width: 1300px;">
-        <a href="/" class="flex items-center gap-2 flex-shrink-0">
-            <div style="background:#0d2a2e;border:1px solid rgba(103,232,249,0.3);width:80px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center">
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--accent)">BETA</span>
-            </div>
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600"><span style="color:var(--accent)">/</span> jobs</span>
-        </a>
+        <!-- ════════════════════════════════ NAV ════════════════════════════════ -->
+        <nav class="topnav">
+            <div class="flex items-center justify-between h-full px-4 gap-3" style="max-width: 1300px;">
+                <a href="/" class="flex items-center gap-2 flex-shrink-0">
+                    <div
+                        style="background:#0d2a2e;border:1px solid rgba(103,232,249,0.3);width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center">
+                        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--accent)">BETA</span>
+                    </div>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600"><span style="color:var(--accent)">/</span>jobs</span>
+                </a>
 
-        <div class="relative flex-1 max-w-md">
-            <input type="text" x-model="search" placeholder="Search jobs, companies, tech..." class="search-input w-full rounded-lg px-4 py-2 pl-9">
-            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style="color:var(--text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-        </div>
+                <div class="relative flex-1 max-w-md">
+                    <input type="text" x-model="search" placeholder="Search jobs, companies, tech..." class="search-input w-full rounded-lg px-4 py-2 pl-9">
+                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style="color:var(--text-muted)"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
 
-        <div class="hidden md:flex items-center gap-1">
-            <button class="nav-btn">For Candidates <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
-            <button class="nav-btn">For Employers <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
-        </div>
+                <div class="hidden md:flex items-center gap-1">
+                    <button class="nav-btn">For Candidates <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
+                    <button class="nav-btn">For Employers <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
+                </div>
 
-        <div class="flex items-center gap-2">
-            <button class="post-btn hidden sm:block">+ Post Job</button>
-            <button class="save-btn" style="width:auto;padding:6px 10px;gap:5px;display:flex;border-radius:6px">
+                <div class="flex items-center gap-2">
+                    <button class="post-btn hidden sm:block">+ Post Job</button>
+                    <button class="save-btn" style="width:auto;padding:6px 10px;gap:5px;display:flex;border-radius:6px">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 <span x-show="savedJobs.length>0" x-text="savedJobs.length" style="font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--accent-amber)"></span>
             </button>
-            <button class="nav-btn md:hidden" @click="mobileSidebar=!mobileSidebar">
+                    <button class="nav-btn md:hidden" @click="mobileSidebar=!mobileSidebar">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
-        </div>
-    </div>
-</nav>
+                </div>
+            </div>
+        </nav>
 
-<!-- ════════════════════════════════ LAYOUT ════════════════════════════════ -->
-<div class="flex">
+        <!-- ════════════════════════════════ LAYOUT ════════════════════════════════ -->
+        <div class="flex">
 
-    <!-- SIDEBAR -->
-    <aside :class="mobileSidebar?'sidebar mobile-open':'sidebar'"
-           x-show="mobileSidebar||window.innerWidth>=768"
-           @click.away="if(window.innerWidth<768) mobileSidebar=false"
-           x-cloak>
-        <div class="section-header flex justify-between items-center">
-            <span>Specializations</span>
-            <span class="hover:text-teal-500 cursor-pointer md:hidden" @click="mobileSidebar=false">[X]</span>
-        </div>
-        <div class="px-3 pb-2 flex flex-col gap-1">
-            <template x-for="spec in specializations" :key="spec.key">
-                <button @click="toggleFilter(spec.key)" :class="activeFilters.includes(spec.key)?'active':''"
+            <!-- SIDEBAR -->
+            <aside :class="mobileSidebar?'sidebar mobile-open':'sidebar'" x-show="mobileSidebar||window.innerWidth>=768"
+                @click.away="if(window.innerWidth<768) mobileSidebar=false" x-cloak>
+                <div class="section-header flex justify-between items-center">
+                    <span>Specializations</span>
+                    <span class="hover:text-teal-500 cursor-pointer md:hidden" @click="mobileSidebar=false">[X]</span>
+                </div>
+
+                <div class="px-3 pb-4 flex flex-col gap-2">
+                    <a href="/post-job"
+                        class="filter-pill w-full flex items-center text-left text-neutral-400 hover:text-white transition-colors"
+                        style="border-radius:6px; font-size:11px; padding: 6px 12px; border-color:teal;">
+                        <span>+ Post Job</span>
+                    </a>
+
+                </div>
+
+
+                <div class="px-3 pb-2 flex flex-col gap-1">
+                    <template x-for="spec in specializations" :key="spec.key">
+                        <button @click="toggleFilter(spec.key)" :class="activeFilters.includes(spec.key)?'active':''"
                         class="filter-pill justify-start w-full text-left" style="border-radius:6px">
                     <span x-text="spec.icon" style="font-size:11px;width:16px;text-align:center"></span>
                     <span x-text="spec.label"></span>
                     <span x-show="activeFilters.includes(spec.key)" style="margin-left:auto;font-size:9px">✕</span>
                 </button>
-            </template>
-        </div>
-        <div style="height:1px;background:var(--border);margin:8px 0"></div>
-        <div class="px-3 py-2">
-            <button x-show="activeFilters.length>0" @click="activeFilters=[]"
+                    </template>
+                </div>
+                <div style="height:1px;background:var(--border);margin:5px 0"></div>
+                <div class="px-3 py-2">
+                    <button x-show="activeFilters.length>0" @click="activeFilters=[]"
                     class="filter-pill w-full justify-center"
                     style="border-radius:6px;color:#f87171;border-color:rgba(248,113,113,0.2)">Clear filters</button>
-        </div>
-        <div class="section-header mt-2">Stats</div> 
+                </div>
+                <div class="section-header mt-1">Stats</div>
 
-        <div class="px-4 pb-4 flex flex-col gap-2">
-            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">Total</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)" x-text="jobs.length"></span></div>
-            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">Matching</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-primary)" x-text="filteredJobs().length"></span></div>
-            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">With Video</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-purple)" x-text="jobs.filter(j=>j.video_url).length"></span></div>
-            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">Saved</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-amber)" x-text="savedJobs.length"></span></div>
-        </div>
+                <div class="px-4 pb-4 flex flex-col gap-2">
+                    <div class="flex justify-between">
+                        <span style="font-size:12px;color:var(--text-secondary)">Total</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)" x-text="jobs.length"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span style="font-size:12px;color:var(--text-secondary)">Matching</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-primary)" x-text="filteredJobs().length"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span style="font-size:12px;color:var(--text-secondary)">With Video</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-purple)" x-text="jobs.filter(j=>j.video_url).length"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span style="font-size:12px;color:var(--text-secondary)">Saved</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-amber)" x-text="savedJobs.length"></span>
+                    </div>
+                </div>
 
-<div class="px-4 pb-4 flex flex-col gap-2">
-            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">For Candidates</span></div>
-            <div class="flex justify-between"><span style="font-size:12px;color:var(--text-secondary)">For Employers</span></div>
-        </div>
+                <div class="px-4 pb-4 flex flex-col gap-2">
+                    <div class="flex justify-between">
+                        <span style="font-size:12px;color:var(--text-secondary)">For Candidates</span></div>
+                    <div class="flex justify-between">
+                        <span style="font-size:12px;color:var(--text-secondary)">For Employers</span></div>
+                </div>
 
-<div class="px-4 pb-4 flex flex-col gap-2">
-    <a href="/post-job" class="filter-pill w-full flex items-center text-left text-neutral-400 hover:text-white transition-colors" style="border-radius:6px; font-size:11px; padding: 8px 12px;">
-        <span>+ Post Job</span>
-    </a>
+                <div class="px-4 pb-4 flex flex-col gap-2">
+                    <a href="/post-job"
+                        class="filter-pill w-full flex items-center text-left text-neutral-400 hover:text-white transition-colors"
+                        style="border-radius:6px; font-size:11px; padding: 8px 12px;">
+                        <span>+ Post Job</span>
+                    </a>
 
-    <a href="/jobs" class="filter-pill w-full flex items-center text-left text-neutral-400 hover:text-white transition-colors" style="border-radius:6px; font-size:11px; padding: 8px 12px;">
-        <span>+ Jobs </span>
-    </a>
-</div>
+                </div>
 
-    </aside>
+            </aside>
 
-    <!-- MAIN -->
-    <main class="flex-1 min-w-0 p-2 md:p-8">
+            <!-- MAIN -->
+            <main class="flex-1 min-w-0 p-2 md:p-8">
 
-        <!-- SORT TABS -->
-        <div class="flex items-center justify-between mb-4 flex-wrap gap-1">
-            <div class="flex items-center gap-1">
-                <button @click="activeSort='featured'" :class="activeSort==='featured'?'active':''" class="sort-tab">Featured</button>
-                <button @click="activeSort='remote'"   :class="activeSort==='remote'  ?'active':''" class="sort-tab">Remote</button>
-                <button @click="activeSort='hybrid'"   :class="activeSort==='hybrid'  ?'active':''" class="sort-tab">Hybrid</button>
-                <button @click="activeSort='latest'"   :class="activeSort==='latest'  ?'active':''" class="sort-tab">Latest</button>
-                <button @click="activeSort='salary'"   :class="activeSort==='salary'  ?'active':''" class="sort-tab">HighPay</button>
-            </div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-muted)">
-                <span x-text="filteredJobs().length"></span> offers
-            </div>
-        </div>
+                <!-- SORT TABS -->
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-1">
+                    <div class="flex items-center gap-1">
+                        <button @click="activeSort='featured'" :class="activeSort==='featured'?'active':''" class="sort-tab">Featured</button>
+                        <button @click="activeSort='remote'"   :class="activeSort==='remote'  ?'active':''" class="sort-tab">Remote</button>
+                        <button @click="activeSort='hybrid'"   :class="activeSort==='hybrid'  ?'active':''" class="sort-tab">Hybrid</button>
+                        <button @click="activeSort='latest'"   :class="activeSort==='latest'  ?'active':''" class="sort-tab">Latest</button>
+                        <button @click="activeSort='salary'"   :class="activeSort==='salary'  ?'active':''" class="sort-tab">HighPay</button>
+                    </div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-muted)">
+                        <span x-text="filteredJobs().length"></span> offers
+                    </div>
+                </div>
 
-        <!-- ACTIVE FILTER PILLS -->
-        <div x-show="activeFilters.length>0" class="flex flex-wrap gap-2 mb-4">
-            <template x-for="f in activeFilters" :key="f">
-                <span class="filter-pill active" @click="toggleFilter(f)">
+                <!-- ACTIVE FILTER PILLS -->
+                <div x-show="activeFilters.length>0" class="flex flex-wrap gap-2 mb-4">
+                    <template x-for="f in activeFilters" :key="f">
+                        <span class="filter-pill active" @click="toggleFilter(f)">
                     <span x-text="specializations.find(s=>s.key===f)?.label||f"></span>
-                    <span style="font-size:9px;margin-left:2px">✕</span>
-                </span>
-            </template>
-        </div>
+                        <span style="font-size:9px;margin-left:2px">✕</span>
+                        </span>
+                    </template>
+                </div>
 
 
 
 
-        <!-- ═══════════════ TWO-COL GRID ═══════════════ -->
-        <div class="grid grid-cols-1 xl:grid-cols-6 gap-4">
+                <!-- ═══════════════ TWO-COL GRID ═══════════════ -->
+                <div class="grid grid-cols-1 xl:grid-cols-6 gap-4">
 
-            <!-- ── JOB CARD LIST (full 3 cols on mobile, 2 of 3 on xl) ── -->
-            <div class="flex flex-col gap-2 xl:col-span-4">
+                    <!-- ── JOB CARD LIST (full 3 cols on mobile, 2 of 3 on xl) ── -->
+                    <div class="flex flex-col gap-2 xl:col-span-4">
 
-                <template x-for="job in filteredJobs()" :key="job.id">
-                    <div class="job-card"
-                         :class="[job.is_featured?'featured':'', job.video_url?'has-video':'', expandedJobId===job.id?'selected':'']"
-                         @click="selectJob(job.id)">
+                        <template x-for="job in filteredJobs()" :key="job.id">
+                            <div class="job-card"
+                                :class="[job.is_featured?'featured':'', job.video_url?'has-video':'', expandedJobId===job.id?'selected':'']"
+                                @click="selectJob(job.id)">
 
-                        <div class="flex gap-3 items-start">
+                                <div class="flex gap-3 items-start">
 
-                            <!-- LOGO + BADGES -->
-                            <div class="flex flex-col items-center flex-shrink-0 w-8 gap-3 md:w-12">
-                                <div class="company-logo" :style="'background:'+logoColor(job.company)" x-text="initials(job.company)"></div>
-                                <div class="flex flex-col items-center gap-1 w-full">
-                                    <span x-show="job.is_featured" class="badge-featured" style="font-size:9px;padding:1px 4px">feat.</span>
-                                    <span x-show="job.location&&job.location.includes('Remote')" class="badge-remote" style="font-size:9px;padding:1px 4px">rem</span>
-                                    <span x-show="job.video_url" class="badge-video" style="font-size:9px;padding:1px 4px">▶</span>
-                                </div>
-                            </div>
+                                    <!-- LOGO + BADGES -->
+                                    <div class="flex flex-col items-center flex-shrink-0 w-8 gap-3 md:w-12">
+                                        <div class="company-logo" :style="'background:'+logoColor(job.company)"
+                                            x-text="initials(job.company)"></div>
+                                        <div class="flex flex-col items-center gap-1 w-full">
+                                            <span x-show="job.is_featured" class="badge-featured" style="font-size:9px;padding:1px 4px">feat.</span>
+                                            <span x-show="job.location&&job.location.includes('Remote')" class="badge-remote" style="font-size:9px;padding:1px 4px">rem</span>
+                                            <span x-show="job.video_url" class="badge-video" style="font-size:9px;padding:1px 4px">▶ vid</span>
+                                        </div>
+                                    </div>
 
-                            <!-- CARD CONTENT -->
-                            <div class="flex-1 min-w-0">
-                                <!-- Title + save -->
-                                <div class="flex items-start justify-between gap-2 mb-1">
-                                    <h3 style="font-size:15px;font-weight:600;color:var(--text-primary);line-height:1.3" x-text="job.title"></h3>
-                                    <div class="flex items-center gap-2 flex-shrink-0" @click.stop>
-                                        <span class="salary-text hidden sm:inline" x-show="job.salary" x-text="job.salary"></span>
-                                        <button class="save-btn" :class="isSaved(job.id)?'saved':''" @click.stop="toggleSave(job.id)">
+                                    <!-- CARD CONTENT -->
+                                    <div class="flex-1 min-w-0">
+                                        <!-- Title + save -->
+                                        <div class="flex items-start justify-between gap-2 mb-1">
+
+                                            <h3 style="font-size:15px;font-weight:600;color:var(--text-primary);line-height:1.3"
+                                                x-text="job.title"></h3>
+
+                                            <div class="flex items-center gap-2 flex-shrink-0" @click.stop>
+                                                <span class="salary-text hidden sm:inline" x-show="job.salary" x-text="job.salary"></span>
+                                                <button class="save-btn" :class="isSaved(job.id)?'saved':''" @click.stop="toggleSave(job.id)">
                                             <svg class="w-4 h-4" :fill="isSaved(job.id)?'currentColor':'none'" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                                         </button>
-                                    </div>
-                                </div>
-                                <!-- Salary (mobile, below title) -->
-                                <div class="sm:hidden mb-1" x-show="job.salary">
-                                    <span class="salary-text" x-text="job.salary"></span>
-                                </div>
-                                <!-- Meta -->
-                                <div class="flex flex-wrap items-center mb-3" style="font-size:12px;color:var(--text-secondary)">
-                                    <svg class="w-3 h-3 mr-1" style="color:var(--text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                                    <span x-text="job.company"></span>
-                                    <span class="meta-dot"></span>
-                                    <svg class="w-3 h-3 mr-1" style="color:var(--text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
-                                    <span x-text="job.location"></span>
-                                    <span class="meta-dot"></span>
-                                    <span x-text="job.posted" style="color:var(--text-muted)"></span>
-                                </div>
-                                <!-- Mobile video (inside card, shown on small screens only — lazy) -->
+                                            </div>
+                                        </div>
+                                        <!-- Salary (mobile, below title) -->
+                                        <div class="sm:hidden mb-1" x-show="job.salary">
+                                            <span class="salary-text" x-text="job.salary"></span>
+                                        </div>
+                                        <!-- Meta -->
+                                        <div class="flex flex-wrap items-center mb-3"
+                                            style="font-size:12px;color:var(--text-secondary)">
+                                            <svg class="w-3 h-3 mr-1" style="color:var(--text-muted)" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                            </svg>
+                                            <span x-text="job.company"></span>
+                                            <span class="meta-dot"></span>
+                                            <svg class="w-3 h-3 mr-1" style="color:var(--text-muted)" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            </svg>
+                                            <span x-text="job.location"></span>
+                                            <span class="meta-dot"></span>
+                                            <span x-text="job.posted" style="color:var(--text-muted)"></span>
+                                        </div>
+                                        <!-- Mobile video (inside card, shown on small screens only — lazy)
                                 <div x-show="job.video_url" class="sm:hidden mb-3" @click.stop>
                                     <div class="video-wrapper" style="width:100%;aspect-ratio:16/9;position:relative">
                                         <div x-show="!job._vidMobile" @click.stop="job._vidMobile=true"
@@ -447,267 +890,311 @@
                                         <iframe :src="job._vidMobile?job.video_url+'?autoplay=1':'about:blank'" loading="lazy" class="w-full h-full" frameborder="0" allow="autoplay;fullscreen" allowfullscreen @click.stop></iframe>
                                     </div>
                                     <p style="font-size:10px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-top:5px">▶ hiring manager intro</p>
-                                </div>
-                                <!-- Tags -->
-                                <div class="flex flex-wrap gap-1.5" @click.stop>
-                                    <template x-for="tag in (job.tags||[]).slice(0,5)" :key="tag">
-                                        <span class="tech-tag"
+                                </div>  -->
+                                        <!-- Tags -->
+                                        <div class="flex flex-wrap gap-1.5" @click.stop>
+                                            <template x-for="tag in (job.tags||[]).slice(0,5)" :key="tag">
+                                                <span class="tech-tag"
                                               :style="activeFilters.includes(tag)?'border-color:var(--accent);color:var(--accent);background:var(--accent-dim)':''"
                                               @click="toggleFilter(tag)" x-text="tag"></span>
-                                    </template>
-                                </div>
-                            </div>
-
-                            <!-- Desktop thumbnail video (sm+, hidden on xl when detail panel is showing) -->
-                            <div x-show="job.video_url" class="hidden sm:flex xl:hidden flex-col items-end gap-1 flex-shrink-0" @click.stop>
-                                <div class="video-wrapper" style="width:160px;aspect-ratio:16/9;position:relative">
-                                    <div x-show="!job._vidDesktop" @click.stop="job._vidDesktop=true"
-                                         style="position:absolute;inset:0;z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);border-radius:8px">
-                                        <div style="width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                                            </template>
                                         </div>
                                     </div>
-                                    <iframe :src="job._vidDesktop?job.video_url+'?autoplay=1':'about:blank'" loading="lazy" class="w-full h-full" frameborder="0" allow="autoplay;fullscreen" allowfullscreen @click.stop></iframe>
+
+                                    <!-- Desktop thumbnail video (sm+, hidden on xl when detail panel is showing) -->
+                                    <div x-show="job.video_url"
+                                        class="hidden  xl:hidden flex-col items-end gap-1 flex-shrink-0"
+                                        @click.stop>
+                                        <div class="video-wrapper"
+                                            style="width:160px;aspect-ratio:16/9;position:relative">
+                                            <div x-show="!job._vidDesktop" @click.stop="job._vidDesktop=true"
+                                                style="position:absolute;inset:0;z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);border-radius:8px">
+                                                <div
+                                                    style="width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center">
+                                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="white">
+                                                        <path d="M8 5v14l11-7z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <iframe :src="job._vidDesktop?job.video_url+'?autoplay=1':'about:blank'"
+                                                loading="lazy" class="w-full h-full" frameborder="0"
+                                                allow="autoplay;fullscreen" allowfullscreen @click.stop></iframe>
+                                        </div>
+                                        <p
+                                            style="font-size:10px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace">
+                                            ▶ hiring manager intro</p>
+                                    </div>
+
                                 </div>
-                                <p style="font-size:10px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace">▶ hiring manager intro</p>
+                            </div>
+                        </template>
+
+                        <!-- EMPTY STATE -->
+                        <div x-show="filteredJobs().length===0" class="empty-state">
+                            <div style="font-size:28px;margin-bottom:12px;font-family:'IBM Plex Mono',monospace">[ ]
+                            </div>
+                            <div style="font-size:14px;color:var(--text-secondary);margin-bottom:8px">No matching jobs
+                                found</div>
+                            <button @click="search='';activeFilters=[]" class="filter-pill" style="border-radius:6px;margin:0 auto">Reset filters</button>
+                        </div>
+                    </div><!-- /card list -->
+
+                    <!-- ════════ DESKTOP DETAIL PANEL (xl only, col-span-1) ════════ -->
+                    <div class="hidden xl:block xl:col-span-2">
+                        <div class="detail-panel" :class="selectedJob?'has-content':''">
+                            <div class="detail-panel-bar"></div>
+
+                            <!-- Empty state -->
+                            <div x-show="!selectedJob" class="detail-empty">
+                                <div
+                                    style="width:48px;height:48px;border-radius:12px;background:var(--bg-elevated);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+                                    <svg class="w-5 h-5" style="color:var(--text-muted)" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <p
+                                    style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-muted);line-height:1.6">
+                                    Select a job to<br>see full details</p>
                             </div>
 
-                        </div>
-                    </div>
-                </template>
-
-                <!-- EMPTY STATE -->
-                <div x-show="filteredJobs().length===0" class="empty-state">
-                    <div style="font-size:28px;margin-bottom:12px;font-family:'IBM Plex Mono',monospace">[ ]</div>
-                    <div style="font-size:14px;color:var(--text-secondary);margin-bottom:8px">No matching jobs found</div>
-                    <button @click="search='';activeFilters=[]" class="filter-pill" style="border-radius:6px;margin:0 auto">Reset filters</button>
-                </div>
-            </div><!-- /card list -->
-
-            <!-- ════════ DESKTOP DETAIL PANEL (xl only, col-span-1) ════════ -->
-            <div class="hidden xl:block xl:col-span-2">
-                <div class="detail-panel" :class="selectedJob?'has-content':''">
-                    <div class="detail-panel-bar"></div>
-
-                    <!-- Empty state -->
-                    <div x-show="!selectedJob" class="detail-empty">
-                        <div style="width:48px;height:48px;border-radius:12px;background:var(--bg-elevated);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
-                            <svg class="w-5 h-5" style="color:var(--text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
-                        </div>
-                        <p style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-muted);line-height:1.6">Select a job to<br>see full details</p>
-                    </div>
-
-                    <!-- Detail content -->
-                    <div x-show="selectedJob" x-cloak class="p-5">
-                        <!-- Header -->
-                        <div class="flex items-start gap-3 mb-4">
-                            <div class="company-logo flex-shrink-0"
-                                 :style="selectedJob?'background:'+logoColor(selectedJob.company):''"
-                                 x-text="selectedJob?initials(selectedJob.company):''"></div>
-                            <div class="flex-1 min-w-0">
-                                <h2 style="font-size:16px;font-weight:700;color:var(--text-primary);line-height:1.3;margin-bottom:3px" x-text="selectedJob?.title"></h2>
-                                <p style="font-size:13px;color:var(--text-secondary)" x-text="selectedJob?.company"></p>
-                            </div>
-                            <button @click="closeDetail()" class="save-btn flex-shrink-0" title="Close">
+                            <!-- Detail content -->
+                            <div x-show="selectedJob" x-cloak class="p-5">
+                                <!-- Header -->
+                                <div class="flex items-start gap-3 mb-4">
+                                    <div class="company-logo flex-shrink-0"
+                                        :style="selectedJob?'background:'+logoColor(selectedJob.company):''"
+                                        x-text="selectedJob?initials(selectedJob.company):''"></div>
+                                    <div class="flex-1 min-w-0">
+                                        <h2 style="font-size:16px;font-weight:700;color:var(--text-primary);line-height:1.3;margin-bottom:3px"
+                                            x-text="selectedJob?.title"></h2>
+                                        <p style="font-size:13px;color:var(--text-secondary)"
+                                            x-text="selectedJob?.company"></p>
+                                    </div>
+                                    <button @click="closeDetail()" class="save-btn flex-shrink-0" title="Close">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                             </button>
-                        </div>
-                        <!-- Meta -->
-                        <div class="flex flex-wrap gap-x-4 gap-y-1 mb-4" style="font-size:12px;color:var(--text-secondary)">
-                            <span class="flex items-center gap-1">
+                                </div>
+                                <!-- Meta -->
+                                <div class="flex flex-wrap gap-x-4 gap-y-1 mb-4"
+                                    style="font-size:12px;color:var(--text-secondary)">
+                                    <span class="flex items-center gap-1">
                                 <svg class="w-3 h-3" style="color:var(--text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
                                 <span x-text="selectedJob?.location"></span>
-                            </span>
-                            <span class="flex items-center gap-1">
+                                    </span>
+                                    <span class="flex items-center gap-1">
                                 <svg class="w-3 h-3" style="color:var(--text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                 <span x-text="'Posted '+(selectedJob?.posted||'')"></span>
-                            </span>
-                        </div>
-                        <!-- Salary -->
-                        <div x-show="selectedJob?.salary" class="mb-4">
-                            <span class="salary-text" style="font-size:15px" x-text="selectedJob?.salary"></span>
-                            <span style="font-size:11px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-left:6px">/ year</span>
-                        </div>
+                                    </span>
+                                </div>
+                                <!-- Salary -->
+                                <div x-show="selectedJob?.salary" class="mb-4">
+                                    <span class="salary-text" style="font-size:15px" x-text="selectedJob?.salary"></span>
+                                    <span style="font-size:11px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-left:6px">/ year</span>
+                                </div>
 
-                        <!-- Video in panel -->
-                        <div x-show="selectedJob?.video_url" class="mb-5" @click.stop>
-                            <p style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:8px">Hiring manager intro</p>
-                            <div class="video-wrapper" style="width:100%;aspect-ratio:16/9;position:relative">
-                                <template x-if="selectedJob">
-                                    <div>
-                                        <div x-show="!selectedJob._vidDesktop"
-                                             @click.stop="selectedJob._vidDesktop=true"
-                                             style="position:absolute;inset:0;z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);border-radius:8px">
-                                            <div style="width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.7);border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center">
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                                <!-- Video in panel -->
+                                <div x-show="selectedJob?.video_url" class="mb-5" @click.stop>
+                                    <p
+                                        style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:8px">
+                                        Hiring manager intro</p>
+                                    <div class="video-wrapper" style="width:100%;aspect-ratio:16/9;position:relative">
+                                        <template x-if="selectedJob">
+                                            <div>
+                                                <div x-show="!selectedJob._vidDesktop"
+                                                    @click.stop="selectedJob._vidDesktop=true"
+                                                    style="position:absolute;inset:0;z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);border-radius:8px">
+                                                    <div
+                                                        style="width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.7);border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                                                            <path d="M8 5v14l11-7z" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <iframe
+                                                    :src="selectedJob._vidDesktop?selectedJob.video_url+'?autoplay=1':'about:blank'"
+                                                    loading="lazy" class="w-full h-full" style="border-radius:8px"
+                                                    frameborder="0" allow="autoplay;fullscreen" allowfullscreen
+                                                    @click.stop></iframe>
                                             </div>
-                                        </div>
-                                        <iframe :src="selectedJob._vidDesktop?selectedJob.video_url+'?autoplay=1':'about:blank'"
-                                                loading="lazy" class="w-full h-full" style="border-radius:8px" frameborder="0" allow="autoplay;fullscreen" allowfullscreen @click.stop></iframe>
+                                        </template>
                                     </div>
-                                </template>
-                            </div>
-                        </div>
+                                </div>
 
-                        <div style="height:1px;background:var(--border);margin-bottom:16px"></div>
-                        <!-- Description -->
-                        <div class="mb-5">
-                            <p style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:10px">About the role</p>
-                            <p style="font-size:13px;color:var(--text-secondary);line-height:1.7" x-text="selectedJob?.description"></p>
-                        </div>
-                        <!-- Tags -->
-                        <div class="mb-5">
-                            <p style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:8px">Tech stack</p>
-                            <div class="flex flex-wrap gap-1.5">
-                                <template x-for="tag in (selectedJob?.tags||[])" :key="tag">
-                                    <span class="detail-tag" x-text="tag"></span>
-                                </template>
-                            </div>
-                        </div>
-                        <div style="height:1px;background:var(--border);margin-bottom:16px"></div>
-                        <!-- Actions -->
-                        <div class="flex items-center gap-3">
-                            <button class="apply-btn" @click="navigate(selectedJob?.url)">
+                                <div style="height:1px;background:var(--border);margin-bottom:16px"></div>
+                                <!-- Description -->
+                                <div class="mb-5">
+                                    <p
+                                        style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:10px">
+                                        About the role</p>
+                                    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7"
+                                        x-text="selectedJob?.description"></p>
+                                </div>
+                                <!-- Tags -->
+                                <div class="mb-5">
+                                    <p
+                                        style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:8px">
+                                        Tech stack</p>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <template x-for="tag in (selectedJob?.tags||[])" :key="tag">
+                                            <span class="detail-tag" x-text="tag"></span>
+                                        </template>
+                                    </div>
+                                </div>
+                                <div style="height:1px;background:var(--border);margin-bottom:16px"></div>
+                                <!-- Actions -->
+                                <div class="flex items-center gap-3">
+                                    <button class="apply-btn" @click="navigate(selectedJob?.url)">
                                 Apply Now
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                             </button>
-                            <button class="save-btn"
+                                    <button class="save-btn"
                                     :class="selectedJob&&isSaved(selectedJob.id)?'saved':''"
                                     @click="selectedJob&&toggleSave(selectedJob.id)"
                                     style="width:auto;padding:0 14px;gap:6px;height:40px;border-radius:8px;font-size:13px;color:var(--text-secondary)">
                                 <svg class="w-4 h-4" :fill="selectedJob&&isSaved(selectedJob.id)?'currentColor':'none'" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                                 <span x-text="selectedJob&&isSaved(selectedJob.id)?'Saved':'Save'"></span>
                             </button>
+                                </div>
+                            </div><!-- /detail content -->
+                        </div><!-- /detail-panel -->
+                    </div><!-- /xl col -->
+
+                </div><!-- /grid -->
+            </main>
+        </div><!-- /layout flex -->
+
+        <!-- ════════════════════════ MOBILE BOTTOM SHEET (< xl) ════════════════════════ -->
+        <!-- Backdrop -->
+        <div class="mobile-backdrop xl:hidden" x-show="expandedJobId!==null&&sheetVisible" x-cloak
+            :style="sheetVisible?'opacity:1':'opacity:0'" @click="closeDetail()">
+        </div>
+
+        <!-- Sheet -->
+        <div class="mobile-sheet xl:hidden" x-show="expandedJobId!==null" x-cloak :class="sheetVisible?'':'entering'"
+            @click.stop>
+
+            <div class="sheet-bar"></div>
+            <div class="sheet-handle"></div>
+
+            <template x-if="selectedJob">
+                <div class="px-5 pb-8 pt-2">
+
+                    <!-- Sheet header: logo + title + close -->
+                    <div class="flex items-start gap-3 mb-4">
+                        <div class="company-logo flex-shrink-0" :style="'background:'+logoColor(selectedJob.company)"
+                            x-text="initials(selectedJob.company)"></div>
+                        <div class="flex-1 min-w-0">
+                            <h2 style="font-size:17px;font-weight:700;color:var(--text-primary);line-height:1.3;margin-bottom:2px"
+                                x-text="selectedJob.title"></h2>
+                            <p style="font-size:13px;color:var(--text-secondary)" x-text="selectedJob.company"></p>
                         </div>
-                    </div><!-- /detail content -->
-                </div><!-- /detail-panel -->
-            </div><!-- /xl col -->
-
-        </div><!-- /grid -->
-    </main>
-</div><!-- /layout flex -->
-
-<!-- ════════════════════════ MOBILE BOTTOM SHEET (< xl) ════════════════════════ -->
-<!-- Backdrop -->
-<div class="mobile-backdrop xl:hidden"
-     x-show="expandedJobId!==null&&sheetVisible"
-     x-cloak
-     :style="sheetVisible?'opacity:1':'opacity:0'"
-     @click="closeDetail()">
-</div>
-
-<!-- Sheet -->
-<div class="mobile-sheet xl:hidden"
-     x-show="expandedJobId!==null"
-     x-cloak
-     :class="sheetVisible?'':'entering'"
-     @click.stop>
-
-    <div class="sheet-bar"></div>
-    <div class="sheet-handle"></div>
-
-    <template x-if="selectedJob">
-        <div class="px-5 pb-8 pt-2">
-
-            <!-- Sheet header: logo + title + close -->
-            <div class="flex items-start gap-3 mb-4">
-                <div class="company-logo flex-shrink-0"
-                     :style="'background:'+logoColor(selectedJob.company)"
-                     x-text="initials(selectedJob.company)"></div>
-                <div class="flex-1 min-w-0">
-                    <h2 style="font-size:17px;font-weight:700;color:var(--text-primary);line-height:1.3;margin-bottom:2px" x-text="selectedJob.title"></h2>
-                    <p style="font-size:13px;color:var(--text-secondary)" x-text="selectedJob.company"></p>
-                </div>
-                <button @click="closeDetail()" class="save-btn flex-shrink-0" title="Close">
+                        <button @click="closeDetail()" class="save-btn flex-shrink-0" title="Close">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
-            </div>
+                    </div>
 
-            <!-- Meta -->
-            <div class="flex flex-wrap gap-x-4 gap-y-1 mb-3" style="font-size:12px;color:var(--text-secondary)">
-                <span class="flex items-center gap-1">
+                    <!-- Meta -->
+                    <div class="flex flex-wrap gap-x-4 gap-y-1 mb-3" style="font-size:12px;color:var(--text-secondary)">
+                        <span class="flex items-center gap-1">
                     <svg class="w-3 h-3" style="color:var(--text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
                     <span x-text="selectedJob.location"></span>
-                </span>
-                <span class="flex items-center gap-1">
+                        </span>
+                        <span class="flex items-center gap-1">
                     <svg class="w-3 h-3" style="color:var(--text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     <span x-text="'Posted '+selectedJob.posted"></span>
-                </span>
-            </div>
+                        </span>
+                    </div>
 
-            <!-- Salary -->
-            <div x-show="selectedJob.salary" class="mb-4">
-                <span class="salary-text" style="font-size:16px" x-text="selectedJob.salary"></span>
-                <span style="font-size:11px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-left:6px">/ year</span>
-            </div>
+                    <!-- Salary -->
+                    <div x-show="selectedJob.salary" class="mb-4">
+                        <span class="salary-text" style="font-size:16px" x-text="selectedJob.salary"></span>
+                        <span style="font-size:11px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-left:6px">/ year</span>
+                    </div>
 
-            <!-- Video -->
-            <div x-show="selectedJob.video_url" class="mb-5" @click.stop>
-                <p style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:8px">Hiring manager intro</p>
-                <div class="video-wrapper" style="width:100%;aspect-ratio:16/9;position:relative">
-                    <div x-show="!selectedJob._vidSheet"
-                         @click.stop="selectedJob._vidSheet=true"
-                         style="position:absolute;inset:0;z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);border-radius:8px">
-                        <div style="width:52px;height:52px;border-radius:50%;background:rgba(0,0,0,0.75);border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                    <!-- Video -->
+                    <div x-show="selectedJob.video_url" class="mb-5" @click.stop>
+                        <p
+                            style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:8px">
+                            Hiring manager intro</p>
+                        <div class="video-wrapper" style="width:100%;aspect-ratio:16/9;position:relative">
+                            <div x-show="!selectedJob._vidSheet" @click.stop="selectedJob._vidSheet=true"
+                                style="position:absolute;inset:0;z-index:10;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);border-radius:8px">
+                                <div
+                                    style="width:52px;height:52px;border-radius:50%;background:rgba(0,0,0,0.75);border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <iframe :src="selectedJob._vidSheet?selectedJob.video_url+'?autoplay=1':'about:blank'"
+                                loading="lazy" class="w-full h-full" style="border-radius:8px" frameborder="0"
+                                allow="autoplay;fullscreen" allowfullscreen @click.stop></iframe>
                         </div>
                     </div>
-                    <iframe :src="selectedJob._vidSheet?selectedJob.video_url+'?autoplay=1':'about:blank'"
-                            loading="lazy" class="w-full h-full" style="border-radius:8px" frameborder="0" allow="autoplay;fullscreen" allowfullscreen @click.stop></iframe>
-                </div>
-            </div>
 
-            <div style="height:1px;background:var(--border);margin-bottom:16px"></div>
+                    <div style="height:1px;background:var(--border);margin-bottom:16px"></div>
 
-            <!-- Description -->
-            <div class="mb-5">
-                <p style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:10px">About the role</p>
-                <p style="font-size:14px;color:var(--text-secondary);line-height:1.75" x-text="selectedJob.description"></p>
-            </div>
+                    <!-- Description -->
+                    <div class="mb-5">
+                        <p
+                            style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:10px">
+                            About the role</p>
+                        <p style="font-size:14px;color:var(--text-secondary);line-height:1.75"
+                            x-text="selectedJob.description"></p>
+                    </div>
 
-            <!-- Tags -->
-            <div class="mb-6">
-                <p style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:8px">Tech stack</p>
-                <div class="flex flex-wrap gap-1.5">
-                    <template x-for="tag in (selectedJob.tags||[])" :key="tag">
-                        <span class="detail-tag" x-text="tag"></span>
-                    </template>
-                </div>
-            </div>
+                    <!-- Tags -->
+                    <div class="mb-6">
+                        <p
+                            style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;margin-bottom:8px">
+                            Tech stack</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <template x-for="tag in (selectedJob.tags||[])" :key="tag">
+                                <span class="detail-tag" x-text="tag"></span>
+                            </template>
+                        </div>
+                    </div>
 
-            <!-- Actions -->
-            <div class="flex gap-3">
-                <button class="apply-btn flex-1 justify-center" @click="navigate(selectedJob.url)">
+                    <!-- Actions -->
+                    <div class="flex gap-3">
+                        <button class="apply-btn flex-1 justify-center" @click="navigate(selectedJob.url)">
                     Apply Now
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </button>
-                <button class="save-btn"
+                        <button class="save-btn"
                         :class="isSaved(selectedJob.id)?'saved':''"
                         @click="toggleSave(selectedJob.id)"
                         style="width:auto;padding:0 16px;gap:6px;height:44px;border-radius:8px;font-size:13px;color:var(--text-secondary)">
                     <svg class="w-4 h-4" :fill="isSaved(selectedJob.id)?'currentColor':'none'" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                     <span x-text="isSaved(selectedJob.id)?'Saved':'Save'"></span>
                 </button>
+                    </div>
+
+                </div>
+            </template>
+        </div><!-- /mobile sheet -->
+
+        <!-- FOOTER -->
+        <footer
+            style="border-top:1px solid var(--border);background:var(--bg-surface);padding:16px 24px;margin-top:auto">
+            <div
+                style="font-size:12px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+                <span>© 2026 .dev — developer jobs</span>
+                <div style="display:flex;gap:16px">
+                    <a href="#" style="color:var(--text-muted);text-decoration:none;transition:color .12s"
+                        onmouseover="this.style.color='var(--text-primary)'"
+                        onmouseout="this.style.color='var(--text-muted)'">About</a>
+                    <a href="#" style="color:var(--text-muted);text-decoration:none;transition:color .12s"
+                        onmouseover="this.style.color='var(--text-primary)'"
+                        onmouseout="this.style.color='var(--text-muted)'">API</a>
+                    <a href="#" style="color:var(--text-muted);text-decoration:none"
+                        onmouseover="this.style.color='var(--text-primary)'"
+                        onmouseout="this.style.color='var(--text-muted)'">Post a Job</a>
+                </div>
             </div>
-
-        </div>
-    </template>
-</div><!-- /mobile sheet -->
-
-<!-- FOOTER -->
-<footer style="border-top:1px solid var(--border);background:var(--bg-surface);padding:16px 24px;margin-top:auto">
-    <div style="font-size:12px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
-        <span>© 2026 .dev — developer jobs</span>
-        <div style="display:flex;gap:16px">
-            <a href="#" style="color:var(--text-muted);text-decoration:none;transition:color .12s" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">About</a>
-            <a href="#" style="color:var(--text-muted);text-decoration:none;transition:color .12s" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">API</a>
-            <a href="#" style="color:var(--text-muted);text-decoration:none" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Post a Job</a>
-        </div>
-    </div>
-</footer>
-
-</div><!-- /x-data root -->
+        </footer>
+    </div><!-- /x-data root -->
 </body>
 </html>

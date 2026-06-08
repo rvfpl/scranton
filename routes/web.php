@@ -71,6 +71,23 @@ Route::prefix('pa')->name('pa.')->group(function () {
     Route::view('/angielski', 'pa.angielski')->name('angielski');
 });
 
+Route::get('/zig', function () {
+    return view('zig'); // This matches resources/views/zig.blade.php
+});
+
+
+
+// When DB is ready, in the controller:
+// $jobs = Job::active()->get(['id','title','company','salary','location','type']);
+// return view('game', compact('jobs'));
+// Then in the blade: const JOB_DATA = @json($jobs);
+Route::get('/game', function () {
+    $jobs = \App\Models\Job::select('id','title','company','salary','location','type')->get();
+    return view('game', compact('jobs'));
+});
+// web.php
+Route::get('/game', fn() => view('game'));
+
 
 Route::get('/im', function () {
     return view('im.index');
