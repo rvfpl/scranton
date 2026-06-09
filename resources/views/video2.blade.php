@@ -11,6 +11,13 @@
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+  <rect width='32' height='32' rx='6' fill='%230d2a2e'/>
+  <rect width='30' height='30' x='1' y='1' rx='6' fill='none' stroke='%2367e8f9' stroke-opacity='0.3'/>
+  <text x='50%' y='50%' font-family='sans-serif' font-size='14px' font-weight='600' fill='%2367e8f9' text-anchor='middle' dominant-baseline='middle'>NY</text>
+</svg>
+">
     <style>
         :root {
             --bg-base: #0e0f11;
