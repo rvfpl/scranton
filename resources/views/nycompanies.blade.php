@@ -14,10 +14,8 @@
     --bg:#f8f8fb;
     --surface:#ffffff;
     --text:#171717;
-    --text-secondary:#6b7280;
-
-    --border:#e5e7eb;
-
+    --text-secondary:#6b7280; 
+    --border:#e5e7eb; 
     --accent:#7c3aed;
     --accent-soft:#f3e8ff;
 
@@ -65,20 +63,16 @@ a{
 
     position:sticky;
     top:0;
-    z-index:1000;
-
+    z-index:1000; 
     background:
-        rgba(255,255,255,.85);
-
-    backdrop-filter:blur(16px);
-
+        rgba(255,255,255,.85); 
+    backdrop-filter:blur(16px); 
     border-bottom:1px solid rgba(0,0,0,.05);
 }
 
 .nav-inner{
 
-    height:72px;
-
+    height:72px; 
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -102,8 +96,7 @@ a{
 .nav-links a{
 
     font-size:.95rem;
-    color:var(--text-secondary);
-
+    color:var(--text-secondary); 
     transition:.2s;
 }
 
@@ -119,14 +112,10 @@ a{
         #7c3aed
     );
 
-    color:white;
-
-    padding:12px 18px;
-
-    border-radius:12px;
-
-    font-weight:600;
-
+    color:white; 
+    padding:12px 18px; 
+    border-radius:12px; 
+    font-weight:600; 
     box-shadow:
         0 8px 20px rgba(124,58,237,.20);
 }
@@ -147,12 +136,10 @@ a{
 
     flex-direction:column;
 
-    padding:20px;
-
+    padding:20px; 
     gap:16px;
 
-    border-top:1px solid var(--border);
-
+    border-top:1px solid var(--border); 
     background:white;
 }
 
@@ -185,12 +172,9 @@ a{
 
 .hero p{
 
-    max-width:700px;
-
-    margin:auto;
-
-    color:var(--text-secondary);
-
+    max-width:700px; 
+    margin:auto; 
+    color:var(--text-secondary); 
     line-height:1.7;
 }
 
@@ -202,9 +186,9 @@ a{
 
     display:flex;
     justify-content:center;
-    gap:40px;
+    gap:32px;
 
-    margin-top:40px;
+    margin-top:32px;
 }
 
 .stat{
@@ -235,25 +219,33 @@ a{
 .section-title{
 
     font-size:2rem;
-    font-weight:700;
-
+    font-weight:700; 
     margin-bottom:10px;
 }
 
-.section-subtitle{
-
-    color:var(--text-secondary);
-
+.section-subtitle{ 
+    color:var(--text-secondary); 
     margin-bottom:32px;
 }
 
-.partner-grid{
-
-    display:grid;
-
+.partner-grid{ 
+    display:grid; 
     grid-template-columns:
-        repeat(auto-fill,minmax(180px,1fr));
+        repeat(auto-fill,minmax(180px,1fr)); 
+    gap:16px;
+}
 
+.partner-grid2{ 
+    display:grid; 
+    grid-template-columns:
+        repeat(auto-fill,minmax(180px,1fr)); 
+    gap:16px;
+}
+
+.partner-grid3{ 
+    display:grid; 
+    grid-template-columns:
+        repeat(auto-fill,minmax(180px,1fr)); 
     gap:16px;
 }
 
@@ -450,10 +442,7 @@ footer{
                 <div class="stat-label">Jobs Posted</div>
             </div>
 
-            <div class="stat">
-                <div class="stat-number">250k+</div>
-                <div class="stat-label">Applicants</div>
-            </div>
+           
 
         </div>
 
@@ -461,26 +450,79 @@ footer{
 
 </section>
 
-<!-- PARTNERS -->
-
+<!-- PARTNERS 8 -->
 <section class="section">
 
     <div class="container">
 
         <h2 class="section-title">
-            Founding Partner Directory
+            Founding Partners: Elite 8
+        </h2>
+
+        <p class="section-subtitle">
+            Click any company to view its profile page.2
+        </p>
+
+ 
+
+<div class="partner-grid2" id="partnerGrid2">
+        </div>
+       
+
+    </div>
+
+</section>
+
+
+
+<!-- PARTNERS 16 -->
+<section class="section">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Founding Partners: Sweet 16
+        </h2>
+
+        <p class="section-subtitle">
+            Click any company to view its profile page.3
+        </p>
+
+ 
+
+<div class="partner-grid3" id="partnerGrid3">
+        </div>
+       
+
+    </div>
+
+</section>
+
+
+<!-- PARTNERS 40-->
+<section class="section">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Founding Partner: Top 40
         </h2>
 
         <p class="section-subtitle">
             Click any company to view its profile page.
         </p>
 
-        <div class="partner-grid" id="partnerGrid">
-        </div>
 
+ <div class="partner-grid" id="partnerGrid">
+        </div>
+ 
     </div>
 
 </section>
+
+
+
+
 
 <!-- FOOTER -->
 
@@ -503,6 +545,95 @@ footer{
 
 </footer>
 
+
+
+
+
+
+
+
+
+
+<script> 
+
+const grid3 =
+    document.getElementById('partnerGrid3');
+
+for(let i=1;i<=16;i++){
+
+    const companyNumber =
+        String(i).padStart(2,'0');
+
+    grid3.innerHTML += `
+        <a href="/companies/company-${i}"
+           class="partner-card">
+
+            <div class="partner-logo">
+                ${companyNumber}
+            </div>
+
+            <div>
+
+                <div class="partner-name">
+                    Founding Partner ${companyNumber}
+                </div>
+
+                <div class="partner-meta">
+                    View company profile →
+                </div>
+
+            </div>
+
+        </a>
+    `;
+}
+
+</script>
+
+
+
+
+
+
+<script> 
+
+const grid2 =
+    document.getElementById('partnerGrid2');
+
+for(let i=1;i<=8;i++){
+
+    const companyNumber =
+        String(i).padStart(2,'0');
+
+    grid2.innerHTML += `
+        <a href="/companies/company-${i}"
+           class="partner-card">
+
+            <div class="partner-logo">
+                ${companyNumber}
+            </div>
+
+            <div>
+
+                <div class="partner-name">
+                    Founding Partner ${companyNumber}
+                </div>
+
+                <div class="partner-meta">
+                    View company profile →
+                </div>
+
+            </div>
+
+        </a>
+    `;
+}
+
+</script>
+
+
+
+
 <script>
 
 function toggleMenu() {
@@ -516,7 +647,7 @@ function toggleMenu() {
 const grid =
     document.getElementById('partnerGrid');
 
-for(let i=1;i<=64;i++){
+for(let i=1;i<=40;i++){
 
     const companyNumber =
         String(i).padStart(2,'0');
@@ -546,6 +677,16 @@ for(let i=1;i<=64;i++){
 }
 
 </script>
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
