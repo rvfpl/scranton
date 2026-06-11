@@ -23,7 +23,7 @@ require_once __DIR__ . '/data/data.php';
       <circle cx='16' cy='16' r='8' fill='%23C0362C'/>
     </svg>">
   <link rel="stylesheet" href="css/nycss.css">
-
+str: n4CUWxBYnDt39Jx
   <style>
     /* ── JOB BOARD VARIABLES (newspaper palette) ── */
     :root {
@@ -1417,4 +1417,6 @@ function jobBoard() {
 
 </body>
 </html>
-PHPEOF
+ 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/z1QMYk-pi4s?si=lZs-S6sVuEq5NpsA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
