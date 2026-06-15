@@ -110,7 +110,7 @@
 
       <div class="text-center  flex-shrink-0">
         <a href="/" class="logo reveal reveal-1">X-NEWYORK<span class="tld">.</span>DEV</a>
-        <p class="logo-sub reveal reveal-2">Allegedly, a Newspaper.</p>
+        <p class="logo-sub reveal reveal-2">Allegedly, a Newspaper.alpha...x</p>
       </div>
 
       <div class="flex-1 hidden md:flex items-center justify-end gap-3">
