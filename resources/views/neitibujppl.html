@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>neitibu — English for Engineers Who Build Different</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23050505%22/><text x=%2250%22 y=%2268%22 font-family=%22monospace%22 font-weight=%22bold%22 font-size=%2256%22 fill=%22%23DC2626%22 text-anchor=%22middle%22>n</text></svg>">
+
+    <style>
+        :root {
+            --bg: #050505;
+            --surface: #0d0d0d;
+            --border: #181818;
+            --border-mid: #242424;
+            --text: #E4E0D8;
+            --text-dim: #58544f;
+            --text-faint: #999090;
+            --red: #DC2626;
+            --red-dim: #7f1d1d;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        /* ── NAV ── */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.75rem 2.5rem;
+            background: rgba(5, 5, 5, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+            transition: opacity 0.2s;
+        }
+
+        .nav-logo:hover {
+            opacity: 0.45;
+        }
+
+        .nav-logo .dot {
+            color: var(--red);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--text);
+        }
+
+        .nav-btn {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text);
+            background: none;
+            border: 1px solid var(--border-mid);
+            padding: 0.55rem 1.25rem;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--text-dim);
+        }
+
+        /* ── LAYOUT ── */
+        .wrap {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding-left: 2.5rem;
+            padding-right: 2.5rem;
+        }
+
+        .section-divider {
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 11rem 0 7rem;
+        }
+
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 2.75rem;
+        }
+
+        .hero-hl {
+            font-size: clamp(2.8rem, 6.5vw, 6rem);
+            font-weight: 700;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            color: var(--text);
+            margin-bottom: 3rem;
+        }
+
+        .hero-hl em {
+            font-style: italic;
+            font-weight: 300;
+            color: var(--text-dim);
+        }
+
+        /* The two-language subline — the signal that you know both worlds */
+        .hero-langs {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 2.25rem;
+            padding-left: 1rem;
+            border-left: 1px solid var(--border-mid);
+        }
+
+        .hero-lang-line {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.7;
+            color: var(--text-dim);
+        }
+
+        .hero-lang-line .lang-tag {
+            font-size: 0.52rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--red-dim);
+            margin-right: 0.75rem;
+        }
+
+        .hero-body {
+            font-size: 0.95rem;
+            line-height: 1.9;
+            color: var(--text-dim);
+            max-width: 46ch;
+            margin-bottom: 3rem;
+        }
+
+        .hero-body strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            background: var(--red);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            transition: opacity 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .hero-cta:hover {
+            opacity: 0.85;
+        }
+
+        /* ── INSIGHT STRIP ── */
+        /* The stat that earns the Poland connection */
+        .insight {
+            padding: 3.5rem 0;
+        }
+
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .insight-card {
+            background: var(--bg);
+            padding: 2.25rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .insight-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--text);
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .insight-num .insight-rank {
+            color: var(--red);
+        }
+
+        .insight-label {
+            font-size: 0.75rem;
+            line-height: 1.65;
+            color: var(--text-dim);
+        }
+
+        .insight-source {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.52rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        /* ── DIFF ── */
+        .diff {
+            padding: 5rem 0;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.58rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 2.5rem;
+        }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .diff-card {
+            background: var(--bg);
+            padding: 2.5rem;
+            border-left: 2px solid transparent;
+        }
+
+        .diff-card.before {
+            border-left-color: var(--red-dim);
+        }
+
+        .diff-card.after {
+            border-left-color: var(--text);
+        }
+
+        .diff-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.56rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .diff-card.before .diff-tag {
+            color: var(--red-dim);
+        }
+
+        .diff-card.after .diff-tag {
+            color: var(--text-dim);
+        }
+
+        .diff-quote {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.95;
+        }
+
+        .diff-card.before .diff-quote {
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .diff-card.after .diff-quote {
+            color: var(--text);
+        }
+
+        /* ── PRICING ── */
+        .pricing {
+            padding: 5rem 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .tier {
+            background: var(--bg);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .tier.featured {
+            background: var(--surface);
+        }
+
+        .tier-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.52rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            background: var(--red);
+            color: #fff;
+            padding: 0.3rem 0.7rem;
+        }
+
+        .tier-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 2rem;
+        }
+
+        .tier-features {
+            list-style: none;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .tier-features li {
+            font-size: 0.78rem;
+            line-height: 1.5;
+            color: var(--text-dim);
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .tier-features li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--border-mid);
+        }
+
+        .tier.featured .tier-features li {
+            color: var(--text);
+        }
+
+        .tier-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+
+        .tier-price .unit {
+            font-size: 0.68rem;
+            font-weight: 400;
+            color: var(--text-dim);
+            letter-spacing: 0;
+        }
+
+        /* Currency note — swap PLN/EUR in here later */
+        .tier-currency-note {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-top: 0.35rem;
+        }
+
+        .tier-cta {
+            display: block;
+            width: 100%;
+            margin-top: 2rem;
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            transition: opacity 0.2s, background 0.2s, color 0.2s;
+        }
+
+        .tier-cta.primary {
+            background: var(--red);
+            color: #fff;
+        }
+
+        .tier-cta.primary:hover {
+            opacity: 0.85;
+        }
+
+        .tier-cta.secondary {
+            background: none;
+            color: var(--text-dim);
+            border: 1px solid var(--border-mid);
+        }
+
+        .tier-cta.secondary:hover {
+            border-color: var(--text-dim);
+            color: var(--text);
+        }
+
+        .tier-enterprise-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .tier-enterprise-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.56rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        .tier-enterprise-body {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            max-width: 22ch;
+            text-align: center;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            padding: 5rem 0 4rem;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .contact-btn {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--red);
+            background: none;
+            border: 1px solid var(--red-dim);
+            padding: 1rem 2.5rem;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .contact-btn:hover {
+            background: var(--red);
+            color: #fff;
+        }
+
+        .contact-revealed {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+            transition: opacity 0.2s;
+        }
+
+        .contact-revealed:hover {
+            opacity: 0.6;
+        }
+
+        .contact-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.56rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-top: 0.6rem;
+        }
+
+        .footer-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.56rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            line-height: 2.2;
+        }
+
+        .footer-meta a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-meta a:hover {
+            color: var(--text);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1.25rem 1.5rem;
+            }
+
+            .nav-right {
+                gap: 1.5rem;
+            }
+
+            .wrap {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .hero {
+                padding: 8rem 0 5rem;
+            }
+
+            .insight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .diff-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        :focus-visible {
+            outline: 1px solid var(--red);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+
+<body x-data="{ showContact: false, email: '' }">
+
+    <!-- NAV -->
+    <nav class="nav">
+        <a href="#" class="nav-logo">neitibu<span class="dot">.</span>com</a>
+        <div class="nav-right">
+            <a href="#proof" class="nav-link">Why</a>
+            <a href="#approach" class="nav-link">Approach</a>
+            <a href="#pricing" class="nav-link">Pricing</a>
+            <button class="nav-btn"
+                @click="email = 'rob@neitibu.com'; showContact = true; document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                Contact
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero section-divider">
+        <div class="wrap">
+            <p class="hero-eyebrow">English Coaching for Engineers</p>
+
+            <h1 class="hero-hl">
+                The best engineers<br>
+                <em>don't always</em><br>
+                get heard.
+            </h1>
+
+            <!-- Two languages. The signal that you know both worlds. -->
+            <div class="hero-langs">
+                <p class="hero-lang-line">
+                    <span class="lang-tag">JA</span>技術者、CTO、そしてグローバルな舞台へ。
+                </p>
+                <p class="hero-lang-line">
+                    <span class="lang-tag">PL</span>Inżynierowie, CTO — na drodze do globalnego sukcesu.
+                </p>
+            </div>
+
+            <p class="hero-body">
+                Japan and Poland produce some of the world's most capable engineers.
+                Both cultures are <strong>chronically underestimated</strong> in English-speaking rooms.
+                This is coaching for the gap between what you build and what the room hears.
+            </p>
+
+            <button class="hero-cta"
+                @click="email = 'rob@neitibu.com'; showContact = true; document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                Start the Conversation
+            </button>
+        </div>
+    </header>
+
+    <!-- INSIGHT STRIP — the stat that earns the Poland claim -->
+    <section id="proof" class="insight section-divider">
+        <div class="wrap">
+            <p class="section-label">// The numbers that don't lie</p>
+            <div class="insight-grid">
+
+                <div class="insight-card">
+                    <div class="insight-num"><span class="insight-rank">#1 in EU</span></div>
+                    <p class="insight-label">
+                        Poland ranked 1st in Europe, 3rd globally for developer skill — behind only China and Russia. First place in
+                        Java. Top 5 in Python, Algorithms, and Ruby.
+                    </p>
+                    <p class="insight-source">HackerRank Developer Skills Report</p>
+                </div>
+
+                <div class="insight-card">
+                    <div class="insight-num"><span class="insight-rank">#1 in AI</span></div>
+                    <p class="insight-label">
+                        Japan ranked #1 globally in AI challenges. Ruby — invented in Japan — remains one of the
+                        country's most distinctive technical exports.
+                    </p>
+                    <p class="insight-source">HackerRank Developer Skills Report</p>
+                </div>
+
+                <div class="insight-card">
+                    <div class="insight-num" style="font-size:1.3rem; line-height:1.2; padding-top:0.1rem;">
+                        28th &amp; 31st
+                    </div>
+                    <p class="insight-label">
+                        Where the US and India rank. The loudest rooms aren't always the best engineers. That's exactly
+                        the problem this fixes.
+                    </p>
+                    <p class="insight-source">HackerRank Developer Skills Report</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DIFF -->
+    <section id="approach" class="diff section-divider">
+        <div class="wrap">
+            <p class="section-label">// Before & After</p>
+            <div class="diff-grid">
+                <div class="diff-card before">
+                    <p class="diff-tag">− Hedged. Passive. Invisible.</p>
+                    <p class="diff-quote">"The code is maybe fast but I think the deployment has some issues we could
+                        possibly check at some point."</p>
+                </div>
+                <div class="diff-card after">
+                    <p class="diff-tag">+ Direct. Precise. Heard.</p>
+                    <p class="diff-quote">"The application layer is optimized. I recommend an immediate audit of the
+                        CI/CD pipeline to address deployment-stage latency."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="pricing section-divider">
+        <div class="wrap">
+            <p class="section-label">// Engagement Models</p>
+            <div class="pricing-grid">
+
+                <div class="tier">
+                    <p class="tier-name">Sprint</p>
+                    <ul class="tier-features">
+                        <li>Async PR & README review</li>
+                        <li>Written feedback cycles</li>
+                        <li>48h turnaround</li>
+                    </ul>
+                    <div class="tier-price">¥25,000 <span class="unit">/ cycle</span></div>
+                    <!-- PLN equivalent: ~700 zł -->
+                    <p class="tier-currency-note">≈ 700 zł · €160</p>
+                    <button class="tier-cta secondary"
+                        @click="email = 'rob@neitibu.com'; showContact = true; document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                        Get Started
+                    </button>
+                </div>
+
+                <div class="tier featured">
+                    <span class="tier-badge">Most Popular</span>
+                    <p class="tier-name">Executive</p>
+                    <ul class="tier-features">
+                        <li>Boardroom simulation</li>
+                        <li>VC pitch rehearsal</li>
+                        <li>Stakeholder communication</li>
+                        <li>Direct 1-on-1 access</li>
+                    </ul>
+                    <div class="tier-price">¥95,000 <span class="unit">/ cycle</span></div>
+                    <!-- PLN equivalent: ~2,650 zł -->
+                    <p class="tier-currency-note">≈ 2,650 zł · €620</p>
+                    <button class="tier-cta primary"
+                        @click="email = 'rob@neitibu.com'; showContact = true; document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                        Apply Now
+                    </button>
+                </div>
+
+                <div class="tier">
+                    <div class="tier-enterprise-inner">
+                        <p class="tier-enterprise-label">Enterprise / B2B</p>
+                        <p class="tier-enterprise-body">
+                            Team-wide programs and custom formats for companies with engineering teams in Japan or
+                            Poland.
+                        </p>
+                        <button class="tier-cta secondary" style="width:auto; padding: 0.7rem 1.5rem;"
+                            @click="email = 'rob@neitibu.com'; showContact = true; document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                            Request Details
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <section id="contact" class="footer section-divider">
+        <div class="wrap">
+            <div class="footer-inner">
+
+                <div x-show="!showContact">
+                    <button class="contact-btn"
+                        @click="email = 'rob@neitibu.com'; showContact = true">
+                        Get in Touch
+                    </button>
+                </div>
+
+                <div x-show="showContact" x-transition>
+                    <a :href="'mailto:' + email" class="contact-revealed" x-text="email"></a>
+                    <p class="contact-sub">Response within 48 hours</p>
+                </div>
+
+                <div class="footer-meta">
+                    <p>© 2026 neitibu.com &nbsp;·&nbsp; Warsaw / Tokyo</p>
+                    <p style="margin-top: 0.3rem;">
+                        Part of <a href="https://oncillas.com">Oncillas Group</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
