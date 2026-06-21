@@ -12,8 +12,20 @@ $heroJobs = $phpJobs ?? [
 ];
 $heroJobs = array_slice($heroJobs, 0, 4);
 
+// Featured devs — defined once, reused by the devs rail and the marketplace spotlight.
+$featuredDevs = $phpDevs ?? [
+  ['name'=>'Alex Rivera', 'role'=>'Senior Full-Stack',     'location'=>'Brooklyn',        'rate'=>'$130k&ndash;$155k','seeking'=>true,  'tags'=>['Laravel','Vue','PostgreSQL','Docker']],
+  ['name'=>'Priya Mehta', 'role'=>'DevOps / Platform Eng', 'location'=>'Manhattan',       'rate'=>'$120/hr',          'seeking'=>false, 'tags'=>['Terraform','AWS','Kubernetes']],
+  ['name'=>'Marcus T.',   'role'=>'React / TypeScript',    'location'=>'Queens',          'rate'=>'$95k&ndash;$120k', 'seeking'=>true,  'tags'=>['React','TypeScript','GraphQL']],
+  ['name'=>'Sarah K.',    'role'=>'ML / AI Engineer',      'location'=>'Upstate (Remote)','rate'=>'$150/hr',          'seeking'=>false, 'tags'=>['Python','PyTorch','AWS']],
+];
+
 // Promo video URL (same as job board)
 $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
+
+// Toggle for the seasonal promo banner — flip on for active campaigns instead of
+// leaving dead markup with a Tailwind `hidden` class sitting in the DOM.
+$showChampBanner = false;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +34,16 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NewYork.dev &mdash; The Developer's Record. Infrastructure, code culture, and tech dispatches from the city that never deploys.">
   <meta name="csrf-token" content="<?= e($csrf) ?>">
-  <title>NewYork.dev &middot; /epsilon</title>
+  <title>NewYork.dev = episolon - &middot; The Developer's Record</title>
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NewYork.dev">
+  <meta property="og:title" content="NewYork.dev &middot; The Developer's Record">
+  <meta property="og:description" content="Infrastructure, code culture, and tech dispatches from the city that never deploys. Plus a free dev job board.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&h=630&fit=crop&auto=format">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="/">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,17 +70,6 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
       --lp-gold:  #b8860b;
       --lp-blue:  #1a4a8a;
     }
-
-
-
-
-
-
-
-
-
-
-
 
     /* ── Column rule ── */
     .col-rule { border-right: 1px solid var(--lp-rule); }
@@ -115,6 +125,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
     /* ── View more ── */
     .view-more { display: inline-flex; align-items: center; gap: 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--lp-red); text-decoration: none; border-bottom: 1px solid var(--lp-red); padding-bottom: 1px; margin-top: 12px; transition: opacity .15s; }
     .view-more:hover { opacity: .7; }
+    .view-more:focus-visible { outline: 2px solid var(--lp-red); outline-offset: 3px; }
 
     /* ═══════════════════════════════
        HERO JOB PANEL (right column)
@@ -133,7 +144,6 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
       width: 100%; aspect-ratio: 16/9;
       background: var(--lp-ink);
       position: relative; overflow: hidden;
-      cursor: pointer;
     }
     .hero-video-wrap iframe {
       width: 100%; height: 100%;
@@ -144,8 +154,11 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
       display: flex; align-items: center; justify-content: center;
       background: rgba(0,0,0,.45);
       transition: background .15s;
+      cursor: pointer;
+      border: none; padding: 0; width: 100%;
     }
     .hero-video-overlay:hover { background: rgba(0,0,0,.6); }
+    .hero-video-overlay:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
     .hero-play-circle {
       width: 44px; height: 44px;
       border-radius: 50%; border: 2px solid rgba(255,255,255,.6);
@@ -157,18 +170,20 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
       font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
       color: rgba(255,255,255,.5);
       position: absolute; bottom: 10px; left: 12px;
+      pointer-events: none;
     }
 
     /* job mini-cards inside hero panel */
     .hero-job-item {
       display: block; text-decoration: none; color: inherit;
-      padding: 11px 14px;
-      border-bottom: 1px solid var(--lp-rule);
+      padding: 11px 14px; width: 100%; text-align: left;
+      background: none; border: none; border-bottom: 1px solid var(--lp-rule);
       transition: background .1s, padding-left .1s;
       cursor: pointer;
     }
     .hero-job-item:last-child { border-bottom: none; }
     .hero-job-item:hover { background: rgba(192,54,44,.03); padding-left: 18px; }
+    .hero-job-item:focus-visible { outline: 2px solid var(--lp-red); outline-offset: -2px; }
     .hero-job-co {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
@@ -257,18 +272,12 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
     .dispatch-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: grayscale(12%); margin-bottom: 10px; display: block; }
 
     /* ═══════════════════════════════
-       HOMEPAGE JOB/DEV TEASERS
+       HOMEPAGE DEV TEASERS
     ═══════════════════════════════ */
-    .job-teaser { border-bottom: 1px solid var(--lp-rule); padding: 12px 0; text-decoration: none; color: inherit; display: block; transition: background .12s, padding-left .12s; }
-    .job-teaser:first-child { border-top: 1px solid var(--lp-rule); }
-    .job-teaser:hover { background: rgba(192,54,44,.03); padding-left: 6px; }
-    .job-teaser-co { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--lp-red); margin-bottom: 1px; }
-    .job-teaser-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; line-height: 1.25; color: var(--lp-ink); margin-bottom: 3px; }
-    .job-teaser-meta { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: .04em; color: var(--lp-muted); display: flex; align-items: center; gap: 4px; }
-    .job-teaser-pay { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: var(--lp-blue); }
     .dev-teaser { border-bottom: 1px solid var(--lp-rule); padding: 12px 0; text-decoration: none; color: inherit; display: block; transition: background .12s, padding-left .12s; }
     .dev-teaser:first-child { border-top: 1px solid var(--lp-rule); }
     .dev-teaser:hover { background: rgba(192,54,44,.03); padding-left: 6px; }
+    .dev-teaser:focus-visible { outline: 2px solid var(--lp-red); outline-offset: -2px; }
     .dev-teaser-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--lp-ink); margin-bottom: 1px; }
     .dev-teaser-role { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--lp-muted); margin-bottom: 3px; }
     .dev-teaser-meta { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: .04em; color: var(--lp-muted); display: flex; align-items: center; gap: 4px; }
@@ -298,8 +307,6 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
 
     /* ═══════════════════════════════
        MOBILE JOB OVERLAY
-       (homepage version — same pattern
-       as job board overlay)
     ═══════════════════════════════ */
     .hp-job-overlay-backdrop {
       display: none; position: fixed; inset: 0;
@@ -315,6 +322,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
       transform: translateY(100%);
       transition: transform .3s cubic-bezier(.32,.72,0,1);
       display: flex; flex-direction: column; overflow: hidden;
+      box-shadow: 0 -8px 30px rgba(0,0,0,.18);
     }
     .hp-job-overlay.open { transform: translateY(0); }
     .hp-job-overlay-accent { height: 3px; background: linear-gradient(90deg, var(--lp-red), #6b4fa0); flex-shrink: 0; }
@@ -325,13 +333,36 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
     }
     .hp-job-overlay-brand { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--lp-ink); }
     .hp-job-overlay-close { display: flex; align-items: center; gap: 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: none; border: 1px solid var(--lp-rule); padding: 5px 10px; cursor: pointer; color: var(--lp-muted); }
+    .hp-job-overlay-close:focus-visible { outline: 2px solid var(--lp-red); outline-offset: 2px; }
     .hp-job-overlay-content { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 20px 16px; }
     .hp-job-overlay-footer { flex-shrink: 0; padding: 12px 16px; border-top: 1px solid var(--lp-rule); background: var(--lp-cream); display: flex; gap: 8px; }
     @media (min-width: 1024px) { .hp-job-overlay, .hp-job-overlay-backdrop { display: none !important; } }
+
+    /* ═══════════════════════════════
+       MOTION SAFETY
+       Respect prefers-reduced-motion across the
+       reveal/ticker/overlay animations defined here
+       and in the external stylesheet.
+    ═══════════════════════════════ */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal,
+      .reveal-1, .reveal-2, .reveal-3,
+      .ticker-track,
+      .hp-job-overlay,
+      .mobile-drawer .drawer-panel,
+      .mobile-search-overlay {
+        animation: none !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    /* Visible keyboard focus everywhere, even if the external sheet misses a spot */
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 2px solid var(--lp-red);
+      outline-offset: 2px;
+    }
   </style>
 </head>
-
-<!-- ════════════ bodyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ════════════ -->
 
 <body>
 
@@ -373,12 +404,11 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
 <header class="masthead" id="masthead" role="banner">
   <div class="max-w-7xl mx-auto px-3 md:px-6">
     <div class="flex items-center justify-between gap-4 pb-1.5">
-    
-      <button class="hamburger mobile-only" id="hamburger-btn"
+
+      <button class="hamburger mobile-only" id="hamburger-btn" type="button"
               aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-drawer">
         <span></span><span></span><span></span>
       </button>
-
 
       <nav class="hidden md:flex items-center gap-1 flex-1" aria-label="Secondary navigation">
         <?php foreach (['Frontend','Backend','DevOps','Security','Open Source'] as $section): ?>
@@ -399,7 +429,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
         <a href="/subscribe" class="btn-subscribe desktop-subscribe">Subscribe</a>
       </div>
       <div class="flex items-center gap-3 mobile-only">
-        <button id="mobile-search-btn" aria-label="Open search" aria-expanded="false"
+        <button id="mobile-search-btn" type="button" aria-label="Open search" aria-expanded="false"
                 style="background:none;border:none;cursor:pointer;color:var(--ink);padding:4px;font-size:20px;">&#8981;</button>
         <a href="/subscribe" class="btn-subscribe" style="font-size:10px;padding:6px 12px;">JOIN</a>
       </div>
@@ -418,12 +448,12 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
 </header>
 
 <!-- ════════════ MOBILE DRAWER ════════════ -->
-<div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+<div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu" aria-hidden="true">
   <div class="drawer-overlay" id="drawer-overlay"></div>
   <div class="drawer-panel">
     <div class="drawer-header">
       <span class="logo" style="font-size:22px;">NEWYORK<span class="tld">.DEV</span></span>
-      <button id="drawer-close" aria-label="Close navigation"
+      <button id="drawer-close" type="button" aria-label="Close navigation"
               style="background:none;border:none;cursor:pointer;font-size:22px;color:var(--ink);">&#10005;</button>
     </div>
     <nav class="drawer-nav" aria-label="Mobile navigation">
@@ -439,89 +469,76 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
 </div>
 
 <!-- ════════════ MOBILE SEARCH ════════════ -->
-<div class="mobile-search-overlay" id="mobile-search-overlay" role="search" aria-label="Site search">
+<div class="mobile-search-overlay" id="mobile-search-overlay" role="search" aria-label="Site search" aria-hidden="true">
   <div class="mobile-search-inner">
     <form action="/search" method="GET" style="display:contents;">
       <input type="search" name="q" id="mobile-search-field" class="mobile-search-field"
              placeholder="Search the Record..." aria-label="Search articles" autocomplete="off">
       <button type="submit" class="mobile-search-submit">SEARCH</button>
     </form>
-    <button class="mobile-search-close" id="mobile-search-close" aria-label="Close search">&#10005;</button>
+    <button class="mobile-search-close" id="mobile-search-close" type="button" aria-label="Close search">&#10005;</button>
   </div>
   <p class="mobile-search-hint">Try: "Laravel", "DevOps", "NY infra"</p>
 </div>
 
-
-
-
-
- <!-- tabloid strip -->
-  
+<!-- ════════════ TABLOID STRIP ════════════ -->
 <div class="max-w-7xl mx-auto tabloid-strip relative group" aria-label="Satirical news" role="complementary">
-  
-  <button type="button" 
+
+  <button type="button"
     class="nav-scroll-btn absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-r-lg hidden md:block"
-    aria-label="Scroll left"
+    aria-label="Scroll tabloid headlines left"
     onclick="document.querySelector('.tabloid-grid').scrollBy({left: -300, behavior: 'smooth'})">
     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
 
   <div class="tabloid-grid flex overflow-x-auto snap-x scroll-smooth pb-2">
 
- <article class="tabloid-item bg-amber-50  w-[80%] md:w-[30%] snap-start">
+    <article class="tabloid-item bg-amber-50 w-[80%] md:w-[30%] snap-start">
       <p class="tabloid-tag">We Know</p>
-      <h3 class="tabloid-hed">Most Visitors are here for the
-        <a href="/jobs" class="bg-red-600 text-white px-1  rounded transition-colors duration-300 ease-in-out hover:bg-white hover:text-red-600">  Job Board</a></h3>
-  <p class="tabloid-sub">  - So we're making it easier Click the Tab, or just browse.</p>  
-</article>
-
-
-        <article class="tabloid-item   w-[80%] md:w-[30%] snap-start">
-      <p class="tabloid-tag">Breaking2</p>
-      <h3 class="tabloid-hed">"I'll Just Google It"  -
-              <a href="/post-a-job" class=" text-red-700 px-1  rounded transition-colors duration-300 ease-in-out  hover:text-red-900 bg-amber-50 ">  Post an Opening</a> </h3>
-
-      <p class="tabloid-sub">Stack Overflow tab count at all-time high.</p>
+      <h3 class="tabloid-hed">Most visitors are here for the
+        <a href="/jobs" class="bg-red-600 text-white px-1 rounded transition-colors duration-300 ease-in-out hover:bg-white hover:text-red-600">Job Board</a></h3>
+      <p class="tabloid-sub">So we're making it easier. Click the tab, or just browse.</p>
     </article>
-    
 
-        <article class="tabloid-item w-[80%] md:w-[30%] snap-start">
-        <p class="tabloid-tag">Exclusive3</p>
-        <h3 class="tabloid-hed">Local Dev Rewrites Legacy Codebase, Produces Identical Legacy Codebase</h3>
-        <p class="tabloid-sub">"It's basically the same but in TypeScript," he said proudly.</p>
-      </article>
-      
-        <article class="tabloid-item w-[80%] md:w-[30%] snap-start">
-        <p class="tabloid-tag">Analysis4</p>
-        <h3 class="tabloid-hed">Area Startup Pivots to AI, Is Now Just a Regular Database with a Chatbot</h3>
-        <p class="tabloid-sub">Valuation unchanged at $40M.</p>
-      </article>
+    <article class="tabloid-item w-[80%] md:w-[30%] snap-start">
+      <p class="tabloid-tag">Breaking</p>
+      <h3 class="tabloid-hed">"I'll just Google it" &mdash;
+        <a href="/post-a-job" class="text-red-700 px-1 rounded transition-colors duration-300 ease-in-out hover:text-red-900 bg-amber-50">Post an Opening</a></h3>
+      <p class="tabloid-sub">Stack Overflow tab count at an all-time high.</p>
+    </article>
 
-        <article class="tabloid-item flex-shrink-0 w-[80%] md:w-[30%] snap-start">
-        <p class="tabloid-tag">Opinion5</p>
-              <h3 class="tabloid-hed">NewYork.dev Editor in Trouble</h3> 
-        <p class="tabloid-sub">"What is this?  The Onion? - I just can't think of a fourth article. Now, Beat it."</p>  
-      </article>
-    </div>
+    <article class="tabloid-item w-[80%] md:w-[30%] snap-start">
+      <p class="tabloid-tag">Exclusive</p>
+      <h3 class="tabloid-hed">Local Dev Rewrites Legacy Codebase, Produces Identical Legacy Codebase</h3>
+      <p class="tabloid-sub">"It's basically the same but in TypeScript," he said proudly.</p>
+    </article>
 
-  <button type="button" 
+    <article class="tabloid-item w-[80%] md:w-[30%] snap-start">
+      <p class="tabloid-tag">Analysis</p>
+      <h3 class="tabloid-hed">Area Startup Pivots to AI, Is Now Just a Regular Database with a Chatbot</h3>
+      <p class="tabloid-sub">Valuation unchanged at $40M.</p>
+    </article>
+
+    <article class="tabloid-item flex-shrink-0 w-[80%] md:w-[30%] snap-start">
+      <p class="tabloid-tag">Opinion</p>
+      <h3 class="tabloid-hed">NewYork.dev Editor in Trouble</h3>
+      <p class="tabloid-sub">"What is this, The Onion? I just can't think of a fourth article. Now beat it."</p>
+    </article>
+  </div>
+
+  <button type="button"
     class="nav-scroll-btn absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-l-lg"
-    aria-label="Scroll right"
+    aria-label="Scroll tabloid headlines right"
     onclick="document.querySelector('.tabloid-grid').scrollBy({left: 300, behavior: 'smooth'})">
     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
   </button>
 </div>
 
-
-
-
 <!-- ════════════ MAIN ════════════ -->
 <main class="max-w-7xl mx-auto px-4 md:px-6 pt-4 pb-4" id="main-content">
- 
 
-
-  <!-- Championship banner -->
-  <div class="hidden champ-banner reveal reveal-1" role="complementary">
+  <?php if ($showChampBanner): ?>
+  <div class="champ-banner reveal reveal-1" role="complementary">
     <span class="champ-banner-badge">&#127942; NYC Wins</span>
     <p class="champ-banner-text">
       <strong>New York won it all.</strong>
@@ -529,6 +546,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
     </p>
     <a href="/post-a-job?promo=NYC26" class="champ-banner-cta">Claim the deal &rarr;</a>
   </div>
+  <?php endif; ?>
 
   <!-- Edition strip -->
   <div class="edition-strip reveal reveal-2">
@@ -546,12 +564,12 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
   <!-- ════════════════════════════════════
     HERO GRID
     Left 8 cols: lead article
-    Right 4 cols: video + latest job cards
+    Right 4 cols: promo video + latest job cards
   ════════════════════════════════════ -->
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 mb-0 reveal reveal-3">
 
     <!-- Lead article -->
-    <article class="lg:col-span-6 col-rule lg:pr-5 pb-5 lg:pb-0">
+    <article class="lg:col-span-8 col-rule lg:pr-6 pb-5 lg:pb-0">
       <span class="flag red">Infrastructure</span>
       <h1 class="lead-hed mb-3">
         <a href="#">NYC's Tech Stack Is Crumbling &mdash; and 10,000 Devs Are the Only Fix</a>
@@ -577,20 +595,18 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
     </article>
 
     <!-- Right: video + latest jobs -->
-    <aside class="lg:col-span-3 lg:pl-5 flex flex-col" aria-label="Latest openings">
+    <aside class="lg:col-span-4 lg:pl-6 flex flex-col mt-8 lg:mt-0" aria-label="Latest openings">
 
       <!-- Promo video -->
       <div class="hero-job-panel mb-0" style="border-bottom:none;">
         <div class="hero-job-panel-bar"></div>
         <div class="hero-video-wrap" id="hero-video-wrap">
-          <div class="hero-video-overlay" id="hero-video-overlay"
-               role="button" tabindex="0" aria-label="Play intro video"
-               onclick="startHeroVideo()" onkeydown="if(event.key==='Enter'||event.key===' ')startHeroVideo()">
-            <div class="hero-play-circle">
+          <button type="button" class="hero-video-overlay" id="hero-video-overlay" aria-label="Play intro video">
+            <div class="hero-play-circle" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
             </div>
             <span class="hero-video-eyebrow">Now hiring on NewYork.dev</span>
-          </div>
+          </button>
           <iframe id="hero-video-iframe" src="about:blank" loading="lazy"
                   style="width:100%;height:100%;border:none;display:block;"
                   allow="autoplay;fullscreen" allowfullscreen title="NewYork.dev intro"></iframe>
@@ -604,7 +620,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
         </div>
 
         <?php foreach ($heroJobs as $job): ?>
-        <div class="hero-job-item"
+        <button type="button" class="hero-job-item"
              data-job-id="<?= e($job['id']) ?>"
              data-job-company="<?= e($job['company']) ?>"
              data-job-title="<?= e($job['title']) ?>"
@@ -616,9 +632,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
              data-job-url="<?= e($job['url']) ?>"
              data-job-posted="<?= e($job['posted']) ?>"
              onclick="openHpJobOverlay(this)"
-             role="button" tabindex="0"
-             onkeydown="if(event.key==='Enter')openHpJobOverlay(this)"
-             aria-label="<?= e($job['title']) ?> at <?= e($job['company']) ?>">
+             aria-label="View details for <?= e($job['title']) ?> at <?= e($job['company']) ?>">
           <p class="hero-job-co"><?= e($job['company']) ?></p>
           <p class="hero-job-title"><?= e($job['title']) ?></p>
           <div class="hero-job-meta">
@@ -632,7 +646,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
             <span class="hero-job-vid">&#9654; Video</span>
             <?php endif; ?>
           </div>
-        </div>
+        </button>
         <?php endforeach; ?>
 
         <div class="hero-panel-foot">
@@ -642,93 +656,28 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
       </div>
 
     </aside>
-
-
-
-
-
-    <!-- Devs column -->
-    <section class="lg:col-span-3 lg:pl-5 mt-8 lg:mt-0">
-      <span class="flag">Available Devs</span>
-      <?php
-      $featuredDevs = [
-        ['name'=>'Alex Rivera', 'role'=>'Senior Full-Stack',     'location'=>'Brooklyn',        'rate'=>'$130k&ndash;$155k','seeking'=>true],
-        ['name'=>'Priya Mehta', 'role'=>'DevOps / Platform Eng', 'location'=>'Manhattan',       'rate'=>'$120/hr',          'seeking'=>false],
-        ['name'=>'Marcus T.',   'role'=>'React / TypeScript',    'location'=>'Queens',          'rate'=>'$95k&ndash;$120k', 'seeking'=>true],
-        ['name'=>'Sarah K.',    'role'=>'ML / AI Engineer',      'location'=>'Upstate (Remote)','rate'=>'$150/hr',          'seeking'=>false],
-      ];
-      foreach ($featuredDevs as $dev):
-      ?>
-      <a href="/devs" class="dev-teaser">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
-          <div>
-            <p class="dev-teaser-name"><?= e($dev['name']) ?></p>
-            <p class="dev-teaser-role"><?= e($dev['role']) ?></p>
-          </div>
-          <?php if ($dev['seeking']): ?>
-          <span class="dev-seek-pill" style="margin-top:3px;">Looking</span>
-          <?php endif; ?>
-        </div>
-        <div class="dev-teaser-meta">
-          <svg width="8" height="8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-          </svg>
-          <span><?= e($dev['location']) ?></span>
-          <span style="color:var(--lp-rule)">&middot;</span>
-          <span class="dev-teaser-rate"><?= $dev['rate'] ?></span>
-        </div>
-      </a>
-      <?php endforeach; ?>
-      <a href="/devs" class="view-more">Browse all devs &rarr;</a>
-
-      <hr class="hr-single my-6">
-
-      <!-- Newsletter -->
-      <div style="background:var(--ink);padding:18px;">
-        <p style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Weekly Briefing</p>
-        <p style="font-family:'Playfair Display',serif;font-size:15px;color:#fff;font-weight:700;line-height:1.3;margin-bottom:10px;">Dev news that matters.</p>
-        <form action="/newsletter/subscribe" method="POST" class="flex flex-col gap-2">
-          <input type="hidden" name="_token" value="<?= e($csrf) ?>">
-          <input type="email" name="email" placeholder="your@email" required
-                 aria-label="Email address"
-                 style="font-family:'Lora',serif;font-size:13px;padding:7px 10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;outline:none;width:100%;">
-          <button type="submit" class="btn-subscribe" style="background:var(--accent);width:100%;text-align:center;">Subscribe Free &rarr;</button>
-        </form>
-        <p style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.06em;color:rgba(255,255,255,.3);margin-top:8px;">No spam. Unsubscribe anytime.</p>
-      </div>
-
-      <!-- Trending -->
-      <div style="margin-top:18px;padding-top:14px;border-top:2px solid var(--ink);">
-        <p style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px;">Trending in NYC</p>
-        <div class="flex flex-wrap gap-2">
-          <?php foreach (($trendingTech ?? ['Laravel 13','React 19','Bun 2','Rust','Kafka','htmx','PostgreSQL 18']) as $tech): ?>
-          <a href="/tag/<?= slug($tech) ?>" class="tech-tag hover:bg-gray-200 transition-colors cursor-pointer"><?= e($tech) ?></a>
-          <?php endforeach; ?>
-        </div>
-      </div>
-    </section>
-
-
-
   </div><!-- /hero grid -->
 
   <hr class="hr-double my-8">
 
   <!-- ════════════════════════════════════
     MARKETPLACE SPOTLIGHT
-  ════════════════════════════════════ 
+    Driven by the same $heroJobs / $featuredDevs data used above,
+    so editors only maintain one source of truth.
+  ════════════════════════════════════ -->
+  <?php $spotlightJob = $heroJobs[0]; $spotlightDev = $featuredDevs[0]; ?>
   <div class="marketplace-strip mb-8" role="complementary" aria-label="Marketplace spotlight">
     <div class="grid grid-cols-1 md:grid-cols-2">
       <div class="marketplace-col">
         <span class="mp-eyebrow">Featured Role &middot; NewYork.dev/jobs</span>
-        <p class="mp-headline">Senior Laravel Engineer</p>
+        <p class="mp-headline"><?= e($spotlightJob['title']) ?></p>
         <div class="mp-meta">
-          <span>Rain Software</span><span style="color:rgba(255,255,255,.2)">&middot;</span>
-          <span>NYC (Remote OK)</span><span style="color:rgba(255,255,255,.2)">&middot;</span>
-          <span class="mp-rate">$120k&ndash;$155k</span>
+          <span><?= e($spotlightJob['company']) ?></span><span style="color:rgba(255,255,255,.2)">&middot;</span>
+          <span><?= e($spotlightJob['location']) ?></span><span style="color:rgba(255,255,255,.2)">&middot;</span>
+          <span class="mp-rate"><?= $spotlightJob['salary'] ?></span>
         </div>
         <div class="mp-tags">
-          <?php foreach (['Laravel','PHP','PostgreSQL','Docker','AWS'] as $t): ?><span class="mp-tag"><?= $t ?></span><?php endforeach; ?>
+          <?php foreach ($spotlightJob['tags'] as $t): ?><span class="mp-tag"><?= e($t) ?></span><?php endforeach; ?>
         </div>
         <div class="mp-divider"></div>
         <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
@@ -738,18 +687,17 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
       </div>
       <div class="marketplace-col">
         <span class="mp-eyebrow">Featured Dev &middot; NewYork.dev/devs</span>
-        <p class="mp-headline">Alex Rivera</p>
+        <p class="mp-headline"><?= e($spotlightDev['name']) ?></p>
         <div class="mp-meta">
-          <span>Senior Full-Stack</span><span style="color:rgba(255,255,255,.2)">&middot;</span>
-          <span>Brooklyn, NYC</span><span style="color:rgba(255,255,255,.2)">&middot;</span>
-          <span class="mp-rate">$130k&ndash;$155k</span>
+          <span><?= e($spotlightDev['role']) ?></span><span style="color:rgba(255,255,255,.2)">&middot;</span>
+          <span><?= e($spotlightDev['location']) ?></span><span style="color:rgba(255,255,255,.2)">&middot;</span>
+          <span class="mp-rate"><?= $spotlightDev['rate'] ?></span>
         </div>
         <div style="display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap;">
-          <span class="mp-avail-pill seeking">Actively Looking</span>
-          <span class="mp-avail-pill">Open to Full-Time</span>
+          <span class="mp-avail-pill <?= $spotlightDev['seeking'] ? 'seeking' : '' ?>"><?= $spotlightDev['seeking'] ? 'Actively Looking' : 'Open to Offers' ?></span>
         </div>
         <div class="mp-tags">
-          <?php foreach (['Laravel','Vue','PostgreSQL','Docker'] as $t): ?><span class="mp-tag"><?= $t ?></span><?php endforeach; ?>
+          <?php foreach ($spotlightDev['tags'] as $t): ?><span class="mp-tag"><?= e($t) ?></span><?php endforeach; ?>
         </div>
         <div class="mp-divider"></div>
         <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
@@ -759,16 +707,14 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
       </div>
     </div>
   </div>
--->
-
 
   <!-- ════════════════════════════════════
     THREE-COLUMN SECTION
-    Dispatches (3-col on lg) | Jobs | Devs
+    Dispatches | Devs
   ════════════════════════════════════ -->
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
 
-    <!-- Dispatches — 5 cols, 3-col grid inside -->
+    <!-- Dispatches -->
     <section class="lg:col-span-9 col-rule lg:pr-8">
       <span class="flag">Latest Dispatches</span>
       <?php
@@ -779,7 +725,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
       ];
       ?>
       <div class="dispatch-grid">
-        <?php foreach ($dispatches as $i => $article): ?>
+        <?php foreach ($dispatches as $article): ?>
         <article class="dispatch-card">
           <img src="<?= e($article['image']) ?>" alt="" loading="lazy" class="dispatch-img">
           <span class="kicker"><?= e($article['section']) ?></span>
@@ -798,62 +744,36 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
         <p class="byl mt-3">&mdash; <strong>RVF</strong>, Principal Eng. NYC OpenData &middot; <a href="#" class="u-link">Read the column &rarr;</a></p>
       </div>
 
+      <hr class="hr-double mt-4 mb-8">
 
-
-
-
-
-  <hr class="hr-double mt-4 mb-8">
-
-  <!-- Most Read -->
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-0">
-    <div style="padding-right:24px;border-right:1px solid var(--lp-rule);" class="hidden md:block">
-      <span class="flag">Most Read</span>
-      <p style="font-family:'Playfair Display',serif;font-size:13px;font-style:italic;color:var(--lp-muted);line-height:1.6;">What the NY dev community is reading this week.</p>
-    </div>
-    <?php
-    $mostRead = $mostRead ?? [
-      "Why Senior Engineers Are Leaving FAANG for NYC Gov Contracts (Answer: They're Not)",
-      "The 7 Polish cursewords for frustrated devs + 3 in Yiddish",
-      "Simbang Gabi &mdash; 9 Dev Tips before the Winter Holidays",
-    ];
-    foreach (array_slice($mostRead, 0, 3) as $i => $headline):
-    ?>
-    <article style="padding:0 20px;<?= $i < 2 ? 'border-right:1px solid var(--lp-rule);' : '' ?>">
-      <span style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--lp-rule);line-height:1;display:block;margin-bottom:6px;"><?= $i + 1 ?></span>
-      <h3 style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;line-height:1.4;color:var(--lp-ink);">
-        <a href="#" class="u-link"><?= $headline ?></a>
-      </h3>
-    </article>
-    <?php endforeach; ?>
-  </div>
-
-
-
- 
-
-
+      <!-- Most Read -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-0">
+        <div style="padding-right:24px;border-right:1px solid var(--lp-rule);" class="hidden md:block">
+          <span class="flag">Most Read</span>
+          <p style="font-family:'Playfair Display',serif;font-size:13px;font-style:italic;color:var(--lp-muted);line-height:1.6;">What the NY dev community is reading this week.</p>
+        </div>
+        <?php
+        $mostRead = $mostRead ?? [
+          "Why Senior Engineers Are Leaving FAANG for NYC Gov Contracts (Answer: They're Not)",
+          "The 7 Polish cursewords for frustrated devs, plus 3 in Yiddish",
+          "Simbang Gabi &mdash; 9 dev tips before the winter holidays",
+        ];
+        foreach (array_slice($mostRead, 0, 3) as $i => $headline):
+        ?>
+        <article style="padding:0 20px;<?= $i < 2 ? 'border-right:1px solid var(--lp-rule);' : '' ?>">
+          <span style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--lp-rule);line-height:1;display:block;margin-bottom:6px;"><?= $i + 1 ?></span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;line-height:1.4;color:var(--lp-ink);">
+            <a href="#" class="u-link"><?= $headline ?></a>
+          </h3>
+        </article>
+        <?php endforeach; ?>
+      </div>
     </section>
 
-
-
-
-
-
-
-
-    <!-- Devs column -->
+    <!-- Devs column (single source — no longer duplicated) -->
     <section class="lg:col-span-3 lg:pl-8 mt-8 lg:mt-0">
       <span class="flag">Available Devs</span>
-      <?php
-      $featuredDevs = [
-        ['name'=>'Alex Rivera', 'role'=>'Senior Full-Stack',     'location'=>'Brooklyn',        'rate'=>'$130k&ndash;$155k','seeking'=>true],
-        ['name'=>'Priya Mehta', 'role'=>'DevOps / Platform Eng', 'location'=>'Manhattan',       'rate'=>'$120/hr',          'seeking'=>false],
-        ['name'=>'Marcus T.',   'role'=>'React / TypeScript',    'location'=>'Queens',          'rate'=>'$95k&ndash;$120k', 'seeking'=>true],
-        ['name'=>'Sarah K.',    'role'=>'ML / AI Engineer',      'location'=>'Upstate (Remote)','rate'=>'$150/hr',          'seeking'=>false],
-      ];
-      foreach ($featuredDevs as $dev):
-      ?>
+      <?php foreach ($featuredDevs as $dev): ?>
       <a href="/devs" class="dev-teaser">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
           <div>
@@ -884,8 +804,8 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
         <p style="font-family:'Playfair Display',serif;font-size:15px;color:#fff;font-weight:700;line-height:1.3;margin-bottom:10px;">Dev news that matters.</p>
         <form action="/newsletter/subscribe" method="POST" class="flex flex-col gap-2">
           <input type="hidden" name="_token" value="<?= e($csrf) ?>">
-          <input type="email" name="email" placeholder="your@email" required
-                 aria-label="Email address"
+          <label for="newsletter-email" class="sr-only">Email address</label>
+          <input type="email" name="email" id="newsletter-email" placeholder="your@email.dev" required
                  style="font-family:'Lora',serif;font-size:13px;padding:7px 10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;outline:none;width:100%;">
           <button type="submit" class="btn-subscribe" style="background:var(--accent);width:100%;text-align:center;">Subscribe Free &rarr;</button>
         </form>
@@ -905,18 +825,17 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
 
   </div><!-- /three col -->
 
-  <hr class="hr-double mt-4 mb-8"> 
-  </div>
+  <hr class="hr-double mt-4 mb-8">
 
 </main>
 
 <!-- ════════════ MOBILE JOB OVERLAY (homepage) ════════════ -->
 <div id="hp-job-overlay-backdrop" class="hp-job-overlay-backdrop" aria-hidden="true"></div>
-<div id="hp-job-overlay" class="hp-job-overlay" role="dialog" aria-modal="true" aria-label="Job details">
+<div id="hp-job-overlay" class="hp-job-overlay" role="dialog" aria-modal="true" aria-label="Job details" aria-hidden="true">
   <div class="hp-job-overlay-accent"></div>
   <div class="hp-job-overlay-bar">
     <span class="hp-job-overlay-brand">NewYork<span style="color:var(--lp-rule)">.</span>Dev</span>
-    <button id="hp-overlay-close-btn" class="hp-job-overlay-close" aria-label="Close job details">
+    <button id="hp-overlay-close-btn" class="hp-job-overlay-close" type="button" aria-label="Close job details">
       <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
       </svg>
@@ -956,7 +875,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
     </div>
   </div>
   <div class="max-w-7xl mx-auto px-4 md:px-6 py-5 flex flex-col-reverse sm:flex-row justify-between items-center gap-3">
-    <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.35);">&copy; <?= date('Y') ?> NewYork.dev. ONCILLAS. All rights reserved.</p>
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.35);">&copy; <?= date('Y') ?> NewYork.dev. All rights reserved.</p>
     <div class="flex gap-5">
       <?php foreach (['Privacy Policy','Terms of Service','Cookie Settings','Accessibility'] as $item): ?>
       <a href="/<?= slug($item) ?>" class="footer-link" style="font-size:11px;"><?= e($item) ?></a>
@@ -969,6 +888,41 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
 <script>
 (function () {
   'use strict';
+
+  /* ════════════════════════════════════
+     Scroll-lock manager
+     Counter-based so the drawer, search, and
+     job overlay can't fight over body.overflow
+     if one opens while another is closing.
+  ════════════════════════════════════ */
+  let lockCount = 0;
+  function lockScroll() {
+    lockCount++;
+    document.body.style.overflow = 'hidden';
+  }
+  function unlockScroll() {
+    lockCount = Math.max(0, lockCount - 1);
+    if (lockCount === 0) document.body.style.overflow = '';
+  }
+
+  /* ════════════════════════════════════
+     Minimal focus trap
+     Keeps Tab/Shift+Tab cycling inside an
+     open panel instead of leaking to the page.
+  ════════════════════════════════════ */
+  function trapFocus(container) {
+    function handler(e) {
+      if (e.key !== 'Tab') return;
+      const focusables = container.querySelectorAll('a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])');
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last  = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    container.addEventListener('keydown', handler);
+    return () => container.removeEventListener('keydown', handler);
+  }
 
   /* ── Masthead shrink ── */
   const masthead = document.getElementById('masthead');
@@ -988,8 +942,26 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
   const drawerClose   = document.getElementById('drawer-close');
   const drawer        = document.getElementById('mobile-drawer');
   const drawerOverlay = document.getElementById('drawer-overlay');
-  const openDrawer  = () => { drawer.classList.add('open'); hamburgerBtn.classList.add('open'); hamburgerBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
-  const closeDrawer = () => { drawer.classList.remove('open'); hamburgerBtn.classList.remove('open'); hamburgerBtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; hamburgerBtn?.focus(); };
+  let untrapDrawer = null;
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    hamburgerBtn.classList.add('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    lockScroll();
+    untrapDrawer = trapFocus(drawer);
+    setTimeout(() => drawer.querySelector('a, button')?.focus(), 50);
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    hamburgerBtn.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    unlockScroll();
+    if (untrapDrawer) { untrapDrawer(); untrapDrawer = null; }
+    hamburgerBtn?.focus();
+  }
   hamburgerBtn?.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
   drawerClose?.addEventListener('click', closeDrawer);
   drawerOverlay?.addEventListener('click', closeDrawer);
@@ -999,16 +971,32 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
   const mobileSearchOverlay = document.getElementById('mobile-search-overlay');
   const mobileSearchField   = document.getElementById('mobile-search-field');
   const mobileSearchClose   = document.getElementById('mobile-search-close');
-  const openMobileSearch  = () => { mobileSearchOverlay.classList.add('open'); mobileSearchBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; setTimeout(() => mobileSearchField?.focus(), 80); };
-  const closeMobileSearch = () => { mobileSearchOverlay.classList.remove('open'); mobileSearchBtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; mobileSearchBtn?.focus(); };
+  let untrapSearch = null;
+
+  function openMobileSearch() {
+    mobileSearchOverlay.classList.add('open');
+    mobileSearchOverlay.setAttribute('aria-hidden', 'false');
+    mobileSearchBtn.setAttribute('aria-expanded', 'true');
+    lockScroll();
+    untrapSearch = trapFocus(mobileSearchOverlay);
+    setTimeout(() => mobileSearchField?.focus(), 80);
+  }
+  function closeMobileSearch() {
+    mobileSearchOverlay.classList.remove('open');
+    mobileSearchOverlay.setAttribute('aria-hidden', 'true');
+    mobileSearchBtn.setAttribute('aria-expanded', 'false');
+    unlockScroll();
+    if (untrapSearch) { untrapSearch(); untrapSearch = null; }
+    mobileSearchBtn?.focus();
+  }
   mobileSearchBtn?.addEventListener('click', openMobileSearch);
   mobileSearchClose?.addEventListener('click', closeMobileSearch);
 
-  /* ── Escape ── */
+  /* ── Escape closes whichever panel is open, most-recent first ── */
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     if (mobileSearchOverlay?.classList.contains('open')) { closeMobileSearch(); return; }
-    if (drawer?.classList.contains('open')) closeDrawer();
+    if (drawer?.classList.contains('open')) { closeDrawer(); return; }
     if (document.getElementById('hp-job-overlay')?.classList.contains('open')) closeHpOverlay();
   });
 
@@ -1030,17 +1018,41 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
     if (e.key === 'Enter') { const q = e.target.value.trim(); if (q) e.target.closest('form').submit(); }
   });
 
+  /* expose what the rest of the page needs */
+  window.__nyd = { lockScroll, unlockScroll, trapFocus };
 })();
 
-/* ── Hero video ── */
-const PROMO_URL = '<?= $promoVideoUrl ?>';
+/* ════════════════════════════════════
+   Shared video-player wiring
+   One function drives both the hero promo
+   video and the job-overlay video, instead
+   of two near-identical inline handlers.
+════════════════════════════════════ */
+function wireVideoPlayer(overlayBtn, iframe, url) {
+  if (!overlayBtn || !iframe || !url) return;
+  const play = () => {
+    iframe.src = url + (url.includes('?') ? '&' : '?') + 'autoplay=1';
+    overlayBtn.style.display = 'none';
+  };
+  overlayBtn.addEventListener('click', play, { once: true });
+}
 
-function startHeroVideo() {
-  const overlay = document.getElementById('hero-video-overlay');
-  const iframe  = document.getElementById('hero-video-iframe');
-  if (!iframe) return;
-  iframe.src = PROMO_URL + '?autoplay=1';
-  if (overlay) overlay.style.display = 'none';
+const PROMO_URL = '<?= e($promoVideoUrl) ?>';
+wireVideoPlayer(
+  document.getElementById('hero-video-overlay'),
+  document.getElementById('hero-video-iframe'),
+  PROMO_URL
+);
+
+/* Minimal HTML-escaping for any value we read back out of a data-* attribute
+   before re-inserting it into innerHTML. The browser HTML-decodes attribute
+   values automatically, so values that started as escaped text upstream are
+   "raw" again by the time JS reads el.dataset — escape again here rather
+   than trusting that round trip. */
+function escapeHTML(str) {
+  return String(str ?? '').replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
 }
 
 /* ══════════════════════════════════════
@@ -1052,6 +1064,7 @@ const hpContent   = document.getElementById('hp-overlay-content');
 const hpFooter    = document.getElementById('hp-overlay-footer');
 const hpCloseBtn  = document.getElementById('hp-overlay-close-btn');
 let hpPrevFocus   = null;
+let untrapHpOverlay = null;
 
 function openHpJobOverlay(el) {
   // On desktop the panel is hidden via CSS; clicking goes straight to /jobs
@@ -1062,26 +1075,26 @@ function openHpJobOverlay(el) {
 
   hpPrevFocus = document.activeElement;
 
-  const co      = el.dataset.jobCompany  || '';
-  const title   = el.dataset.jobTitle    || '';
-  const loc     = el.dataset.jobLocation || '';
-  const salary  = el.dataset.jobSalary   || '';
+  const co      = escapeHTML(el.dataset.jobCompany);
+  const title   = escapeHTML(el.dataset.jobTitle);
+  const loc     = escapeHTML(el.dataset.jobLocation);
+  const salary  = el.dataset.jobSalary || ''; // already HTML-entity output from PHP (&ndash; etc.)
   const stype   = el.dataset.jobSalaryType === 'hr' ? ' / hr' : ' / yr';
-  const tags    = (el.dataset.jobTags || '').split(',').filter(Boolean);
-  const videoUrl= el.dataset.jobVideo   || '';
-  const url     = el.dataset.jobUrl     || '/jobs';
-  const posted  = el.dataset.jobPosted  || '';
+  const tags    = (el.dataset.jobTags || '').split(',').filter(Boolean).map(escapeHTML);
+  const videoUrl= el.dataset.jobVideo || '';
+  const url     = el.dataset.jobUrl || '/jobs';
+  const posted  = escapeHTML(el.dataset.jobPosted);
 
   const tagsHTML  = tags.map(t => `<span class="detail-tag">${t}</span>`).join('');
   const videoHTML = videoUrl ? `
     <div style="margin-bottom:16px;">
       <p class="detail-label">Hiring Manager Intro</p>
       <div class="video-wrap" style="background:#000;">
-        <div class="video-overlay" id="hp-overlay-play" role="button" tabindex="0" aria-label="Play video" style="cursor:pointer;">
-          <div class="play-circle">
+        <button type="button" class="video-overlay" id="hp-overlay-play" aria-label="Play video">
+          <div class="play-circle" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
           </div>
-        </div>
+        </button>
         <iframe id="hp-overlay-video-iframe" src="about:blank" class="w-full h-full" frameborder="0"
                 allow="autoplay;fullscreen" allowfullscreen title="${title} video"></iframe>
       </div>
@@ -1110,34 +1123,33 @@ function openHpJobOverlay(el) {
   `;
 
   hpFooter.innerHTML = `
-    <a href="${url}" class="apply-btn" style="flex:1;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 20px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--lp-red);color:#fff;text-decoration:none;">
+    <a href="${escapeHTML(url)}" class="apply-btn" style="flex:1;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 20px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--lp-red);color:#fff;text-decoration:none;">
       View on Job Board
       <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
     </a>
   `;
 
-  // wire video play button
-  const playBtn = document.getElementById('hp-overlay-play');
-  const iframe  = document.getElementById('hp-overlay-video-iframe');
-  if (playBtn && iframe) {
-    playBtn.addEventListener('click', () => {
-      iframe.src = videoUrl + '?autoplay=1';
-      playBtn.style.display = 'none';
-    });
-  }
+  // wire video play button through the shared helper
+  wireVideoPlayer(
+    document.getElementById('hp-overlay-play'),
+    document.getElementById('hp-overlay-video-iframe'),
+    videoUrl
+  );
 
   hpOverlay.classList.add('open');
   hpBackdrop.classList.add('visible');
-  document.body.style.overflow = 'hidden';
-  hpOverlay.setAttribute('aria-hidden','false');
+  hpOverlay.setAttribute('aria-hidden', 'false');
+  window.__nyd.lockScroll();
+  untrapHpOverlay = window.__nyd.trapFocus(hpOverlay);
   setTimeout(() => hpCloseBtn?.focus(), 50);
 }
 
 function closeHpOverlay() {
   hpOverlay.classList.remove('open');
   hpBackdrop.classList.remove('visible');
-  document.body.style.overflow = '';
-  hpOverlay.setAttribute('aria-hidden','true');
+  hpOverlay.setAttribute('aria-hidden', 'true');
+  window.__nyd.unlockScroll();
+  if (untrapHpOverlay) { untrapHpOverlay(); untrapHpOverlay = null; }
   const iframe = document.getElementById('hp-overlay-video-iframe');
   if (iframe) iframe.src = 'about:blank';
   if (hpPrevFocus) hpPrevFocus.focus();
