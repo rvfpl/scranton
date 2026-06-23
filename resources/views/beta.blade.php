@@ -374,7 +374,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
 
 
       <nav class="hidden md:flex items-center gap-1 flex-1" aria-label="Secondary navigation">
-        <?php foreach (['Frontend','Backend','DevOps','Security','Open Source'] as $section): ?>
+        <?php foreach (['Oncillas','Neitibu', 'NativeSpeaker' ] as $section): ?>
         <a href="/section/<?= slug($section) ?>" class="section-label hover:text-orange-700 transition-colors px-2 py-1"><?= e($section) ?></a>
         <?php endforeach; ?>
       </nav>
@@ -446,8 +446,6 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
 
 
 
-
-
  <!-- tabloid strip -->
   
 <div class="max-w-7xl mx-auto tabloid-strip relative group" aria-label="Satirical news" role="complementary">
@@ -464,8 +462,8 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
  <article class="tabloid-item bg-amber-50  w-[80%] md:w-[22%] snap-start">
       <p class="tabloid-tag">We Know</p>
       <h3 class="tabloid-hed">Most Visitors are here for the
-        <a href="/jobs" class="bg-red-600 text-white px-1  rounded transition-colors duration-300 ease-in-out hover:bg-white hover:text-red-600">  Job Board</a></h3>
-  <p class="tabloid-sub">  - So we're making it easier Click the Tab, or just browse.</p>  
+        <a href="/jobs" class="bg-red-600 text-white px-1  rounded transition-colors duration-300 ease-in-out hover:bg-white hover:text-red-600">  JobBoard</a></h3>
+  <p class="tabloid-sub">  - So we're making it easier. Just browse.</p>  
 </article>
 
 
