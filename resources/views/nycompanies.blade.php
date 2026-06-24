@@ -531,7 +531,7 @@ footer{
     <div class="container footer-inner">
 
         <div>
-            © 2026 AIJobs. All rights reserved.
+            © 2026 NY Jobs. All rights reserved.
         </div>
 
         <div class="footer-links">
