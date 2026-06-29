@@ -441,7 +441,7 @@ $promoVideoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
     </form>
     <button class="mobile-search-close" id="mobile-search-close" aria-label="Close search">&#10005;</button>
   </div>
-  <p class="mobile-search-hint">Try: "Laravel", "DevOps", "NY infra"</p>
+  <p class="mobile-search-hint">Try: "Laravel", "DevOps", "NY infrastructure", "Remote Work"</p>
 </div>
 
 
