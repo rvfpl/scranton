@@ -101,6 +101,8 @@
         <div class="hidden md:flex gap-6 text-sm font-medium text-zinc-400 shrink-0">
             <a href="#" class="hover:text-white transition">Home</a>
             <a href="#" class="hover:text-white transition">Archives</a>
+            <a href="#" class="hover:text-white transition">Home</a>
+            <a href="#" class="hover:text-white transition">Archives</a>
         </div>
     </nav>
 
