@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloomberg Style Layout</title>
+    <style>
+        :root {
+        --bloomberg-teal: #3b7b83;
+        --bloomberg-white: #ffffff;
+        --bloomberg-highlight: rgba(255, 255, 255, 0.2);
+    }
+        body {
+            background-color: var(--bloomberg-teal);
+            color: var(--bloomberg-white);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .hamburger {
+            cursor: pointer;
+            padding: 10px;
+            display: block;
+        }
+
+        .bar { width: 25px; height: 3px; background: white; margin: 5px 0; transition: 0.3s; }
+
+/* Mimicking the underline/highlight effect */
+    .highlight-link {
+        color: var(--bloomberg-white);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        transition: background 0.3s;
+    }
+
+    .highlight-link:hover {
+        background-color: var(--bloomberg-highlight);
+    }
+
+
+        /* Fullscreen Menu */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 100%; /* Hidden off-screen to the right */
+            width: 100%;
+            height: 100%;
+            background: var(--bloomberg-teal);
+            transition: 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 500;
+        }
+
+        #mobile-menu.active { left: 0; }
+
+        .menu-link { font-size: 2rem; color: white; text-decoration: none; margin: 20px 0; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <strong>BLOOMBERG</strong>
+        <div class="hamburger" id="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu">
+        <a href="#" class="menu-link">Technology</a>
+        <a href="#" class="menu-link">Markets</a>
+        <a href="#" class="menu-link">Politics</a>
+    </div>
+
+    <main style="max-width: 800px; margin: 40px auto;">
+      
+
+
+<div class="container">
+    <div style="font-size: 0.8rem; text-transform: uppercase; margin-bottom: 10px; font-weight: bold;">Technology</div>
+    <h1 class="title">WeWork Gave Founder Loans as It Paid Him Rent, IPO Filing Shows</h1>
+    <div class="byline">By Ellen Huet | August 14, 2019</div>
+    
+    <div class="content">
+        <p>Early this year, WeWork <a href="#" class="highlight-link">unveiled its new corporate brand</a>: We Co. It then sought to acquire the trademark to “we.” 
+            The name was owned by <a href="#" class="highlight-link">We Holdings LLC</a>, which manages some of the founders’ stock and other assets.</p>
+    </div>
+</div>
+
+
+    </main>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.getElementById('mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
