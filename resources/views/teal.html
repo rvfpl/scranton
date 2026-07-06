@@ -3,51 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloomberg Style Layout</title>
+    <title>Z Style Layout</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%233b7b83'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold' font-size='60'>Z</text></svg>">
     <style>
         :root {
-        --bloomberg-teal: #3b7b83;
-        --bloomberg-white: #ffffff;
-        --bloomberg-highlight: rgba(255, 255, 255, 0.2);
-    }
+            --bloomberg-teal: #3b7b83;
+            --bloomberg-darkteal: #2a5a5f;
+            --bloomberg-white: #ffffff;
+            --bloomberg-highlight: rgba(255, 255, 255, 0.2);
+
+            /* Footer A/B testing color pool + current selection.
+               Fixed: this variable was referenced by #site-footer but
+               never defined, so the footer had no background at all. */
+            --footer-bg: #2a5a5f;
+
+            /* Spacing/type scale - fluid via clamp() so it scales with viewport
+               instead of jumping at fixed breakpoints */
+            --space-page: clamp(8px, 3vw,16px);
+            --space-section: clamp(24px, 6vw, 40px);
+            --font-nav: clamp(1rem, 3.5vw, 1.2rem);
+            --font-eyebrow: clamp(0.7rem, 2vw, 0.8rem);
+            --font-title: clamp(1.5rem, 5vw + 0.5rem, 2.5rem);
+            --font-title2: clamp(1.25rem, 4vw + 0.25rem, 2rem);
+            --font-byline: clamp(0.8rem, 2.5vw, 0.95rem);
+            --font-body: clamp(0.95rem, 2.2vw, 1.05rem);
+            --font-menu-link: clamp(1.4rem, 6vw, 2rem);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
             background-color: var(--bloomberg-teal);
             color: var(--bloomberg-white);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: var(--space-page);
+            overflow-x: hidden;
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             z-index: 1000;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        nav a {
+            color: var(--bloomberg-white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: var(--font-nav);
+        }
+
+        nav a:hover {
+            color: var(--bloomberg-highlight);
         }
 
         .hamburger {
             cursor: pointer;
             padding: 10px;
             display: block;
+            z-index: 1001;
+            position: relative;
+            background: none;
+            border: none;
+            transition: background 0.3s;
+        }
+.hamburger:hover { 
+    background: #19918b;
+    border-radius: 5px;
+}
+
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 5px 0;
+            transition: 0.4s;
         }
 
-        .bar { width: 25px; height: 3px; background: white; margin: 5px 0; transition: 0.3s; }
+        /* X-Animation Logic */
+        .hamburger.open .bar:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+        .hamburger.open .bar:nth-child(2) { opacity: 0; }
+        .hamburger.open .bar:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
 
-/* Mimicking the underline/highlight effect */
-    .highlight-link {
-        color: var(--bloomberg-white);
-        text-decoration: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-        transition: background 0.3s;
-    }
+        .menu-link:hover {
+            color: var(--bloomberg-highlight);
+            transition: background 0.3s;
+        }
 
-    .highlight-link:hover {
-        background-color: var(--bloomberg-highlight);
-    }
+        /* Mimicking the underline/highlight effect */
+        .highlight-link {
+            color: var(--bloomberg-white);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
 
+        .highlight-link:hover {
+            background-color: var(--bloomberg-highlight);
+        }
 
         /* Fullscreen Menu */
         #mobile-menu {
@@ -56,7 +116,7 @@
             left: 100%; /* Hidden off-screen to the right */
             width: 100%;
             height: 100%;
-            background: var(--bloomberg-teal);
+            background: var(--bloomberg-darkteal);
             transition: 0.3s ease-in-out;
             display: flex;
             flex-direction: column;
@@ -67,51 +127,209 @@
 
         #mobile-menu.active { left: 0; }
 
-        .menu-link { font-size: 2rem; color: white; text-decoration: none; margin: 20px 0; font-weight: bold; }
+        .menu-link {
+            font-size: var(--font-menu-link);
+            color: white;
+            text-decoration: none;
+            margin: 16px 0;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 800px;
+            margin: var(--space-section) auto;
+            padding: 0 var(--space-page);
+        }
+
+        .eyebrow {
+            font-size: var(--font-eyebrow);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: bold;
+            letter-spacing: 0.03em;
+        }
+
+        .title {
+            font-size: var(--font-title);
+            line-height: 1.2;
+            margin: 0 0 12px;
+        }
+
+        .title2 {
+            font-size: var(--font-title2);
+            line-height: 1.2;
+            margin: 0 0 12px;
+        }
+
+        .byline {
+            font-size: var(--font-byline);
+            opacity: 0.85;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: var(--font-body);
+            line-height: 1.6;
+        }
+
+.container-border {
+    border-top: 2px solid #fef3c7; /* This is the hex equivalent of amber-100 */
+    padding-top: 2rem;
+}
+
+.bbutton {
+    color: grey;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;     
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #fef3c7; /* amber-100 */
+    transition: background-color 0.3s, color 0.3s;
+
+}
+
+.bbutton:hover {
+    background-color: #eee; /* amber-400  #095854; */
+     color: #666;
+
+}
+
+        /* Tighten spacing further on small phones */
+        @media (max-width: 420px) {
+            main {
+                margin: var(--space-section) 0;
+                padding: 0 var(--space-page);
+            }
+            .bar { width: 22px; }
+        }
+
+        /* Footer A/B Testing Styles */
+        #site-footer {
+            background-color: var(--footer-bg);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        #site-footer:hover::after {
+            content: " (Click to cycle)";
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <strong>BLOOMBERG</strong>
-        <div class="hamburger" id="hamburger">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-    </nav>
+<nav>
+    <a href="#"><strong>ZEPRESSION</strong></a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </button>
+</nav>
 
-    <div id="mobile-menu">
-        <a href="#" class="menu-link">Technology</a>
-        <a href="#" class="menu-link">Markets</a>
-        <a href="#" class="menu-link">Politics</a>
+<div id="mobile-menu">
+    <a href="#" class="menu-link">Technology</a>
+    <a href="#" class="menu-link">Markets</a>
+    <a href="#" class="menu-link">Politics4</a>
+     <a href="#" class="menu-link">Politics3</a>
+      <a href="#" class="menu-link">Politics2</a>
+       <a href="#" class="menu-link">Politics1</a>
+</div>
+
+<main>
+    <div class="container" style="padding-bottom: 2rem;">
+        <div class="eyebrow">Technology</div>
+        <h1 class="title">Zepression Gave Founder Loans as It Paid Him Rent, IPO Filing Shows</h1>
+        <div class="byline">By Ellen Huet | August 14, 2019</div>
+
+        <div class="content">
+       <p>Early this year, WeWork <a href="#" class="highlight-link">unveiled its new corporate brand</a>: We Co. It then sought to acquire the trademark to “we.”
+                The name was owned by <a href="#" class="highlight-link">We Holdings LLC</a>, which manages some of the founders’ stock and other assets.</p>
+         <p>Early this year, WeWork <a href="#" class="highlight-link">unveiled its new corporate brand</a>: We Co. It then sought to acquire the trademark to “we.”
+                The name was owned by <a href="#" class="highlight-link">We Holdings LLC</a>, which manages some of the founders’ stock and other assets.</p>
+        <p>Early this year, WeWork <a href="#" class="highlight-link">unveiled its new corporate brand</a>: We Co. It then sought to acquire the trademark to “we.”
+                The name was owned by <a href="#" class="highlight-link">We Holdings LLC</a>, which manages some of the founders’ stock and other assets.</p>
+        </div>
+         <a href="#" class="bbutton">HERE</a>
     </div>
 
-    <main style="max-width: 800px; margin: 40px auto;">
-      
 
-
-<div class="container">
-    <div style="font-size: 0.8rem; text-transform: uppercase; margin-bottom: 10px; font-weight: bold;">Technology</div>
-    <h1 class="title">WeWork Gave Founder Loans as It Paid Him Rent, IPO Filing Shows</h1>
+<div class="container container-border" style="padding-bottom: 2rem;">
+    <div class="eyebrow">Tech</div>
+    <h2 class="title2">Gave Founder Loans as It Paid Him Rent, IPO Filing Shows</h2>
     <div class="byline">By Ellen Huet | August 14, 2019</div>
-    
+
     <div class="content">
-        <p>Early this year, WeWork <a href="#" class="highlight-link">unveiled its new corporate brand</a>: We Co. It then sought to acquire the trademark to “we.” 
+        <p>Early this year, WeWork <a href="#" class="highlight-link">unveiled its new corporate brand</a>: We Co. It then sought to acquire the trademark to “we.”
             The name was owned by <a href="#" class="highlight-link">We Holdings LLC</a>, which manages some of the founders’ stock and other assets.</p>
     </div>
+     <a href="#" class="bbutton">BUTTON </a>
+</div>
+
+<div class="container container-border" style="padding-bottom: 2rem;">
+    <div class="eyebrow">Rewawech</div>
+    <h2 class="title2"> Founder Loans as It Paid Him Rent, IPO Filing Shows</h2>
+    <div class="byline">By Ellen Huet | August 14, 2019</div>
+
+    <div class="content">
+        <p>Early this year, WeWork <a href="#" class="highlight-link">unveiled its new corporate brand</a>: We Co. It then sought to acquire the trademark to “we.”
+            The name was owned by <a href="#" class="highlight-link">We Holdings LLC</a>, which manages some of the founders’ stock and other assets.</p>
+    </div>
+    <a href="#" class="bbutton"> GOES HERE</a>
 </div>
 
 
-    </main>
+<div class="container container-border" style="padding-bottom: 2rem;">
+    <div class="eyebrow">@</div>
+ 
+  
+</div>
 
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const menu = document.getElementById('mobile-menu');
+</main>
 
-        hamburger.addEventListener('click', () => {
-            menu.classList.toggle('active');
-        });
-    </script>
+
+
+
+<footer id="site-footer">
+    &copy; 2026 Zepression.com
+</footer>
+
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    const menuLinks = document.querySelectorAll('.menu-link');
+    const footer = document.getElementById('site-footer');
+
+    function toggleMenu() {
+        const isOpen = menu.classList.toggle('active');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    function closeMenu() {
+        menu.classList.remove('active');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+
+    // Fixed: menu previously stayed open after picking a link.
+    menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    // Fixed: --footer-bg was undefined and there was no click handler,
+    // so the "click to cycle footer color" hint did nothing.
+    const footerColors = ['#2a5a5f', '#3b7b83', '#1f4448', '#4a969f'];
+    let footerColorIndex = 0;
+    footer.addEventListener('click', () => {
+        footerColorIndex = (footerColorIndex + 1) % footerColors.length;
+        document.documentElement.style.setProperty('--footer-bg', footerColors[footerColorIndex]);
+    });
+</script>
 </body>
 </html>

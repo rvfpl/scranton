@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z Style Layout</title>
+    <style>
+        :root {
+            --bloomberg-teal: #3b7b83;
+            --bloomberg-darkteal: #2a5a5f;
+            --bloomberg-white: #ffffff;
+            --bloomberg-highlight: rgba(255, 255, 255, 0.2);
+            --footer-bg: #1f2937; /* Default gray-800 */
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bloomberg-teal);
+            color: var(--bloomberg-white);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: var(--space-page);
+        }
+
+        /* Footer A/B Testing Styles */
+        #site-footer {
+            background-color: var(--footer-bg);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        #site-footer:hover::after {
+            content: " (Click to cycle footer color)";
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        /* All other existing CSS remains the same as your original */
+        main { max-width: 800px; margin: 40px auto; padding: 0 16px; }
+        .container { border-bottom: 1px solid rgba(255, 255, 255, 0.8); padding-bottom: 2rem; padding-top: 2rem; }
+        .eyebrow { font-size: 0.8rem; text-transform: uppercase; margin-bottom: 10px; font-weight: bold; }
+        .title { font-size: 2rem; margin: 0 0 12px; }
+    </style>
+</head>
+<body>
+
+
+
+<script>
+    // A/B Testing Logic
+    const footer = document.getElementById('site-footer');
+    const colors = ['#1f2937', '#2a5a5f', '#833b3b', '#3b5583', '#7b833b'];
+    let colorIndex = 0;
+
+    footer.addEventListener('click', () => {
+        colorIndex = (colorIndex + 1) % colors.length;
+        footer.style.backgroundColor = colors[colorIndex];
+        console.log('Current Footer Color:', colors[colorIndex]);
+    });
+</script>
+</body>
+</html>
