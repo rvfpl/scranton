@@ -383,6 +383,620 @@ function globalState() {
                 <span x-show="lang === 'en'">Most Selected</span>
                 <span x-show="lang === 'pl'" x-cloak>Najczęściej Wybierane</span>
             </div>
+<!DOCTYPE html>
+<html lang="en" 
+      x-data="globalState()" 
+      x-init="init()" 
+      class="dark bg-[#0a0a0c] text-slate-400 antialiased selection:bg-[#0070f3] selection:text-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="bjkdw2LugoBqNemRvtzOtTn2kh8-cyHmGX3V5Rfybhg" />
+    <title>angielski.dev | English for Devs Engineers | Angielski dla Programistów</title>
+    
+<meta name="robots" content="index, follow">
+<meta name="description" content="Business English coaching for Polish developers and IT professionals. Improve your technical communication with US and UK clients.">
+<link rel="canonical" href="https://angielski.dev/">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='black'/><text x='25' y='80' font-family='Arial' font-weight='bold' font-size='70' fill='white'>a</text><circle cx='80' cy='75' r='8' fill='%23007BFF'/></svg>">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":["Person","EducationalOrganization"],"name":"angielski.dev","url":"https://angielski.dev","description":"Business English coaching for Polish software developers"}</script>
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .bg-grid {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .premium-glow {
+            box-shadow: 0 0 50px -12px rgba(0, 112, 243, 0.15);
+        }
+        [x-cloak] { display: none !important; }
+    </style>
+    
+    <script>
+function globalState() {
+    return {
+        lang: 'en',
+        selectedPlan: 'w4',
+        tier: 'individual',
+        showWaitlist: false,
+        mobileMenuOpen: false,
+        slotsLeft: 5,
+
+        // Single source of truth for the individual (per-dev) pricing tiers.
+        // Update prices/features here only — the pricing grid renders from this array.
+        // NOTE: all five cadences now render inside ONE panel (the frequency selector
+        // card below), instead of one card per cadence. Add/remove a cadence here only —
+        // no markup changes needed.
+        plans: [
+            {
+                id: 'w1',
+                sessionsPerWeek: 1,
+                cycleLabel: 'Weekly Sprint',
+                cycleBadge: '1x / week',
+                price: 90,
+                monthlyEstimate: 360,
+                tagline: 'Minimum requirement: B1 English proficiency',
+                features: ['1 × 27-min sync / week', 'Conversational Practice'],
+                featured: false
+            },
+            {
+                id: 'w2',
+                sessionsPerWeek: 2,
+                cycleLabel: 'Sprint Framework',
+                cycleBadge: '2x / week',
+                price: 85,
+                monthlyEstimate: 680,
+                tagline: 'Steady cadence for consistent progress',
+                features: ['2 × 27-min syncs / week', 'Up to 2 participants alternating'],
+                featured: false
+            },
+            {
+                id: 'w3',
+                sessionsPerWeek: 3,
+                cycleLabel: 'Growth Framework',
+                cycleBadge: '3x / week',
+                price: 80,
+                monthlyEstimate: 960,
+                tagline: 'Balanced pace with presentation drilling',
+                features: ['3 × 27-min syncs / week', 'Deep-Dive Live Presentation Prep'],
+                featured: false
+            },
+            {
+                id: 'w4',
+                sessionsPerWeek: 4,
+                cycleLabel: 'Double Track',
+                cycleBadge: '4x / week',
+                price: 75,
+                monthlyEstimate: 1200,
+                tagline: 'Our most selected commitment level',
+                features: ['4 × 27-min syncs / week', 'Deep-Dive Live Presentation Prep', 'Up to 2 participants alternating'],
+                featured: true
+            },
+            {
+                id: 'w5',
+                sessionsPerWeek: 5,
+                cycleLabel: 'Daily Framework',
+                cycleBadge: '5x / week',
+                price: 72,
+                monthlyEstimate: 1440,
+                tagline: 'Maximum immersion, fastest results',
+                features: ['5 × 27-min syncs / week', 'High-Frequency Conversational Audits'],
+                featured: false
+            }
+        ],
+
+        init() {
+            const storedLang = localStorage.getItem('lang');
+            if (storedLang) this.lang = storedLang;
+        },
+        setLang(language) {
+            this.lang = language;
+            localStorage.setItem('lang', language);
+        },
+        selectPlan(plan) {
+            this.selectedPlan = plan;
+        },
+        reserveSlot() {
+            this.showWaitlist = true;
+        },
+        toggleMenu() {
+            this.mobileMenuOpen = !this.mobileMenuOpen;
+        }
+    }
+}
+    </script>
+</head>
+<body class="bg-[#090909] min-h-screen relative overflow-x-hidden w-full">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute inset-0 bg-grid"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-gradient-to-b from-[#0070f3]/5 to-transparent blur-[120px]"></div>
+    </div>
+
+    <!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-4 backdrop-blur-md border-b bg-[#0a0a0c]/80 border-white/5">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+        <!-- Logo -->
+        <a href="/" class="flex-shrink-0 block select-none">
+            <span class="text-white font-semibold tracking-tight text-base sm:text-lg hover:text-[#0070f3]">
+                angielski<span class="text-[#0070f3]">.dev</span>
+            </span>
+        </a>
+
+        
+
+
+
+        <!-- Desktop Action Group -->
+        <div class="flex items-center gap-4">
+            <!-- Language Switcher -->
+            <div class="flex items-center border border-white/10 p-1 rounded-md bg-black/60">
+                <button @click="setLang('pl')" :class="lang === 'pl' ? 'bg-[#0070f3] text-white' : 'opacity-60 text-slate-400'" class="px-3 py-1 text-xs tracking-wider rounded transition-all">PL</button>
+                <button @click="setLang('en')" :class="lang === 'en' ? 'bg-[#0070f3] text-white' : 'opacity-60 text-slate-400'" class="px-3 py-1 text-xs tracking-wider rounded transition-all">EN</button>
+            </div>
+
+            <!-- Hamburger Button -->
+           <button @click="toggleMenu()" class="md:hidden text-white p-2">
+    <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+    </svg>
+    
+    <svg x-show="mobileMenuOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+</button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div x-show="mobileMenuOpen" 
+         x-cloak
+         @click.away="mobileMenuOpen = false"
+         class="absolute top-full left-0 w-full bg-[#0a0a0c] border-b border-white/10 p-6 md:hidden flex flex-col gap-4">
+        <a href="#pricing" @click="mobileMenuOpen = false" class="text-white text-lg font-medium hover:text-[#0070f3]">Pricing</a>
+        <a href="/sys_arch" @click="mobileMenuOpen = false" class="text-white text-lg font-medium hover:text-[#0070f3]">Contact</a>
+        <a href="/newyork26" @click="mobileMenuOpen = false" class="text-white text-lg font-medium hover:text-[#0070f3]">Promo '26</a>
+    </div>
+</nav>
+
+
+
+    <main class="relative z-10 pt-24 pb-24 px-4 max-w-5xl mx-auto space-y-24"> 
+        <!-- Hero Section -->
+
+
+
+         <section class="space-y-6 text-center md:text-left">
+ <header class="py-1 space-y-1"> 
+<section class="text-center md:text-left space-y-6 pt-12">
+    <!-- Use a mono tag for "ENGLISH FOR DEVS" to signal the niche -->
+    <div class="code-font text-[#0070f3] text-sm tracking-widest uppercase">
+       English for Software Engineers
+    </div>
+    
+    <h1 class="text-4xl md:text-7xl font-bold text-white tracking-tighter leading-[1.1]">
+        Master technical <br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0070f3] to-blue-400">communication.</span>
+    </h1>
+    
+    <p class="text-slate-400 text-sm md:text-xl max-w-2xl leading-relaxed">
+        Business and Technical English coaching designed for developers. 
+    </p>
+</section>
+</header>
+          <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] max-w-4xl py-8">
+    <span x-show="lang === 'en'">
+       You Code flawlessly in  <span class="text-slate-500"> Java, PHP,  Rust</span>. 
+        <span class="block bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+          Negotiate in English with authority and trust.
+        </span>
+    </span>
+
+    <span x-show="lang === 'pl'" x-cloak>
+        Kodujesz bezbłędnie w <span class="text-slate-500">Java, Rust, PHP</span>.
+        <span class="block bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+            Negocjuj po angielsku z pozycji eksperta.
+        </span>
+    </span>
+</h1>
+
+            <p class="max-w-3xl text-lg md:text-xl text-slate-400 font-light leading-relaxed">
+                <span x-show="lang === 'en'">
+                Stop translating in your head and engage fluently in technical discussions.
+                   Technical and Business Communication Consulting that bridges the gap between engineering excellence and international client’s expectations.
+                </span>
+                <span x-show="lang === 'pl'" x-cloak>
+               Konsultacje komunikacji technicznej zaprojektowane dla Seniorów i Tech Leadów, którzy chcą zyskać pewność w negocjacjach z klientami z USA i UK
+                </span>
+            </p>
+
+       <div class="pt-4 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+    <!-- Primary CTA -->
+    <a href="#pricing" class="bg-[#0070f3] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-[#0062d4] transition-all text-center shadow-lg shadow-[#0070f3]/20">
+        <span x-show="lang === 'en'">Review Frameworks & Pricing</span>
+        <span x-show="lang === 'pl'" x-cloak>Zobacz pakiety i cennik</span>
+    </a>
+
+    <!-- Secondary CTA -->
+    <a href="/sys_arch" class="border border-white/10 text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-white/5 transition-all text-center">
+        <span x-show="lang === 'en'">Meet Rob - Dev, Teacher, MBA</span>
+        <span x-show="lang === 'pl'" x-cloak>Poznaj Rob'a - Dev, Nauczyciel, MBA</span>
+    </a>
+</div>
+</div>
+            </div>
+
+  
+
+        </section>
+
+        <!-- Social Proof / Experience Ecosystem -->
+        <section class="border-y border-white/5 py-12" x-data="{ open: true }">
+            <div class="flex justify-between items-center cursor-pointer group mb-8" @click="open = !open">
+                <h2 class="text-xs font-semibold text-slate-400 tracking-widest uppercase">
+                    Trusted by Engineers and Leaders operating at
+                </h2>
+                <span class="text-xs text-[#0070f3] group-hover:underline" x-text="open ? 'Hide details' : 'Show details'"></span>
+            </div>
+            
+            <div x-show="open" x-collapse class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-12 opacity-50 grayscale contrast-200">
+                            <div class="flex flex-col"><span class="text-lg font-bold text-white tracking-tight">Google</span><span class="text-[9px] tracking-wider text-slate-400">EUROPE  (Warsaw)</span></div>
+
+                <div class="flex flex-col"><span class="text-lg font-bold text-white tracking-tight">SIEMENS</span><span class="text-[9px] tracking-wider text-slate-400">ENERGY SECTOR  (Munich)</span></div>
+                <div class="flex flex-col"><span class="text-lg font-bold text-white tracking-tight">eSky </span><span class="text-[9px] tracking-wider text-slate-400">POLAND ENTERPRISE (Katowice)</span></div>
+                <div class="flex flex-col"><span class="text-lg font-bold text-white tracking-tight">JTI </span><span class="text-[9px] tracking-wider text-slate-400">R&D (Gostkow Stary)</span></div>
+                <div class="flex flex-col"><span class="text-lg font-bold text-white tracking-tight">US CONSULATE</span><span class="text-[9px] tracking-wider text-slate-400">Commercial Service (Toronto)</span></div>
+                <div class="flex flex-col"><span class="text-lg font-bold text-white tracking-tight">VAZCO</span><span class="text-[9px] tracking-wider text-slate-400">SOFTWARE HOUSE  (Wroclaw)</span></div>
+                <div class="flex flex-col"><span class="text-lg font-bold text-white tracking-tight">ACTRA</span><span class="text-[9px] tracking-wider text-slate-400">PR (Toronto)</span></div>
+                <div class="flex flex-col"><span class="text-lg font-bold text-white tracking-tight">ACADEMIA</span><span class="text-[9px] tracking-wider text-slate-400">RESEARCH FACULTY</span></div>
+            </div>
+        </section>
+
+        <!--
+        <section class="space-y-8">
+            <div class="max-w-2xl">
+                <h2 class="text-xs font-bold tracking-widest text-[#0070f3] uppercase mb-2">The Concept</h2>
+                <h3 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Linguistic Refactoring</h3>
+                <p class="text-slate-400 mt-2 font-light">We do not drill schoolbook grammar rules. We replace hesitant, low-authority code-phrases with objective, boardroom-ready architecture declarations.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 code-font">
+                <div class="bg-black/40 border border-white/5 rounded-xl p-6 space-y-4">
+                    <div class="text-xs text-rose-400 font-semibold tracking-wider uppercase flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Raw Technical Communication
+                    </div>
+                    <div class="text-sm text-slate-400 italic bg-[#0e0e12] p-4 rounded-lg border border-white/[0.02]">
+                        "I think maybe we could delay the migration because there might be some risk with the current implementation."
+                    </div>
+                    <div class="text-xs text-[#0070f3] font-semibold tracking-wider uppercase flex items-center gap-2 pt-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#0070f3]"></span> Upgraded Authoritative Translation
+                    </div>
+                    <div class="text-sm text-white bg-[#0070f3]/5 p-4 rounded-lg border border-[#0070f3]/20">
+                        "I recommend delaying the migration to Q3. The current execution structure introduces significant deployment vulnerabilities for the payments architecture."
+                    </div>
+                </div>
+
+                <div class="bg-black/40 border border-white/5 rounded-xl p-6 space-y-4">
+                    <div class="text-xs text-rose-400 font-semibold tracking-wider uppercase flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Raw Technical Communication
+                    </div>
+                    <div class="text-sm text-slate-400 italic bg-[#0e0e12] p-4 rounded-lg border border-white/[0.02]">
+                        "I’m not sure if this deadline is realistic, we are working very hard but it's tough."
+                    </div>
+                    <div class="text-xs text-[#0070f3] font-semibold tracking-wider uppercase flex items-center gap-2 pt-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#0070f3]"></span> Upgraded Authoritative Translation
+                    </div>
+                    <div class="text-sm text-white bg-[#0070f3]/5 p-4 rounded-lg border border-[#0070f3]/20">
+                        "This timeline introduces unacceptable technical risk. We require two additional development iterations to assure a stable system launch."
+                    </div>
+                </div>
+            </div>
+        </section>  Before / After Refactor Logic (The absolute killer feature) -->
+
+        <!-- Dynamic Scenarios border-t border-white/5-->
+        <section class="hidden  pt-16" x-data="{ open: false }">
+            <div class="flex justify-between items-center cursor-pointer pb-4  border-white/5 group" @click="open = !open">
+                <div>
+                    <h3 class="text-xl font-semibold text-white tracking-tight">Core Curriculum Protocols</h3>
+                    <p class="text-xs text-slate-500 mt-1">Specific performance frameworks built for high-stakes business environments.</p>
+                </div>
+                <span class="text-slate-400 group-hover:text-[#0070f3] transition-transform font-bold" :class="open ? 'rotate-180' : ''">↓</span>
+            </div>
+
+            <div x-show="open" x-collapse class="mt-8 grid md:grid-cols-3 gap-6 text-sm">
+                <div class="bg-black/20 border border-white/5 p-6 rounded-xl space-y-2">
+                    <div class="text-white font-medium text-base">01 / System Design Scenarios</div>
+                    <p class="text-slate-400 font-light leading-relaxed">Articulate high-load distributed architectures without verbal fillers. We clean your default cadence to project certainty during heavy stakeholder audits.</p>
+                </div>
+                <div class="bg-black/20 border border-white/5 p-6 rounded-xl space-y-2">
+                    <div class="text-white font-medium text-base">02 / Stakeholder Boundary Control</div>
+                    <p class="text-slate-400 font-light leading-relaxed">Master the art of elegant disagreement. Defend your team against sudden scope creep, unrealistic milestones, and technical debt build-up without burning commercial relationships.</p>
+                </div>
+                <div class="bg-black/20 border border-white/5 p-6 rounded-xl space-y-2">
+                    <div class="text-white font-medium text-base">03 / Global Elite Interview Syncs</div>
+                    <p class="text-slate-400 font-light leading-relaxed">Tailored preparation protocols for technical screening tracks at major US, UK, and Euro remote giants. Optimize behavioral answers and maximize salary tiering options.</p>
+                </div>
+            </div>
+        </section>
+
+        
+      <!-- Pricing Section (Resource Allocation) -->
+<section id="pricing" class="space-y-12 border-t border-white/5 pt-16">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="max-w-xl">
+            <h2 class="text-xs font-bold tracking-widest text-[#0070f3] uppercase mb-2">Summer Cohort Enrollment</h2>
+            <h3 class="text-3xl font-bold text-white tracking-tight">Flexible Frameworks</h3>
+            <p class="text-slate-400 mt-2 font-light text-sm">
+                <span x-show="lang === 'en'">All operations follow high-intensity, structured timeline execution. Optimized for engineering throughput.</span>
+                <span x-show="lang === 'pl'" x-cloak>Wszystkie sesje opierają się na intensywnej współpracy warsztatowej. Optymalizacja pod kątem efektywności IT.</span>
+            </p>
+        </div>
+
+        <!-- Filter Switch Toggle -->
+        <div class="flex p-1 border border-white/10 bg-black/40 rounded-xl self-start md:self-end">
+            <button @click="tier = 'individual'" 
+                    :class="tier === 'individual' ? 'bg-[#0070f3] text-white' : 'text-slate-400 hover:text-white'"
+                    class="px-4 py-2 rounded-lg text-xs font-semibold transition-all">
+                <span x-show="lang === 'en'">For Devs</span>
+                <span x-show="lang === 'pl'" x-cloak>Dla Inżynierów</span>
+            </button>
+            <button @click="tier = 'b2b'" 
+                    :class="tier === 'b2b' ? 'bg-[#0070f3] text-white' : 'text-slate-400 hover:text-white'"
+                    class="px-4 py-2 rounded-lg text-xs font-semibold transition-all">
+                <span x-show="lang === 'en'">For Teams (B2B)</span>
+                <span x-show="lang === 'pl'" x-cloak>Dla Firm (B2B)</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- TIER 1: INDIVIDUAL PLANS -->
+    <!-- Consolidated from 6 cards down to 3:
+         1) Flexible Frequency  — a single panel with a selector holding ALL five
+            cadences (1x-5x/week), so every price point lives in one place.
+         2) Duo Partner Track   — the shared/2-person offering, pulled out into its
+            own card since it's a distinct value prop (cost split), not a tacked-on
+            feature bullet buried inside two different cards.
+         3) Executive Mode      — unchanged custom-quote tier.
+         The `plans` array above is still the single source of truth; add/remove/
+         reprice a cadence there only. -->
+    <div x-show="tier === 'individual'" x-transition:enter="transition ease-out duration-200" class="grid md:grid-cols-2 gap-8 items-stretch">
+
+        <!-- CARD 1 / FLEXIBLE FREQUENCY — all 5 cadences in one panel -->
+        <div class="p-6 rounded-2xl border border-[#0070f3] bg-[#0070f3]/[0.02] ring-1 ring-[#0070f3] premium-glow flex flex-col justify-between relative">
+            <div class="absolute top-0 right-6 -translate-y-1/2 bg-[#0070f3] text-white text-[9px] px-2.5 py-0.5 rounded-full font-semibold tracking-wider uppercase">
+                <span x-show="lang === 'en'">Most Selected</span>
+                <span x-show="lang === 'pl'" x-cloak>Najczęściej Wybierane</span>
+            </div>
+
+            <div>
+                <div class="text-white font-semibold text-lg">
+                    <span x-show="lang === 'en'">Flexible Frequency Track</span>
+                    <span x-show="lang === 'pl'" x-cloak>Elastyczny Program</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">
+                    <span x-show="lang === 'en'">One framework, five cadences. Pick a weekly rhythm — the rate drops as commitment goes up.</span>
+                    <span x-show="lang === 'pl'" x-cloak>Jeden program, pięć częstotliwości. Wybierz rytm tygodniowy — cena spada wraz z zaangażowaniem.</span>
+                </p>
+
+                <!-- Frequency selector: every price point (1x-5x/week) lives here -->
+                <div class="grid grid-cols-5 gap-1.5 mt-6">
+                    <template x-for="plan in plans" :key="plan.id">
+                        <button @click="selectPlan(plan.id)"
+                                :class="selectedPlan === plan.id ? 'bg-[#0070f3] border-[#0070f3] text-white' : 'bg-black/40 border-white/10 text-slate-400 hover:border-white/30'"
+                                class="relative border rounded-lg py-2.5 text-center transition-all code-font">
+                            <span x-show="plan.featured"
+                                  class="absolute -top-2 left-1/2 -translate-x-1/2 bg-emerald-400 text-black text-[7px] px-1 py-0.5 rounded-full font-bold uppercase whitespace-nowrap">Top</span>
+                            <div class="text-sm font-bold" x-text="plan.sessionsPerWeek + 'x'"></div>
+                            <div class="text-[8px] opacity-70 mt-0.5" x-text="plan.price"></div>
+                        </button>
+                    </template>
+                </div>
+
+                <!-- Details for whichever cadence is selected -->
+                <template x-for="plan in plans" :key="'detail-' + plan.id">
+                    <div x-show="selectedPlan === plan.id" x-cloak class="mt-6 border-t border-white/5 pt-4 space-y-3">
+                        <p class="text-xs text-slate-500" x-text="plan.tagline"></p>
+                        <ul class="space-y-2 text-sm font-light text-slate-300">
+                            <template x-for="feature in plan.features" :key="feature">
+                                <li class="flex items-center gap-2"><span>✔</span><span x-text="feature"></span></li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Live price for the selected cadence -->
+            <template x-for="plan in plans" :key="'price-' + plan.id">
+                <div x-show="selectedPlan === plan.id" x-cloak class="pt-8 border-t border-white/5 mt-6">
+                    <div class="text-2xl font-bold text-white">
+                        <span x-text="plan.price"></span> PLN
+                        <span class="text-xs font-light text-slate-500">/ session</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 font-mono mt-1">
+                        Approx. <span x-text="plan.monthlyEstimate"></span> PLN / month
+                    </div>
+                </div>
+            </template>
+        </div>
+
+      
+
+        <!-- CARD 3 / EXECUTIVE MODE -->
+        <div @click="selectPlan('executive')" 
+             :class="selectedPlan === 'executive' ? 'border-[#0070f3] bg-[#0070f3]/[0.02] ring-1 ring-[#0070f3]' : 'border-white/5 bg-black/20 hover:border-white/10'"
+             class="p-6 rounded-2xl cursor-pointer transition-all flex flex-col justify-between relative group">
+            <div>
+                <div class="text-white font-semibold text-lg flex items-center justify-between">
+                    <span>Executive Mode</span>
+                    <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded border border-white/10 bg-black text-slate-400">Custom Track</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">For Founders, Operators &amp; Tech Executives</p>
+                <ul class="mt-6 space-y-3 text-sm font-light text-slate-300 border-t border-white/5 pt-4">
+                    <li class="flex items-center gap-2">✔ Priority Schedule Routing &amp; Same-Day Auditing</li>
+                    <li class="flex items-center gap-2">✔ VC, Boardroom,   M&amp;A  Challenges</li>
+                    <li class="flex items-center gap-2 text-[#0070f3] font-medium">✔ Direct, unfiltered access to strategic strategy assets</li>
+                </ul>
+            </div>
+            <div class="pt-8 border-t border-white/5 mt-6">
+                <div class="text-2xl font-bold text-white"> Custom  <span class="text-xs font-light text-slate-500">/</span></div>
+                <div class="text-[10px] text-slate-500 font-mono mt-1">High-stakes corporate communication governance</div>
+            </div>
+        </div>
+
+    </div>
+ 
+
+    <!-- TIER 2: B2B CORPORATE PLANS -->
+    <div x-show="tier === 'b2b'" x-transition:enter="transition ease-out duration-200" x-cloak class="grid md:grid-cols-2 gap-8">
+        <!-- CUSTOM ENTERPRISE TRACK -->
+        <div class="p-8 rounded-2xl border border-white/5 bg-black/20 flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+                <div class="text-white font-semibold text-xl flex items-center justify-between">
+                    <span x-show="lang === 'en'">Custom Syllabus Matrix</span>
+                    <span x-show="lang === 'pl'" x-cloak>Indywidualny Program Warsztatów</span>
+                    <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded border border-[#0070f3]/30 bg-[#0070f3]/5 text-[#0070f3]">Teams</span>
+                </div>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">
+                    <span x-show="lang === 'en'">For engineers preparing for highly specialized milestones: architecting global project handovers, preparing technical keynote presentations, or migrating into cross-border management brackets.</span>
+                    <span x-show="lang === 'pl'" x-cloak>Dla deweloperów przygotowujących się do unikalnych kamieni milowych: prowadzenia międzynarodowych wdrożeń, autorskich prezentacji technicznych czy przejścia na stanowiska managerskie w strukturach US/UK.</span>
+                </p>
+                <ul class="space-y-2.5 text-xs font-mono text-slate-400 pt-2">
+                    <li>• Bespoke material design mapping your tech stack</li>
+                    <li>• Direct alignment with organizational architecture terminology</li>
+                    <li>• Fully flexible schedule routing options</li>
+                </ul>
+            </div>
+            <div class="pt-6 border-t border-white/5">
+                <a href="mailto:english@angielski.dev?subject=Custom%20Syllabus%20Inquiry" class="inline-block w-full text-center bg-transparent border border-white/10 hover:border-white/30 text-white px-6 py-3 rounded-xl text-xs font-semibold transition-all">
+                    <span x-show="lang === 'en'">Contact for Custom Parameters</span>
+                    <span x-show="lang === 'pl'" x-cloak>Zapytaj o program dedykowany</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- B2B TEAM VELOCITY / BULK ACCOUNTS -->
+<div class="p-8 rounded-2xl border border-[#0070f3]/20 bg-[#0070f3]/[0.01] flex flex-col justify-between space-y-6 premium-glow">
+    <div class="space-y-4">
+        <div class="text-white font-semibold text-xl flex items-center justify-between">
+            <span x-show="lang === 'en'">Team Velocity Protocol</span>
+            <span x-show="lang === 'pl'" x-cloak>Pakiety Zespołowe dla IT</span>
+            <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-[#0070f3] text-black font-semibold">Teams</span>
+        </div>
+        
+        <p class="text-sm text-slate-400 font-light leading-relaxed">
+            <span x-show="lang === 'en'">Scale structural business English across engineering and management.</span>
+            <span x-show="lang === 'pl'" x-cloak>Podnieś standard płynności językowej w zespołach deweloperskich i managerskich.</span>
+        </p>
+
+        <!-- Structured Pricing Table -->
+        <div class="space-y-2 pt-2">
+
+         <!--     <div class="flex items-center justify-between text-xs py-2 border-b border-white/5">
+                <span class="text-slate-400">16 sessions/mo</span>
+                <span class="text-white font-mono">1,200 PLN</span>
+            </div>
+            <div class="flex items-center justify-between text-xs py-2 border-b border-white/5">
+                <span class="text-slate-400">20 sessions/mo</span>
+                <span class="text-white font-mono">1,440 PLN</span>
+            </div>
+-->
+            <div class="flex items-center justify-between text-xs py-2">
+                <span class="text-emerald-400 font-medium">24 sessions / mo. (6/week)</span>
+                <span class="text-emerald-400 font-bold font-mono">1,699 PLN <span class="opacity-60 font-normal">/ 399€</span></span>
+                
+            </div>
+            <div class="flex items-center justify-between text-xs py-2">
+                <span class="text-emerald-400 font-medium">36 sessions/mo (9/week)</span>
+                <span class="text-emerald-400 font-bold font-mono">2,399 PLN <span class="opacity-60 font-normal">/ 559€</span></span>
+                
+            </div>
+             <div class="flex items-center justify-between text-xs py-2">
+                <span class="text-emerald-400 font-medium">48 sessions/mo (12/week)</span>
+                <span class="text-emerald-400 font-bold font-mono">2,999 PLN <span class="opacity-60 font-normal">/ 699€</span></span>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-6 border-t border-white/5">
+        <a href="mailto:english@angielski.dev?subject=B2B%20Bulk%20Team%20Discount%20Inquiry" class="inline-block w-full text-center bg-[#0070f3] hover:bg-[#0062d4] text-white px-6 py-3 rounded-xl text-xs font-semibold transition-all shadow-lg shadow-[#0070f3]/10">
+            <span x-show="lang === 'en'">Request B2B Offer (Faktura VAT)</span>
+            <span x-show="lang === 'pl'" x-cloak>Oferta B2B / rabat grupowy</span>
+        </a>
+    </div>
+</div>
+
+    </div>
+
+    <!-- CTA Container -->
+    <div class="mt-16 flex flex-col md:flex-row items-center justify-between gap-8 bg-black/40 border border-white/5 p-8 rounded-2xl">
+        <div class="space-y-1 text-center md:text-left">
+            <h4 class="text-white font-medium text-lg">Ready to deploy your integration plan?</h4>
+            <p class="text-xs text-slate-500 font-light">Secure your cohort allocation. Handshake configuration takes less than 2 minutes.</p>
+        </div>
+        <button @click="reserveSlot()" class="w-full md:w-auto bg-[#0070f3] text-white px-10 py-4 rounded-xl text-sm font-semibold hover:bg-[#0062d4] transition-all shadow-lg shadow-[#0070f3]/10">
+            Deploy Selected Track
+        </button>
+    </div>
+</section>
+    </main>
+
+    <!-- Modal System Integration Container -->
+    <div x-show="showWaitlist" 
+         x-transition:enter="transition ease-out duration-200" 
+         x-transition:enter-start="opacity-0 scale-98" 
+         x-transition:enter-end="opacity-100 scale-100" 
+         x-cloak 
+         class="fixed inset-0 flex items-center justify-center bg-black/80 z-[100] backdrop-blur-md px-6">
+        <div class="w-full max-w-md p-8 rounded-2xl border border-white/10 bg-[#0e0e12] shadow-2xl premium-glow">
+            <div class="text-white mb-6 flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-[#0070f3] animate-ping"></span>
+                <span class="font-semibold text-base tracking-tight">Initializing Cohort Reservation</span>
+            </div>
+            
+            <div class="space-y-3 text-sm border-y border-white/5 py-4 my-6">
+                <div class="flex justify-between"><span class="text-slate-500">Target Framework:</span><span class="text-[#0070f3] font-mono uppercase font-semibold" x-text="selectedPlan"></span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Operational Window:</span><span class="text-white font-light">Immediate 14-Day Cycle Deployment</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Allocation Status:</span><span class="text-emerald-400 font-medium">Slot Reserved & Authenticated</span></div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <a href="/schedule" class="flex-1 text-center bg-[#0070f3] text-white px-5 py-3 rounded-xl text-xs font-semibold hover:bg-[#0062d4] transition-all">
+                    Confirm & Book Session
+                </a>
+                <button @click="showWaitlist = false" class="px-5 py-3 rounded-xl border border-white/10 text-xs font-medium text-slate-400 hover:text-white transition-all bg-transparent">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+<footer>
+    <div class="bg-black flex items-center justify-center gap-2 text-xs text-slate-500 code-font py-8 px-4 border-t border-gray-800">
+    <a href="/" class="text-slate-400 hover:text-white underline decoration-white/20 hover:decoration-white transition-all duration-200">
+      &copy;2026 angielski.dev
+    </a> |
+        <a href="/sys_arch" class="text-slate-400 hover:text-white underline decoration-white/20 hover:decoration-white transition-all duration-200">
+        About & Contact
+    </a>
+</div>
+</footer>
+</body>
+</html>
 
             <div>
                 <div class="text-white font-semibold text-lg">
