@@ -135,7 +135,7 @@
         </div>
 
         <div class="text-zinc-500 text-sm">
-            .com &copy; 2026
+          somthing-example  .com &copy; 2026
         </div>
     </nav>
 
