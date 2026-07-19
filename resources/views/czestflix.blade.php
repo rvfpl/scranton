@@ -135,7 +135,7 @@
         </div>
 
         <div class="text-zinc-500 text-sm">
-          somthing-example  .com &copy; 2026
+          insert footer update here: czestflix.com &copy; 2026
         </div>
     </nav>
 
