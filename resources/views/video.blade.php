@@ -682,7 +682,7 @@
 <!-- FOOTER -->
 <footer style="border-top:1px solid var(--border);background:var(--bg-surface);padding:16px 24px;margin-top:auto">
     <div style="font-size:12px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
-        <span>© 2026 newyork.dev — developer jobs</span>
+        <span>© 2026 ??? .dev — developer jobs</span>
         <div style="display:flex;gap:16px">
             <a href="#" style="color:var(--text-muted);text-decoration:none;transition:color .12s" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">About</a>
             <a href="#" style="color:var(--text-muted);text-decoration:none;transition:color .12s" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">API</a>
