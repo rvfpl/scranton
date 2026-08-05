@@ -6,6 +6,6 @@
     <title>mtg deck list idea pioneer 2026 august</title>
 </head>
 <body>
-    
+    MTG DECKS - Aug 2026
 </body>
 </html>
