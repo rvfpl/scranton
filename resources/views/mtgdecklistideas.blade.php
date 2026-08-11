@@ -7,5 +7,8 @@
 </head>
 <body>
     MTG DECKS - Aug 2026
+
+    TMNT:
+    - BG splash white for sodeboard RestInPeace, etc
 </body>
 </html>
