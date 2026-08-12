@@ -9,10 +9,14 @@
     MTG DECKS - Aug 2026
 
     TMNT:
-    - BG splash white for sodeboard RestInPeace, etc
+    - BG splash white for sideboard RestInPeace, etc
 
     <br><br>
 
     - Mech Prd / synth simulacrum / etc
+
+      <br><br>
+
+    -  selesnya cats
 </body>
 </html>
