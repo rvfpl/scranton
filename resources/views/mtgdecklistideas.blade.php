@@ -21,7 +21,7 @@
 
         <br><br>
 
-donatello artifacts
+donatello artifacts - new cards: incl verges, siren pirate map token, etc
 
     <br><br>
 
