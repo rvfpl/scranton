@@ -29,7 +29,7 @@ donatello artifacts - new cards: incl verges, siren pirate map token, etc
     donatello artifacts - new cards: incl verges, siren pirate map token, etc
 
     -   
-    donatello artifacts - new cards: incl verges, siren pirate map token, etc - elves
+     - elves
     <br><br>
 </body>
 </html>
