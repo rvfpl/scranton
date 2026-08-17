@@ -27,9 +27,8 @@ donatello artifacts - new cards: incl verges, siren pirate map token, etc
 
     -   
     donatello artifacts - new cards: incl verges, siren pirate map token, etc
-
-    -   
-     - elves
+ 
+     - elves with shield
     <br><br>
 </body>
 </html>
