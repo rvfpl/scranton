@@ -30,5 +30,8 @@ donatello artifacts - new cards: incl verges, siren pirate map token, etc
  
      - elves with shield
     <br><br>
+
+turtle duck power shield butts
+
 </body>
 </html>
