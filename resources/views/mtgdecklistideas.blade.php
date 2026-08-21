@@ -32,6 +32,6 @@ donatello artifacts - new cards: incl verges, siren pirate map token, etc
     <br><br>
 
 turtle duck power shield butts
-
++ gilded goose: duck-duck-goose
 </body>
 </html>
