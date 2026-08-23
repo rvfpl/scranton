@@ -35,7 +35,7 @@ turtle duck power shield butts
 + gilded goose: duck-duck-goose
   <br><br>
 
-4 gildedgoose 4 turtleduck... shields, bedrock tort
+4 gildedgoose 4 turtleduck... shields, bedrock tortoise, tower def cap's shield...
 
 </body>
 </html>
