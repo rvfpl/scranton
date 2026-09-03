@@ -394,13 +394,13 @@ Software Engineering</h2>
                         <div class="font-bold text-gray-900 mb-3">Locations</div>
                         <div class="flex flex-col gap-2 text-gray-600">
                             
-                             <a href="/dev-jobs/san-francisco" class="hover:text-black">Bay  Area</a>
+                             <a href="/dev-jobs/san-francisco" class="hover:text-black">Bay  Area, CA</a>
                                                 
                            
-                            <a href="/dev-jobs/new-york" class="hover:text-black">New York</a> 
+                            <a href="/dev-jobs/new-york" class="hover:text-black">New York, NY</a> 
                            
                             <span class="border-t"></span>
-                            <a href="/dev-jobs/india" class="hover:text-black">Bengaluru, IN</a>
+                            <a href="/dev-jobs/india" class="hover:text-black">Bengaluru, INDIA</a>
                             
                         </div>
                     </div>
