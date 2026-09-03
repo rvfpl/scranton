@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>scranton.dev — World's Best Dev Job Board</title>
+    <title>scranton.dev — Wwworld's Best Dev Job Board</title>
     <meta name="description" content="Low-noise developer jobs. Remote, backend, Laravel, React, DevOps, and practical engineering roles.">
 
     <!-- TailwindCSS -->
@@ -353,7 +353,7 @@
 
         {{-- viewjobs INTERACTIVE CTA --}}
        <div class="mt-12 flex justify-center" x-show="filteredJobs().length > 0">
-    <a href="/jobs" 
+    <a href="https://newyork.dev/jobsscranton" 
        class="sticky-note rounded-md px-8 py-4 font-extrabold text-gray-900 rotate-[-1deg] hover:rotate-0 transition shadow-md">
         Load More Jobs
     </a>
@@ -424,7 +424,7 @@
                     <div class="font-bold text-gray-900 mb-3">Locations</div>
                     <div class="flex flex-col gap-2 text-gray-600">
                         <a href="/dev-jobs/new-york" class="hover:text-black">New York</a>
-                        <a href="/dev-jobs/chicago" class="hover:text-black">Chicago</a>
+                        
                   
                         <a href="/dev-jobs/san-francisco" class="hover:text-black">BayArea</a>
                        <a href="/dev-jobs/canada" class="hover:text-black">Ontario, CAnada</a>
