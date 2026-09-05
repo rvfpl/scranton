@@ -401,7 +401,7 @@ Software Engineering</h2>
                            
                             <span class="border-t"></span>
                             <a href="/dev-jobs/india" class="hover:text-black">Bengaluru, INDIA</a>
-                            
+                             <a href="/dev-jobs/pl" class="hover:text-black">gdansk, PL</a>
                         </div>
                     </div>
 
