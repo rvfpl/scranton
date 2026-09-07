@@ -182,7 +182,7 @@ Software Engineering</h2>
                         Regional‑Manager‑Approved developer jobs. Corporate‑friendly. Developer‑tolerable. Powered by coffee, sticky notes, 
                         and <a href="/thisguy" class="text-blue-500 hover:underline">this guy</a>.
                     </p>
-
+- Remote tech jobs for developers who want to escape the downtown bullpen.
                     <div class="mt-6 flex flex-wrap gap-3 text-sm">
                         <div class="sticky-note px-4 py-2 rounded-md font-semibold rotate-[-1deg]"> Sensible Jobs for Scrappy Devs </div>
                          <div class="sticky-note px-4 py-2 rounded-md font-semibold rotate-[1deg]">  Remote, Hybrid, On‑site  </div>  
@@ -401,7 +401,7 @@ Software Engineering</h2>
                            
                             <span class="border-t"></span>
                             <a href="/dev-jobs/india" class="hover:text-black">Bengaluru, INDIA</a>
-                             <a href="/dev-jobs/pl" class="hover:text-black">gdansk, PL</a>
+                             <a href="/dev-jobs/pl" class="hover:text-black">Gdansk, PL</a>
                         </div>
                     </div>
 
