@@ -458,7 +458,7 @@ body {
 .job-card.featured::after {
   content:'★ Featured';
   position:absolute;
-  top:12px; right:-1px;
+  top:-12px; right:-1px;
   background:var(--flag);
   color:#fff;
   font-size:10.5px;
@@ -942,7 +942,7 @@ body {
                         style="border-radius:var(--radius)" frameborder="0" allow="autoplay;fullscreen" allowfullscreen
                         title="newyork.dev intro video"></iframe>
               </div>
-              <p class="panel-hint">Reach 2,000+ New York developers actively looking.</p>
+              <p class="panel-hint">Reach 8 billion developers actively looking.</p>
               <p class="panel-hint">← Select a listing to preview details here.</p>
             </div>
           </template>
@@ -1115,12 +1115,14 @@ body {
 </div>
 
 <div style="text-align:center;padding:14px 16px;font-size:12.5px;color:var(--ink-soft);border-top:1px dashed var(--card-line);background:var(--card)">
-  Not in New York? No problem! Try <a href="https://notnewyork.com" style="color:var(--flag);font-weight:600"><b>not</b>newyork.com</a> for coast-to-coast remote developer opportunities.
+  Not in Scranton? No problem! Try <a href="https://notnewyork.com" style="color:var(--flag);font-weight:600"><b>not</b>newyork.com</a> for coast-to-coast remote developer opportunities.
 </div>
 
 <!-- ── FOOTER ── -->
 <footer class="footer" role="contentinfo">
-  <span class="footer-text">© 2026 newyork.dev</span>
+  <span class="footer-text">© 2026 scranton.dev</span> 
+  <span class="footer-text"> An oncillas.com and<a href="https://notnewyork.com" style="color:var(--flag);font-weight:600"><b>not</b>newyork.com</a> property. </span> 
+</div>
   <nav class="footer-links" aria-label="Footer navigation">
     <a href="#" class="footer-link">About</a>
     <a href="#" class="footer-link">API</a>

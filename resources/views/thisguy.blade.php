@@ -159,6 +159,98 @@
         </div>
     </header>
 
+
+
+<section class="py-16 border-b border-black/10 bg-[#f3eed9]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <div class="sticky-note inline-block px-4 py-2 rounded-md rotate-[-1deg] font-bold text-sm mb-4">
+                🏆 Branch Recognition
+            </div>
+            <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">Employee of the Month</h2>
+            <p class="mt-2 text-gray-600">Honoring 12 straight months of unmatched dedication, minimal downtime, and questionable productivity.</p>
+        </div>
+
+        <!-- Carousel Container with Alpine.js -->
+        <div x-data="{ 
+            activeSlide: 0, 
+            totalSlides: 12,
+            get maxIndex() { 
+                return window.innerWidth >= 768 ? this.totalSlides - 3 : this.totalSlides - 1; 
+            },
+            next() { 
+                const limit = window.innerWidth >= 768 ? this.totalSlides - 3 : this.totalSlides - 1;
+                this.activeSlide = this.activeSlide >= limit ? 0 : this.activeSlide + 1; 
+            },
+            prev() { 
+                const limit = window.innerWidth >= 768 ? this.totalSlides - 3 : this.totalSlides - 1;
+                this.activeSlide = this.activeSlide <= 0 ? limit : this.activeSlide - 1; 
+            }
+        }" class="relative max-w-7xl mx-auto">
+
+            <!-- Cards Slider Window -->
+            <div class="overflow-hidden rounded-3xl px-2">
+                <div class="flex transition-transform duration-300 ease-out -mx-3" :style="`transform: translateX(-${activeSlide * (100 / (window.innerWidth >= 768 ? 3 : 1))}%);`">
+                    
+                    <!-- Month Data Array -->
+                    <template x-for="(month, index) in [
+                        { name: 'January', role: 'Chief Paper Ream Architect', desc: 'Kicked off the year by organizing the supply closet twice and refactoring the coffee maker firmware.', img: 'img/sc2b.jpg' },
+                        { name: 'February', role: 'Regional Sales / Code', desc: 'Survived the winter freeze by sleeping under the desk and shipping code via carrier pigeon.', img: 'img/sc4.jpg' },
+                        { name: 'March', role: 'Director of Quabity Assuance', desc: 'Successfully ignored all incoming bug reports and maintained zero tracked tickets.', img: 'img/sc4b.jpg' },
+                        { name: 'April', role: 'Assistant to the Regional Manager', desc: 'Exceeded metrics by 200% while simultaneously debugging legacy backend scripts.', img: 'img/sc2b.jpg' },
+                        { name: 'May', role: 'Senior Paper Shredder Specialist', desc: 'Recycled three entire filing cabinets of deprecated documentation with extreme prejudice.', img: 'img/sc4.jpg' },
+                        { name: 'June', role: 'Microwave Cleanliness Officer', desc: 'Posted passive-aggressive sticky notes regarding fish leftovers that resulted in a 40% drop in office friction.', img: 'img/sc4b.jpg' },
+                        { name: 'July', role: 'Air Conditioning Skeptic', desc: 'Successfully argued that keeping the thermostat at 78°F builds character and improves typing speed.', img: 'img/sc2b.jpg' },
+                        { name: 'August', role: 'End-of-Summer Slack Czar', desc: 'Maintained optimal productivity while hiding in the basement server room to escape the humidity.', img: 'img/sc4.jpg' },
+                        { name: 'September', role: 'Fiscal Quarter Survivalist', desc: 'Balanced the budget using a hand-coded spreadsheet and pure institutional stubbornness.', img: 'img/sc4b.jpg' },
+                        { name: 'October', role: 'Costume & Compliance Lead', desc: 'Wore a full suit to work on a Tuesday just to confuse the remote contractors on the daily standup.', img: 'img/sc2b.jpg' },
+                        { name: 'November', role: 'Turkey Lurkey Logistics', desc: 'Optimized office snack distribution efficiency by hoarding the good chocolate in a locked drawer.', img: 'img/sc4.jpg' },
+                        { name: 'December', role: 'Year-End Wrap-up Warden', desc: 'Closed out the fiscal year by deleting logs nobody read and locking the front door from the inside.', img: 'img/sc4b.jpg' }
+                    ]" :key="index">
+                        
+                        <div class="w-full md:w-1/3 flex-shrink-0 px-3">
+                            <div class="paper-card rounded-3xl p-6 flex flex-col justify-between h-full bg-white">
+                                <div>
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-xs uppercase font-bold text-gray-500" x-text="month.role"></span>
+                                        <span class="sticky-note px-2.5 py-0.5 rounded text-xs font-extrabold rotate-[1deg]" x-text="month.name"></span>
+                                    </div>
+                                    <h3 class="text-xl font-extrabold text-gray-900">Bobby Fantana</h3>
+                                    <p class="text-sm text-gray-600 mt-1" x-text="month.role"></p>
+                                    <p class="text-sm text-gray-500 mt-4 leading-relaxed" x-text="month.desc"></p>
+                                </div>
+                                <div class="mt-6">
+                                    <img :src="month.img" alt="Branch Activity" class="rounded-lg border border-black/10 shadow-sm w-full h-48 object-cover">
+                                </div>
+                            </div>
+                        </div>
+
+                    </template>
+
+                </div>
+            </div>
+
+            <!-- Carousel Controls -->
+            <div class="flex items-center justify-between mt-8 px-4 max-w-md mx-auto">
+                <button @click="prev()" class="sticky-note px-4 py-2 rounded-xl text-sm font-bold shadow-sm hover:scale-105 transition active:scale-95">
+                    ← Prev
+                </button>
+                <div class="text-xs font-bold text-gray-600 bg-white/80 border border-black/10 px-3 py-1.5 rounded-xl shadow-sm">
+                    Sequence <span x-text="activeSlide + 1"></span> of <span x-text="window.innerWidth >= 768 ? 10 : 12"></span>
+                </div>
+                <button @click="next()" class="sticky-note px-4 py-2 rounded-xl text-sm font-bold shadow-sm hover:scale-105 transition active:scale-95">
+                    Next →
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
     <section class="relative overflow-hidden border-b border-black/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
             <div class="grid lg:grid-cols-1 gap-10 items-center">
@@ -168,7 +260,7 @@
 <div class="inline-flex items-center gap-2 sticky-note rounded-md px-4 py-2 text-sm font-semibold rotate-[-1deg] mb-4">
     💡 THIS GUY: 
     <span class="md:hidden">BOBBY</span>
-    <span class="hidden md:inline">RV Fantini</span>
+    <span class="hidden md:inline">Bobby Fantana</span>
 </div>
 
 <section class="py-20 bg-white border-t border-black/10">
@@ -183,9 +275,9 @@
         </h2>
 
         <p class="mt-4 text-lg text-gray-700 leading-relaxed max-w-2xl">
-            Scranton, PA — also known as the Electric City — is a place where 
+            Scranton, PA - also known as the Electric City - is a place where 
             developers can enjoy low‑noise living, high‑signal coffee, and 
-            a cost of living that won’t require VC funding.
+            a cost of living that won’t require VC funding. Also, I hear the Pizza and Pretzels are amazing!
         </p>
 
         <div class="mt-10 grid sm:grid-cols-2 gap-10">
@@ -196,7 +288,7 @@
                 <p class="text-gray-600 text-sm leading-relaxed">
                     Rent that doesn’t require a Series A.  </p>
                     <img src="img/sc2b.jpg" alt="Downtown Scranton" class="mt-4 rounded-lg border border-black/10 shadow-sm">
-                                        <img src="img/sc4b.jpg" alt="Downtown Scranton" class="mt-4 rounded-lg border border-black/10 shadow-sm">
+                    <img src="img/sc4b.jpg" alt="Downtown Scranton" class="mt-4 rounded-lg border border-black/10 shadow-sm">
 
             </div>
 

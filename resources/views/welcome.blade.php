@@ -108,12 +108,12 @@
             <div class="flex items-center justify-between h-16">
 
                 <div class="flex items-center gap-6">
-                    <a href="/post-job" class="flex items-center gap-3">
-                        <div class="sticky-note w-12 h-12 rounded-md flex flex-col items-center justify-center font-extrabold rotate-[-2deg] leading-none select-none">
-                            <span class="text-[12px] tracking-tighter uppercase">POST</span>
-                            <span class="text-[12px] mt-0.5 tracking-wide opacity-80">JOB</span>
-                        </div>
-                    </a>
+                  <a href="/post-job" class="flex items-center gap-3 group">
+    <div class="sticky-note w-12 h-12 rounded-md flex flex-col items-center justify-center font-extrabold rotate-[-2deg] group-hover:rotate-0 group-hover:scale-105 active:scale-95 transition-all duration-150 leading-none select-none shadow-sm">
+        <span class="text-[12px] tracking-tighter uppercase">POST</span>
+        <span class="text-[12px] mt-0.5 tracking-wide opacity-80">JOB</span>
+    </div>
+</a>
 
                     <a href="/" class="flex items-center gap-3">
                         <div>
@@ -131,10 +131,10 @@
                 </nav>
 
                 <div class="flex items-center gap-3">
-                    <a href="/post-job" class="hidden sm:inline-flex items-center rounded-lg bg-gray-900 text-white px-4 py-2 text-sm font-semibold hover:opacity-90 transition">
-                        Post Job
-                    </a>
-
+                  
+<a href="/post-job" class="hidden sm:inline-flex items-center rounded-lg bg-gray-900 text-white px-4 py-2 text-sm font-semibold hover:opacity-90 hover:scale-105 active:scale-95 transition-all duration-150">
+    Post Job
+</a>
                     <button @click="mobileMenu = !mobileMenu" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-black/10 bg-white" aria-label="Toggle Menu">
                         <div class="sticky-note w-11 h-11 rounded-md flex items-center justify-center font-extrabold text-sm rotate-[-2.5deg]">
                             <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -152,6 +152,7 @@
         <div x-show="mobileMenu" x-cloak class="md:hidden border-t border-black/10 bg-[#f8f5e9]">
             <div class="px-4 py-4 flex flex-col gap-2 text-sm">
                 <a @click="mobileMenu = false" href="#jobs" class="rounded-lg px-4 py-3 hover:bg-black/5 font-medium">Jobs</a>
+                  <a @click="mobileMenu = false" href="#media" class="rounded-lg px-4 py-3 hover:bg-black/5 font-medium">Media</a>
                 <a @click="mobileMenu = false" href="/pa/scrantonpa" class="rounded-lg px-4 py-3 hover:bg-black/5 font-medium">Companies</a>
                 <a @click="mobileMenu = false" href="#newsletter" class="rounded-lg px-4 py-3 hover:bg-black/5 font-medium">Newsletter</a>
                 <a href="/post-job" class="mt-2 text-center rounded-lg bg-gray-900 text-white px-4 py-3 font-semibold">Post Job</a>
@@ -160,36 +161,42 @@
     </header>
 
     <section class="relative overflow-hidden border-b border-black/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-            <div class="grid lg:grid-cols-2 gap-10 items-center">
 
+
+
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ">
+            
+
+
+            <div class="grid lg:grid-cols-2 gap-10 items-center">
+ 
                 <div>
 
 <div class="inline-flex items-center gap-2 sticky-note rounded-md px-4 py-2 text-sm font-semibold rotate-[-1deg] mb-4">
-    💡 Electric City: Silicon Valley of 
+    💡 From the Electric City: Silicon Valley of 
     <span class="md:hidden">NEPA</span>
     <span class="hidden md:inline">NE Pennsylvania</span>
 </div>
 
  
-
+<div class="mb-6">
+     
+</div>
   <h1 class="text-4xl sm:text-4xl lg:text-4xl font-extrabold tracking-tighter leading-tighter text-gray-900">
 The Scranton Branch  of   </h2>
      <h2 class="text-3xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight leading-tight text-gray-900">
-Software Engineering</h2>                
+Remote Software Engineering</h2>                
 
                     <p class="mt-4 text-lg text-gray-700 leading-relaxed max-w-2xl">
-                        Regional‑Manager‑Approved developer jobs. Corporate‑friendly. Developer‑tolerable. Powered by coffee, sticky notes, 
+                        Regional‑Manager‑Approved developer jobs. Corporate and HR‑friendly. Developer‑tolerable. Powered by coffee, sticky notes, 
                         and <a href="/thisguy" class="text-blue-500 hover:underline">this guy</a>.
                     </p>
-- Remote tech jobs for developers who want to escape the downtown bullpen.
+
                     <div class="mt-6 flex flex-wrap gap-3 text-sm">
                         <div class="sticky-note px-4 py-2 rounded-md font-semibold rotate-[-1deg]"> Sensible Jobs for Scrappy Devs </div>
-                         <div class="sticky-note px-4 py-2 rounded-md font-semibold rotate-[1deg]">  Remote, Hybrid, On‑site  </div>  
-                    
+                        <div class="sticky-note px-4 py-2 rounded-md font-semibold rotate-[-1deg]">  Be Your Own Regional Office Manager! </div> 
          
-        <div class="sticky-note px-4 py-2 rounded-md font-semibold rotate-[-1deg]">  HR‑Friendly </div> 
-
                      </div>
                 </div>
  
@@ -201,19 +208,72 @@ Software Engineering</h2>
                         <div class="text-sm text-gray-700 mt-2">Remote • $160k</div>
                     </div>
 
-                    <div class="sticky-note w-72 p-6 rounded-md rotate-[-2deg] mt-24">
+                    <div class="sticky-note w-72 p-5 rounded-md rotate-[-2deg] mt-24">
                         <div class="text-xs uppercase font-bold text-gray-500 mb-2">World's Best Dev Jobs</div>
-                        <div class="font-bold text-2xl leading-tight">
-                            Less hustle / hype.<br>More actual jobs.
+                        <div class="font-bold text-3xl leading-tight">
+                            Less hustle, less hype. <br>More actual jobs.
                         </div>
-                        <div class="text-sm text-gray-700 mt-2">Hybrid • Electric City</div>
+                        <div class="text-sm text-gray-700 mt-2">•  The Digital Annex - like paper only digital!</div>
                     </div>
                 </div>
 
             </div>
+
+<div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 items-center my-8">
+    <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+    <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+    <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+ <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+    <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+    <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+ <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+    <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+    <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+     <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+    <div class="paper-card p-3 rounded-xl flex items-center justify-center border border-dashed border-black/20 opacity-70">
+        <span class="text-[11px] uppercase font-bold tracking-wider text-gray-500">Founding Sponsor</span>
+    </div>
+   
+    <a href="/post-job" class="sticky-note p-3 rounded-xl flex items-center justify-center hover:scale-[1.02] transition shadow-sm">
+        <span class="text-[11px] uppercase font-extrabold tracking-wider">⚡ Claim Your Slot</span>
+    </a> 
+</div>
+
+
         </div>
+
+
+
+        
     </section>
 
+
+
+
+
+
+
+    
     <section id="jobs" class="py-2 border-b border-black/10 bg-white/90 backdrop-blur-md sticky top-16 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
@@ -242,17 +302,26 @@ Software Engineering</h2>
                     :class="filtersOpen ? 'flex' : 'hidden sm:flex'" 
                     class="flex-wrap gap-2.5 transition-all duration-200"
                 >
-                    <template x-for="filter in ['Remote','Hybrid','Laravel','React','PHP','Senior','Frontend','Backend','DevOps']" :key="filter">
-                        <button
-                            @click="toggleFilter(filter)"
-                            :class="activeFilters.includes(filter)
-                                ? 'bg-gray-900 text-white border-gray-900 shadow-sm'
-                                : 'bg-white text-gray-700 border-black/10 hover:bg-gray-50'"
-                            class="px-4 py-2 rounded-full text-xs font-semibold border transition active:scale-95 select-none"
-                        >
-                            <span x-text="filter"></span>
-                        </button>
-                    </template>
+<template x-for="filter in ['Dev', 'QA/SDET', 'Product Mgr','React','PHP', 'Frontend','Backend','DevOps']" :key="filter">
+    <div class="relative group">
+        <!-- Floating Sticky-Note Tooltip (Only shows for QA/SDET on hover) -->
+        <template x-if="filter === 'QA/SDET'">
+            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-50 pointer-events-none whitespace-nowrap sticky-note px-3 py-1.5 rounded text-[11px] font-bold rotate-[-1deg] shadow-md">
+                Quabity Assuance. No, no, but I'm getting close.
+            </div>
+        </template>
+
+        <button
+            @click="toggleFilter(filter)"
+            :class="activeFilters.includes(filter)
+                ? 'bg-gray-900 text-white border-gray-900 shadow-sm'
+                : 'bg-white text-gray-700 border-black/10 hover:bg-gray-50'"
+            class="px-4 py-2 rounded-full text-xs font-semibold border transition active:scale-95 select-none"
+        >
+            <span x-text="filter"></span>
+        </button>
+    </div>
+</template>
                 </div>
 
             </div>
@@ -328,12 +397,18 @@ Software Engineering</h2>
             </div>
         </div>
 
-       <div class="mt-12 flex justify-center" x-show="filteredJobs().length > 0">
+<div class="mt-12 flex flex-col sm:flex-row justify-center items-center gap-4" x-show="filteredJobs().length > 0">
     <a href="/jobs" 
        class="sticky-note rounded-md px-8 py-4 font-extrabold text-gray-900 rotate-[-1deg] hover:rotate-0 transition shadow-md">
         Load More Jobs
     </a>
+    
+    <a href="https://newyork.dev/scrantondev" 
+       class="paper-card rounded-md px-8 py-4 font-extrabold text-gray-900 bg-white rotate-[1deg] hover:rotate-0 transition shadow-md">
+        Looking for something a bit more Corporate? Try NewYork.dev ↗
+    </a>
 </div>
+
     </main>
 
     <section id="newsletter" class="py-20 border-t border-black/10 bg-white/60">
@@ -341,7 +416,7 @@ Software Engineering</h2>
             <div class="sticky-note inline-block px-4 py-2 rounded-md rotate-[-1deg] font-bold mb-6">Weekly Email</div>
             <h2 class="text-4xl font-extrabold tracking-tight text-gray-900">Jobs worth applying to.</h2>
             <p class="mt-5 text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
-                One weekly email with curated developer jobs, remote roles, and practical engineering opportunities.
+           Bi-weekly email with curated dev jobs, remote roles, and practical engineering opportunities.
             </p>
 
             <form class="mt-8 flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto" @submit.prevent="alert('Subscribed successfully!')">
@@ -360,7 +435,7 @@ Software Engineering</h2>
                 <div>
                     <div class="font-extrabold text-lg text-gray-900">scranton.dev</div>
                     <div class="text-xs text-gray-600 mt-2 max-w-md leading-relaxed">
-                        Structured developer jobs, companies, and hiring signals — without recruiter noise.
+                        Structured developer jobs, companies, and hiring signals - without recruiter noise.
                     </div>
                     <div class="font-extrabold text-lg text-gray-900 mt-8">CONTACT</div>
                     <div class="text-xs text-gray-600 mt-2 max-w-md leading-relaxed">
