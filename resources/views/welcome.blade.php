@@ -127,7 +127,7 @@
                     <a href="#jobs" class="hover:text-black font-medium transition">Find Jobs</a>
                     <a href="/jobs" class="hover:text-black font-medium transition">Browse All</a>
                     <a href="/pa/scrantonpa" class="hover:text-black font-medium transition">Companies</a>
-                    <a href="#newsletter" class="hover:text-black font-medium transition">Newsletter (Coming Soon)</a>
+                    <a href="#newsletter" class="hover:text-black font-medium transition">Newsletter (idea - Coming Soon)</a>
                 </nav>
 
                 <div class="flex items-center gap-3">
