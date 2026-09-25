@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>scranton.dev — World's Best Dev Job Board</title>
+    <title>scranton.dev — World's Best Dev Job Board - nb: no copyright</title>
     <meta name="description" content="Low-noise developer jobs. Remote, backend, Laravel, React, DevOps, and practical engineering roles.">
 
     <script src="https://cdn.tailwindcss.com"></script>
