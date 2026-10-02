@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Message Sent | New York Dev</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="h-full bg-black text-slate-100 flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
+
+    <header class="w-full max-w-5xl mx-auto p-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-slate-400">
+        <div class="flex items-center gap-2 font-semibold text-slate-200">
+           <!-- <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> -->
+            newyork.dev
+        </div>
+        <!-- Live NYC Date & Weather Widget -->
+        <div class="flex items-center gap-2 bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full shadow-inner text-xs sm:text-sm">
+            <span id="live-date">Loading date...</span>
+            <span class="text-slate-600">·</span>
+            <span id="live-weather">NYC Loading...</span>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center px-4 py-12">
+        <div class="max-w-md w-full bg-slate-900/90 border border-slate-800/80 rounded-2xl p-8 shadow-2xl text-center relative overflow-hidden backdrop-blur-xl">
+            
+            <!-- Subtle background glowing aura -->
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Success Icon -->
+            <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+
+            <!-- Headings -->
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-3">Message Received!</h1>
+            <p class="text-slate-400 text-sm sm:text-base mb-8 leading-relaxed">
+                Thank you for reaching out. We have successfully received your transmission and will get back to you shortly.
+            </p>
+
+            <div id="redirect-status-box" class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 mb-6 transition-all">
+                <div class="flex justify-between items-center text-xs text-slate-400 mb-2 font-medium">
+                    <span id="status-text">Redirecting in <strong id="countdown-number" class="text-white">5</strong> seconds...</span>
+                    <button id="cancel-btn" onclick="cancelRedirect()" class="text-cyan-400 hover:text-cyan-300 transition-colors underline cursor-pointer">Stay here</button>
+                </div>
+                <!-- Visual progress bar -->
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-cyan-500 to-emerald-500 h-full w-full transition-all duration-1000 ease-linear"></div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <a href="https://newyork.dev" class="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium py-2.5 px-4 rounded-xl shadow-lg shadow-cyan-950/50 transition-all text-sm flex items-center justify-center gap-2 group">
+                    <span>Return Now</span>
+                    <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="w-full max-w-5xl mx-auto p-6 text-center text-xs text-slate-500">
+        &copy; <span id="current-year">2026</span> newyork.dev. All rights reserved.
+    </footer>
+
+    <script>
+        // Set dynamic year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 1. Live NYC Date & Time and Weather Logic
+        function updateNYCTime() {
+            const now = new Date();
+            const options = {
+                timeZone: 'America/New_York',
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            };
+            const formatter = new Intl.DateTimeFormat('en-US', options);
+            const dateEl = document.getElementById('live-date');
+            if (dateEl) dateEl.textContent = formatter.format(now);
+        }
+
+        async function updateNYCWeather() {
+            try {
+                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,weather_code&temperature_unit=fahrenheit');
+                const data = await response.json();
+                
+                const tempF = Math.round(data.current.temperature_2m);
+                const weatherCode = data.current.weather_code;
+                
+                let condition = "Fair";
+                if (weatherCode > 0 && weatherCode < 3) condition = "Partly Cloudy";
+                if (weatherCode >= 3 && weatherCode < 50) condition = "Cloudy";
+                if (weatherCode >= 50) condition = "Rain / Showers";
+
+                const weatherEl = document.getElementById('live-weather');
+                if (weatherEl) weatherEl.textContent = `NYC ${tempF}°F, ${condition}`;
+            } catch (error) {
+                const weatherEl = document.getElementById('live-weather');
+                if (weatherEl) weatherEl.textContent = `NYC 74°F, Fair`; // Graceful fallback
+            }
+        }
+
+        updateNYCTime();
+        updateNYCWeather();
+        setInterval(updateNYCTime, 1000);
+
+        // 2. Countdown and Auto-Redirect Logic
+        let timeLeft = 5;
+        let redirectTimer = null;
+        let isCancelled = false;
+
+        const countdownEl = document.getElementById('countdown-number');
+        const progressBarEl = document.getElementById('progress-bar');
+        const statusTextEl = document.getElementById('status-text');
+        const statusBoxEl = document.getElementById('redirect-status-box');
+
+        function startCountdown() {
+            redirectTimer = setInterval(() => {
+                if (isCancelled) return;
+                
+                timeLeft--;
+                if (countdownEl) countdownEl.textContent = timeLeft;
+
+                // Update progress bar percentage width
+                if (progressBarEl) {
+                    const percentage = (timeLeft / 5) * 100;
+                    progressBarEl.style.width = percentage + '%';
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(redirectTimer);
+                    window.location.href = "https://newyork.dev";
+                }
+            }, 1000);
+        }
+
+        function cancelRedirect() {
+            isCancelled = true;
+            clearInterval(redirectTimer);
+            
+            // Update UI to reflect cancelled state
+            if (statusBoxEl) {
+                statusBoxEl.classList.remove('border-slate-800');
+                statusBoxEl.classList.add('border-cyan-500/30', 'bg-cyan-950/20');
+            }
+            if (statusTextEl) {
+                statusTextEl.innerHTML = `<span class="text-cyan-400 font-medium">Automatic redirect cancelled. Take your time!</span>`;
+            }
+            if (progressBarEl) {
+                progressBarEl.style.width = '0%';
+                progressBarEl.classList.remove('bg-gradient-to-r', 'from-cyan-500', 'to-emerald-500');
+                progressBarEl.classList.add('bg-slate-700');
+            }
+        }
+
+        // Initialize countdown on window load
+        window.onload = function() {
+            startCountdown();
+        };
+    </script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"da14125e5648442d8aa2bd58ea118e97","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
